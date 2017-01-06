@@ -1,5 +1,7 @@
 package TrasferObjects;
 
+import Databaze.DatabazeManager;
+
 public class Kotec {
 	private int id;
 	private String cislo;
@@ -35,8 +37,8 @@ public class Kotec {
 	}
 		
 	public int getVolnaMista(){
-		// todo počet volných míst
-		return kapacita;
+		
+		return DatabazeManager.getDatabaze().getVolnaMista(this);
 	}
 	
 	

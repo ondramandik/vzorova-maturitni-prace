@@ -3,9 +3,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		//todo everything
-
-
-		System.out.println("Masopust");
+		System.out.println("Vy paka");
 	}
 
 }

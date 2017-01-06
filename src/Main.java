@@ -2,6 +2,7 @@
 public class Main {
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		//todo everything
 
 		System.out.println("Jana");
@@ -11,6 +12,9 @@ public class Main {
 
 
 		System.out.println("Masopust");
+=======
+		//SMAZANO vse
+>>>>>>> branch 'master' of https://github.com/ondramandik/vzorova-maturitni-prace.git
 
 	}
 

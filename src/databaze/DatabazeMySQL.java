@@ -71,6 +71,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 
 	@Override
 	public int getVolneKotce(Kotec k) throws SQLException {
+		//TODO
 		int x = -1;
 		Statement stmt = this.conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT SUM(kapacita) FROM kotec;");

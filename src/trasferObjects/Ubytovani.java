@@ -100,7 +100,7 @@ public class Ubytovani {
 	}
 	
 	public Majitel getMajitel() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniMajitel(this);
+		return DatabazeManager.getDatabaze().getMajitelById(this.idMajitel);
 	}
 	
 	public Pes getPes() throws SQLException{

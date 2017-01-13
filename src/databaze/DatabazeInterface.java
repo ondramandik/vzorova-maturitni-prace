@@ -10,10 +10,7 @@ public interface DatabazeInterface {
 	public List<Kotec> getKotecVsechny() throws SQLException;
 	
 	public Kotec getKotecPodleId(int id) throws SQLException;
-	
-	public int getKotecVolnaMista(Kotec k) throws SQLException;
-		
-	
+
 	public void saveUbytovani(Ubytovani u) throws SQLException;
 	
 	public void removeUbytovani(Ubytovani u) throws SQLException;
@@ -23,6 +20,7 @@ public interface DatabazeInterface {
 	public VahovaKategorie getPesVahovaKategorie(Pes pes) throws SQLException;
 	
 	public Majitel getPesMajitel(Pes pes) throws SQLException;
+	
 	
 	public Majitel getUbytovaniMajitel(Ubytovani ubytovani) throws SQLException;
 
@@ -40,8 +38,9 @@ public interface DatabazeInterface {
 
 	public Recepcni getRecepcni(String username, String heslo) throws SQLException;
 
+	
 	int getVolneKotce(Kotec k) throws SQLException;
 
-
+	
 	
 }

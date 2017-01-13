@@ -27,6 +27,8 @@ public class DatabazeMySQL implements DatabazeInterface{
 	
 	private Connection conn = null;
  
+	
+	
 	public DatabazeMySQL() throws SQLException {
 		this.conn = DriverManager.getConnection("jdbc:mysql://"+DatabazeMySQL.HOST+"/"+DatabazeMySQL.DATABASE,DatabazeMySQL.USERNAME,DatabazeMySQL.PASSWORD);	
 	}
@@ -35,7 +37,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 	public void saveKotec(Kotec k) throws SQLException {
 		PreparedStatement stmt;
 		if(k.getId() < 1) {
-			stmt = this.conn.prepareStatement("INSERT INTO kotec (cislo,kapacita) VALUES (?,?);");
+			stmt = this.conn.prepareStatement("INSERT INTO kotec (cislo,kapacita) VALUES (?,?);",Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1,k.getCislo());
 			stmt.setInt(2,k.getKapacita());
 			stmt.execute();
@@ -70,7 +72,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 		ArrayList<Kotec> kotce = new ArrayList<Kotec>();
 		
 		Statement stmt = this.conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT id,cislo,kapacita FROM kotec ORDER BY cislo;");
+		ResultSet rs = stmt.executeQuery("SELECT id_kotec,cislo,kapacita FROM kotec ORDER BY cislo;");
 		while(rs.next()) {
 			int id = rs.getInt(1);
 			String cislo = rs.getString(2);

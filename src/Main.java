@@ -12,17 +12,13 @@ public class Main {
 		try {
 			db = DatabazeManager.getDatabaze();
 			
-			Kotec k = new Kotec();
-			k.setCislo("01");
-			k.setKapacita(10);
+			for(Kotec k : db.getKotecVsechny()) {
+				System.out.println(k.getCislo() + ": " + k.getKapacita());
+			}
 			
-			db.saveKotec(k);
-			
-			System.out.println(k.getId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 	

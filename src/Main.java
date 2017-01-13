@@ -11,15 +11,12 @@ public class Main {
 		DatabazeInterface db;
 		try {
 			db = DatabazeManager.getDatabaze();
-			
 			for(Kotec k : db.getKotecVsechny()) {
 				System.out.println(k.getCislo() + ": " + k.getKapacita());
-			}
-			
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	public static void main(String[] args) {

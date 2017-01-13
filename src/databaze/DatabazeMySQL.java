@@ -25,12 +25,6 @@ public class DatabazeMySQL implements DatabazeInterface{
 	
 	public static String PASSWORD = "test";
 	
-<<<<<<< HEAD
-	
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/ondramandik/vzorova-maturitni-prace.git
 	private Connection conn = null;
  
 	private Kotec buildKotec(ResultSet rs) throws SQLException {

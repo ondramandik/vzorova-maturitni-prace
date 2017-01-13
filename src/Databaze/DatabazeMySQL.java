@@ -27,19 +27,15 @@ public class DatabazeMySQL implements DatabazeInterface{
 	
 	private Connection conn = null;
  
-	private Connection getConnection() throws SQLException {
-		if(this.conn == null) {
-			this.conn = DriverManager.getConnection("jdbc:mysql://"+DatabazeMySQL.HOST+"/"+DatabazeMySQL.DATABASE,DatabazeMySQL.USERNAME,DatabazeMySQL.PASSWORD);	
-		}
-		
-		return this.conn;
+	public DatabazeMySQL() throws SQLException {
+		this.conn = DriverManager.getConnection("jdbc:mysql://"+DatabazeMySQL.HOST+"/"+DatabazeMySQL.DATABASE,DatabazeMySQL.USERNAME,DatabazeMySQL.PASSWORD);	
 	}
 	
 	@Override
 	public void saveKotec(Kotec k) throws SQLException {
 		PreparedStatement stmt;
 		if(k.getId() < 1) {
-			stmt = this.getConnection().prepareStatement("INSERT INTO kotec (cislo,kapacita) VALUES (?,?);");
+			stmt = this.conn.prepareStatement("INSERT INTO kotec (cislo,kapacita) VALUES (?,?);");
 			stmt.setString(1,k.getCislo());
 			stmt.setInt(2,k.getKapacita());
 			stmt.execute();
@@ -51,7 +47,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 			rs.close();
 			
 		} else {
-			stmt = this.getConnection().prepareStatement("UPDATE kotec SET cislo=?, kapacita=? WHERE id_kotec=?;");
+			stmt = this.conn.prepareStatement("UPDATE kotec SET cislo=?, kapacita=? WHERE id_kotec=?;");
 			stmt.setString(1,k.getCislo());
 			stmt.setInt(2,k.getKapacita());
 			stmt.setInt(3,k.getId());
@@ -63,7 +59,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 
 	@Override
 	public void removeKotec(Kotec k) throws SQLException {
-		PreparedStatement stmt = this.getConnection().prepareStatement("DELETE FROM kotec WHERE id_kotec=?;");
+		PreparedStatement stmt = this.conn.prepareStatement("DELETE FROM kotec WHERE id_kotec=?;");
 		stmt.setInt(1,k.getId());
 		stmt.execute();
 		stmt.close();
@@ -73,7 +69,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 	public List<Kotec> getKotecVsechny() throws SQLException {
 		ArrayList<Kotec> kotce = new ArrayList<Kotec>();
 		
-		Statement stmt = this.getConnection().createStatement();
+		Statement stmt = this.conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT id,cislo,kapacita FROM kotec ORDER BY cislo;");
 		while(rs.next()) {
 			int id = rs.getInt(1);
@@ -92,7 +88,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 	public Kotec getKotecPodleId(int id) throws SQLException {
 		Kotec k = null;
 		
-		PreparedStatement stmt = this.getConnection().prepareStatement("SELECT cislo, kapacita FROM kotec WHERE cislo=?;");
+		PreparedStatement stmt = this.conn.prepareStatement("SELECT cislo, kapacita FROM kotec WHERE cislo=?;");
 		stmt.setInt(1, id);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
@@ -109,7 +105,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 	public int getKotecVolnaMista(Kotec k) throws SQLException {
 		int x = -1;
 		
-		Statement stmt = this.getConnection().createStatement();
+		Statement stmt = this.conn.createStatement();
 		
 		//TODO
 		ResultSet rs = stmt.executeQuery("SELECT SUM(kapacita) FROM kotec;");

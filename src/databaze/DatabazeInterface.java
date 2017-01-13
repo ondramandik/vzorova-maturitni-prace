@@ -19,28 +19,6 @@ public interface DatabazeInterface {
 
 	public List<Ubytovani> getUbytovaniPodleData(Date datum) throws SQLException;
 	
-	public VahovaKategorie getPesVahovaKategorie(Pes pes) throws SQLException;
-	
-	public Majitel getPesMajitel(Pes pes) throws SQLException;
-	
-	public Majitel getUbytovaniMajitel(Ubytovani ubytovani) throws SQLException;
-
-	public Sluzba getUbytovaniSluzba(Ubytovani ubytovani) throws SQLException;
-
-	public Pes getUbytovaniPes(Ubytovani ubytovani) throws SQLException;
-
-	public Kotec getUbytovaniKotec(Ubytovani ubytovani) throws SQLException;
-
-	public Recepcni getUbytovaniRecepcniPrijal(Ubytovani ubytovani) throws SQLException;
-
-	public Recepcni getUbytovaniRecepcniVydal(Ubytovani ubytovani) throws SQLException;
-
-	public Recepcni getUbytovaniRecepcniVytvoril(Ubytovani ubytovani) throws SQLException;
-
-	public Recepcni getRecepcni(String username, String heslo) throws SQLException;
-
-	
-	int getVolneKotce(Kotec k) throws SQLException;
 	
 	
 	

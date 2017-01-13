@@ -1,5 +1,6 @@
 package trasferObjects;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 import databaze.DatabazeManager;
@@ -94,31 +95,31 @@ public class Ubytovani {
 		this.ubytovanDo = ubytovanDo;
 	}
 	
-	public Sluzba getSluzba(){
+	public Sluzba getSluzba() throws SQLException{
 		return DatabazeManager.getDatabaze().getUbytovaniSluzba(this);
 	}
 	
-	public Majitel getMajitel(){
+	public Majitel getMajitel() throws SQLException{
 		return DatabazeManager.getDatabaze().getUbytovaniMajitel(this);
 	}
 	
-	public Pes getPes(){
+	public Pes getPes() throws SQLException{
 		return DatabazeManager.getDatabaze().getUbytovaniPes(this);
 	}
 	
-	public Kotec getKotec(){
+	public Kotec getKotec() throws SQLException{
 		return DatabazeManager.getDatabaze().getUbytovaniKotec(this);
 	}
 	
-	public Recepcni getRecepcniPrijal(){
+	public Recepcni getRecepcniPrijal() throws SQLException{
 		return DatabazeManager.getDatabaze().getUbytovaniRecepcniPrijal(this);
 	}
 
-	public Recepcni getRecepcniVytvoril(){
+	public Recepcni getRecepcniVytvoril() throws SQLException{
 		return DatabazeManager.getDatabaze().getUbytovaniRecepcniVytvoril(this);
 	}
 
-	public Recepcni getRecepcniVydal(){
+	public Recepcni getRecepcniVydal() throws SQLException{
 		return DatabazeManager.getDatabaze().getUbytovaniRecepcniVydal(this);
 	}	
 }

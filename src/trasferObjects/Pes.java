@@ -1,5 +1,7 @@
 package trasferObjects;
 
+import java.sql.SQLException;
+
 import databaze.DatabazeManager;
 
 public class Pes {
@@ -43,11 +45,11 @@ public class Pes {
 		this.idVahovaKategorie = idVahovaKategorie;
 	}
 	
-	public Majitel getMajitel(){
+	public Majitel getMajitel() throws SQLException{
 		return DatabazeManager.getDatabaze().getPesMajitel(this);
 	}
 	
-	public VahovaKategorie getVahovaKategorie(){
+	public VahovaKategorie getVahovaKategorie() throws SQLException{
 		return DatabazeManager.getDatabaze().getPesVahovaKategorie(this);
 	}
 

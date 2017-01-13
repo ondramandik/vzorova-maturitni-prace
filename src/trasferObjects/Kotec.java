@@ -1,5 +1,7 @@
 package trasferObjects;
 
+import java.sql.SQLException;
+
 import databaze.DatabazeManager;
 
 public class Kotec {
@@ -36,7 +38,7 @@ public class Kotec {
 		this.kapacita = kapacita;
 	}
 		
-	public int getVolnaMista(){
+	public int getVolnaMista() throws SQLException{
 		
 		return DatabazeManager.getDatabaze().getKotecVolnaMista(this);
 	}

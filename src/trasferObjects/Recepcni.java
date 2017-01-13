@@ -1,5 +1,7 @@
 package trasferObjects;
 
+import java.sql.SQLException;
+
 import databaze.DatabazeManager;
 
 public class Recepcni extends Osoba{

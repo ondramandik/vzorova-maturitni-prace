@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Ddtabaze.DatabazeInterface;
+import databaze.DatabazeInterface;
 import trasferObjects.*;
 
 public class DatabazeMySQL implements DatabazeInterface{

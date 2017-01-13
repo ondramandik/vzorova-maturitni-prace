@@ -1,6 +1,6 @@
-package TrasferObjects;
+package trasferObjects;
 
-import Databaze.DatabazeManager;
+import databaze.DatabazeManager;
 
 public class Kotec {
 	private int id;

@@ -1,4 +1,4 @@
-package TrasferObjects;
+package trasferObjects;
 
 public class Sluzba {
 	private int id;

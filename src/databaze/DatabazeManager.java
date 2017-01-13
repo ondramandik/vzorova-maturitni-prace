@@ -1,4 +1,4 @@
-package Databaze;
+package databaze;
 
 public class DatabazeManager {
 

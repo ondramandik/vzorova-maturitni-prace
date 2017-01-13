@@ -1,7 +1,8 @@
-package Databaze;
+package databaze;
 
 import java.util.List;
-import TrasferObjects.*;
+
+import trasferObjects.*;
 
 public interface DatabazeInterface {
 	

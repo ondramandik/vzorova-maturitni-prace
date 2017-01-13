@@ -38,7 +38,7 @@ public class Kotec {
 		
 	public int getVolnaMista(){
 		
-		return DatabazeManager.getDatabaze().getVolnaMista(this);
+		return DatabazeManager.getDatabaze().getKotecVolnaMista(this);
 	}
 	
 	

@@ -40,6 +40,8 @@ public interface DatabazeInterface {
 
 	public Recepcni getRecepcni(String username, String heslo) throws SQLException;
 
+	int getVolneKotce(Kotec k) throws SQLException;
+
 
 	
 }

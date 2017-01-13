@@ -1,8 +1,8 @@
 package databaze;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
-
 import trasferObjects.*;
 
 public interface DatabazeInterface {
@@ -17,10 +17,11 @@ public interface DatabazeInterface {
 		
 	public Ubytovani getUbytovaniPodleId(int id) throws SQLException;
 
+	public List<Ubytovani> getUbytovaniPodleData(Date datum) throws SQLException;
+	
 	public VahovaKategorie getPesVahovaKategorie(Pes pes) throws SQLException;
 	
 	public Majitel getPesMajitel(Pes pes) throws SQLException;
-	
 	
 	public Majitel getUbytovaniMajitel(Ubytovani ubytovani) throws SQLException;
 
@@ -40,7 +41,7 @@ public interface DatabazeInterface {
 
 	
 	int getVolneKotce(Kotec k) throws SQLException;
-
+	
 	
 	
 }

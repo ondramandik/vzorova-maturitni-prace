@@ -1,6 +1,7 @@
 package databaze;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,50 +25,18 @@ public class DatabazeMySQL implements DatabazeInterface{
 	
 	public static String PASSWORD = "test";
 	
+<<<<<<< HEAD
 	
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/ondramandik/vzorova-maturitni-prace.git
 	private Connection conn = null;
  
-	
-	
 	public DatabazeMySQL() throws SQLException {
 		this.conn = DriverManager.getConnection("jdbc:mysql://"+DatabazeMySQL.HOST+"/"+DatabazeMySQL.DATABASE,DatabazeMySQL.USERNAME,DatabazeMySQL.PASSWORD);	
 	}
-	
-	@Override
-	public void saveKotec(Kotec k) throws SQLException {
-		PreparedStatement stmt;
-		if(k.getId() < 1) {
-			stmt = this.conn.prepareStatement("INSERT INTO kotec (cislo,kapacita) VALUES (?,?);",Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1,k.getCislo());
-			stmt.setInt(2,k.getKapacita());
-			stmt.execute();
-			
-			ResultSet rs = stmt.getGeneratedKeys();
-			if (rs.next()){
-				k.setId(rs.getInt(1));
-			}
-			rs.close();
-			
-		} else {
-			stmt = this.conn.prepareStatement("UPDATE kotec SET cislo=?, kapacita=? WHERE id_kotec=?;");
-			stmt.setString(1,k.getCislo());
-			stmt.setInt(2,k.getKapacita());
-			stmt.setInt(3,k.getId());
-			stmt.execute();
-		}
-		
-		stmt.close();
-	}
 
-	@Override
-	public void removeKotec(Kotec k) throws SQLException {
-		PreparedStatement stmt = this.conn.prepareStatement("DELETE FROM kotec WHERE id_kotec=?;");
-		stmt.setInt(1,k.getId());
-		stmt.execute();
-		stmt.close();
-	}
 
 	@Override
 	public List<Kotec> getKotecVsechny() throws SQLException {
@@ -122,15 +91,60 @@ public class DatabazeMySQL implements DatabazeInterface{
 	}
 
 	@Override
-	public void saveUbytovani(Ubytovani u) {
-		// TODO Auto-generated method stub
+	public void saveUbytovani(Ubytovani u) throws SQLException {
+		PreparedStatement stmt;
+		if(u.getId() < 1) {
+			stmt = this.conn.prepareStatement(
+				"INSERT INTO ubytovani "
+				+ "(id_sluzba,id_majitel,id_pes,id_kotec,vytvoril_id_recepcni,prijal_id_recepcni,vydal_id_recepcni,od,do) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?);"
+				,Statement.RETURN_GENERATED_KEYS
+			);
+			stmt.setInt(1,u.getIdSluzba());
+			stmt.setInt(2,u.getIdMajitel());
+			stmt.setInt(3,u.getIdPes());
+			stmt.setInt(4,u.getIdKotec());
+			stmt.setInt(5,u.getVytvorilIdRecepcni());
+			stmt.setInt(6,u.getPrijalIdRecepcni());
+			stmt.setInt(7,u.getVydalIdRecepcni());
+			stmt.setDate(8,new java.sql.Date(u.getUbytovanOd().getTime()));
+			stmt.setDate(9,new java.sql.Date(u.getUbytovanDo().getTime()));
+			stmt.execute();
+			
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()){
+				u.setId(rs.getInt(1));
+			}
+			rs.close();
+			
+		} else {
+			stmt = this.conn.prepareStatement(
+				"UPDATE ubytovani SET"
+				+ "id_sluzba=?,id_majitel=?,id_pes=?,id_kotec=?,vytvoril_id_recepcni=?,prijal_id_recepcni=?,vydal_id_recepcni=?,od=?,do=?) "
+				+ "WHERE id_ubytovani=?;"
+			);
+			stmt.setInt(1,u.getIdSluzba());
+			stmt.setInt(2,u.getIdMajitel());
+			stmt.setInt(3,u.getIdPes());
+			stmt.setInt(4,u.getIdKotec());
+			stmt.setInt(5,u.getVytvorilIdRecepcni());
+			stmt.setInt(6,u.getPrijalIdRecepcni());
+			stmt.setInt(7,u.getVydalIdRecepcni());
+			stmt.setDate(8,new java.sql.Date(u.getUbytovanOd().getTime()));
+			stmt.setDate(9,new java.sql.Date(u.getUbytovanDo().getTime()));
+			stmt.setInt(10,u.getId());
+			stmt.execute();
+		}
 		
+		stmt.close();
 	}
 
 	@Override
-	public void removeUbytovani(Ubytovani u) {
-		// TODO Auto-generated method stub
-		
+	public void removeUbytovani(Ubytovani u) throws SQLException {
+		PreparedStatement stmt = this.conn.prepareStatement("DELETE FROM ubytovani WHERE id_ubytovani=?;");
+		stmt.setInt(1,u.getId());
+		stmt.execute();
+		stmt.close();
 	}
 
 	@Override

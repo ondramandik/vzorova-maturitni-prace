@@ -2,15 +2,14 @@
 Vzorova maturitni prace pro SPSE Jecna z predmetu PV+DS 
 
 # Data
-Veškerá data poskytnutá zákazníkem naleznete ve složce data. Do databáze naimportujete data pomocí SQL skriptu /sql/data.sql.
+Veskera data poskytnuta zakaznakem naleznete ve slozce data. Do databaze naimportujete data pomoci SQL skriptu /sql/data.sql.
 
 
 # Databaze
-
-Pøed spuštìním systému je tøeba vytvoøit databázi a naimportovat do ni strukturu, kterou naleznete v SQL skriptu /sql/struktura.sql. 
+Pred spustenim systemu je treba vytvorit databazi a naimportovat do ni strukturu, kterou naleznete v SQL skriptu /sql/struktura.sql. 
 
 ## E-R model
-E-R model databáze v notaci UML naleznete na obráyku doc/e-r_model.png. 
+E-R model databaze v notaci UML naleznete na obrazku doc/e-r_model.png. 
 
 ## Pristupove udaje do DB
 Server: 193.85.203.188
@@ -18,3 +17,10 @@ Port: 3306
 User: vmp
 Password: test
 Database: vzorova_maturitni_prace
+
+# Nastaveni Eclipse projektu
+
+Protoze nastaveni eclipse projektu neni v Gitu, musite pro spravne nastaveni projektu udelat nasledujici kroky
+
+* Kliknete pravym tlacitkem mysi na projekt a zvolte Properties > Java Build Path. 
+* V pravo kliknete na Add Jars a vyberte vsechny soubory ve slozce /lib/ ktere reprezentuji JDBC konektory

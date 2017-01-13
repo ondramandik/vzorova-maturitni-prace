@@ -116,7 +116,7 @@ public class Ubytovani {
 	}
 
 	public Recepcni getRecepcniVytvoril() throws SQLException{
-		return DatabazeManager.getDatabaze()..getRecepcniById(this.prijalIdRecepcni);
+		return DatabazeManager.getDatabaze().getRecepcniById(this.prijalIdRecepcni);
 	}
 
 	public Recepcni getRecepcniVydal() throws SQLException{

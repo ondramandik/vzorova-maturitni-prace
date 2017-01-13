@@ -1,0 +1,142 @@
+package Databaze;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import TrasferObjects.Kotec;
+import TrasferObjects.Ubytovani;
+
+public class DatabazeMySQL implements DatabazeInterface{
+	
+	public static String HOST = "193.85.203.188";
+	
+	public static String DATABASE = "vzorova_maturitni_prace";
+	
+	public static int PORT = 3306;
+	
+	public static String USERNAME = "vmp";
+	
+	public static String PASSWORD = "test";
+	
+	
+	private Connection conn = null;
+ 
+	private Connection getConnection() throws SQLException {
+		if(this.conn == null) {
+			this.conn = DriverManager.getConnection("jdbc:mysql://"+DatabazeMySQL.HOST+"/"+DatabazeMySQL.DATABASE,DatabazeMySQL.USERNAME,DatabazeMySQL.PASSWORD);	
+		}
+		
+		return this.conn;
+	}
+	
+	@Override
+	public void saveKotec(Kotec k) throws SQLException {
+		PreparedStatement stmt;
+		if(k.getId() < 1) {
+			stmt = this.getConnection().prepareStatement("INSERT INTO kotec (cislo,kapacita) VALUES (?,?);");
+			stmt.setString(1,k.getCislo());
+			stmt.setInt(2,k.getKapacita());
+			stmt.execute();
+			
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()){
+				k.setId(rs.getInt(1));
+			}
+			rs.close();
+			
+		} else {
+			stmt = this.getConnection().prepareStatement("UPDATE kotec SET cislo=?, kapacita=? WHERE id_kotec=?;");
+			stmt.setString(1,k.getCislo());
+			stmt.setInt(2,k.getKapacita());
+			stmt.setInt(3,k.getId());
+			stmt.execute();
+		}
+		
+		stmt.close();
+	}
+
+	@Override
+	public void removeKotec(Kotec k) throws SQLException {
+		PreparedStatement stmt = this.getConnection().prepareStatement("DELETE FROM kotec WHERE id_kotec=?;");
+		stmt.setInt(1,k.getId());
+		stmt.execute();
+		stmt.close();
+	}
+
+	@Override
+	public List<Kotec> getKotecVsechny() throws SQLException {
+		ArrayList<Kotec> kotce = new ArrayList<Kotec>();
+		
+		Statement stmt = this.getConnection().createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT id,cislo,kapacita FROM kotec ORDER BY cislo;");
+		while(rs.next()) {
+			int id = rs.getInt(1);
+			String cislo = rs.getString(2);
+			int kapacita = rs.getInt(3);
+			Kotec k = new Kotec(id,cislo,kapacita);
+			kotce.add(k);
+		}
+		rs.close();
+		stmt.close();
+		
+		return kotce;
+	}
+
+	@Override
+	public Kotec getKotecPodleId(int id) throws SQLException {
+		Kotec k = null;
+		
+		PreparedStatement stmt = this.getConnection().prepareStatement("SELECT cislo, kapacita FROM kotec WHERE cislo=?;");
+		stmt.setInt(1, id);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			String cislo = rs.getString(1);
+			int kapacita = rs.getInt(2);
+			k = new Kotec(id,cislo,kapacita);
+		}
+		rs.close();
+		stmt.close();
+		return k;
+	}
+
+	@Override
+	public int getKotecVolnaMista(Kotec k) throws SQLException {
+		int x = -1;
+		
+		Statement stmt = this.getConnection().createStatement();
+		
+		//TODO
+		ResultSet rs = stmt.executeQuery("SELECT SUM(kapacita) FROM kotec;");
+		if(rs.next()) {
+			x = rs.getInt(1);
+		}
+		rs.close();
+		stmt.close();
+		return x;
+	}
+
+	@Override
+	public void saveUbytovani(Ubytovani u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeUbytovani(Ubytovani u) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Ubytovani getUbytovaniPodleId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

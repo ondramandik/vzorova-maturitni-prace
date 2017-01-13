@@ -3,7 +3,9 @@ package databaze;
 import java.io.*;
 import java.util.Properties;
 
-public class Databaze {
+abstract public class Databaze {
+	
+	
 	public Properties property;
 	
 	public Databaze(){
@@ -19,6 +21,10 @@ public class Databaze {
 			e.printStackTrace();
 		}
 
+	}
+	
+	protected java.sql.Date javaDateToSQLDate(java.util.Date sourceDate) {
+		return new java.sql.Date(sourceDate.getTime());
 	}
 	
 	//String getProperty(String key, String )

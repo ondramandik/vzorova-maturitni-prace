@@ -13,7 +13,7 @@ import java.util.List;
 import databaze.DatabazeInterface;
 import trasferObjects.*;
 
-public class DatabazeMySQL implements DatabazeInterface{
+public class DatabazeMySQL extends Databaze implements DatabazeInterface{
 	
 	public static String HOST = "193.85.203.188";
 	
@@ -28,10 +28,16 @@ public class DatabazeMySQL implements DatabazeInterface{
 	private Connection conn = null;
  
 	private Kotec buildKotec(ResultSet rs) throws SQLException {
-		int id = rs.getInt(1);
-		String cislo = rs.getString(2);
-		int kapacita = rs.getInt(3);
+		int id = rs.getInt("id_kotec");
+		String cislo = rs.getString("cislo");
+		int kapacita = rs.getInt("kapacita");
 		return new Kotec(id,cislo,kapacita);
+	}
+	
+	private Ubytovani buildUbytovani(ResultSet rs) throws SQLException {
+		Ubytovani u = new Ubytovani();
+		u.setId(rs.getInt("id_ubytovani"));
+		return u;
 	}
 	
 	public DatabazeMySQL() throws SQLException {
@@ -69,19 +75,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 		return k;
 	}
 
-	@Override
-	public int getVolneKotce(Kotec k) throws SQLException {
-		//TODO
-		int x = -1;
-		Statement stmt = this.conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT SUM(kapacita) FROM kotec;");
-		if(rs.next()) {
-			x = rs.getInt(1);
-		}
-		rs.close();
-		stmt.close();
-		return x;
-	}
+	
 
 	@Override
 	public void saveUbytovani(Ubytovani u) throws SQLException {
@@ -100,8 +94,8 @@ public class DatabazeMySQL implements DatabazeInterface{
 			stmt.setInt(5,u.getVytvorilIdRecepcni());
 			stmt.setInt(6,u.getPrijalIdRecepcni());
 			stmt.setInt(7,u.getVydalIdRecepcni());
-			stmt.setDate(8,new java.sql.Date(u.getUbytovanOd().getTime()));
-			stmt.setDate(9,new java.sql.Date(u.getUbytovanDo().getTime()));
+			stmt.setDate(8,this.javaDateToSQLDate(u.getUbytovanOd()));
+			stmt.setDate(9,this.javaDateToSQLDate(u.getUbytovanDo()));
 			stmt.execute();
 			
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -209,6 +203,37 @@ public class DatabazeMySQL implements DatabazeInterface{
 
 	@Override
 	public int getKotecVolnaMista(Kotec k) throws SQLException {
+		int x = -1;
+		Statement stmt = this.conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT SUM(kapacita) FROM kotec;");
+		if(rs.next()) {
+			x = rs.getInt(1);
+		}
+		rs.close();
+		stmt.close();
+		return x;
+	}
+
+	@Override
+	public List<Ubytovani> getUbytovaniPodleData(java.util.Date datum) throws SQLException {
+		ArrayList<Ubytovani> ubytovani = new ArrayList<Ubytovani>();
+		
+		PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM ubytovani WHERE od>=? and do<=? ORDER BY od;");
+		stmt.setDate(1, this.javaDateToSQLDate(datum));
+		stmt.setDate(2, this.javaDateToSQLDate(datum));
+		
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			ubytovani.add(this.buildUbytovani(rs));
+		}
+		rs.close();
+		stmt.close();
+		
+		return ubytovani;		
+	}
+
+	@Override
+	public int getVolneKotce(Kotec k) throws SQLException {
 		// TODO Auto-generated method stub
 		return 0;
 	}

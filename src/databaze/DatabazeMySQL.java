@@ -72,7 +72,7 @@ public class DatabazeMySQL implements DatabazeInterface{
 		ArrayList<Kotec> kotce = new ArrayList<Kotec>();
 		
 		Statement stmt = this.conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT id,cislo,kapacita FROM kotec ORDER BY cislo;");
+		ResultSet rs = stmt.executeQuery("SELECT id_kotec,cislo,kapacita FROM kotec ORDER BY cislo;");
 		while(rs.next()) {
 			int id = rs.getInt(1);
 			String cislo = rs.getString(2);

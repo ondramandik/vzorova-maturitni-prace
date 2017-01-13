@@ -46,11 +46,11 @@ public class Pes {
 	}
 	
 	public Majitel getMajitel() throws SQLException{
-		return DatabazeManager.getDatabaze().getPesMajitel(this);
+		return DatabazeManager.getDatabaze().getMajitelById(this.idMajitel);
 	}
 	
 	public VahovaKategorie getVahovaKategorie() throws SQLException{
-		return DatabazeManager.getDatabaze().getPesVahovaKategorie(this);
+		return DatabazeManager.getDatabaze().getVahovaKategorieById(this.idVahovaKategorie);
 	}
 
 }

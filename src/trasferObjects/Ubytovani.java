@@ -96,7 +96,7 @@ public class Ubytovani {
 	}
 	
 	public Sluzba getSluzba() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniSluzba(this);
+		return DatabazeManager.getDatabaze().getSluzbaById(this.idSluzba);
 	}
 	
 	public Majitel getMajitel() throws SQLException{
@@ -104,22 +104,22 @@ public class Ubytovani {
 	}
 	
 	public Pes getPes() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniPes(this);
+		return DatabazeManager.getDatabaze().getPesById(this.idPes);
 	}
 	
 	public Kotec getKotec() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniKotec(this);
+		return DatabazeManager.getDatabaze().getKotecById(this.idKotec);
 	}
 	
 	public Recepcni getRecepcniPrijal() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniRecepcniPrijal(this);
+		return DatabazeManager.getDatabaze().getRecepcniById(this.prijalIdRecepcni);
 	}
 
 	public Recepcni getRecepcniVytvoril() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniRecepcniVytvoril(this);
+		return DatabazeManager.getDatabaze()..getRecepcniById(this.prijalIdRecepcni);
 	}
 
 	public Recepcni getRecepcniVydal() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniRecepcniVydal(this);
+		return DatabazeManager.getDatabaze().getRecepcniById(this.prijalIdRecepcni);
 	}	
 }

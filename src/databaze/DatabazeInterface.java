@@ -38,6 +38,8 @@ public interface DatabazeInterface {
 
 	public Recepcni getUbytovaniRecepcniVytvoril(Ubytovani ubytovani) throws SQLException;
 
+	public Recepcni getRecepcni(String username, String heslo) throws SQLException;
+
 
 	
 }

@@ -27,6 +27,13 @@ public class DatabazeMySQL implements DatabazeInterface{
 	
 	private Connection conn = null;
  
+	private Kotec buildKotec(ResultSet rs) throws SQLException {
+		int id = rs.getInt(1);
+		String cislo = rs.getString(2);
+		int kapacita = rs.getInt(3);
+		return new Kotec(id,cislo,kapacita);
+	}
+	
 	public DatabazeMySQL() throws SQLException {
 		this.conn = DriverManager.getConnection("jdbc:mysql://"+DatabazeMySQL.HOST+"/"+DatabazeMySQL.DATABASE,DatabazeMySQL.USERNAME,DatabazeMySQL.PASSWORD);	
 	}
@@ -35,19 +42,13 @@ public class DatabazeMySQL implements DatabazeInterface{
 	@Override
 	public List<Kotec> getKotecVsechny() throws SQLException {
 		ArrayList<Kotec> kotce = new ArrayList<Kotec>();
-		
 		Statement stmt = this.conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT id_kotec,cislo,kapacita FROM kotec ORDER BY cislo;");
 		while(rs.next()) {
-			int id = rs.getInt(1);
-			String cislo = rs.getString(2);
-			int kapacita = rs.getInt(3);
-			Kotec k = new Kotec(id,cislo,kapacita);
-			kotce.add(k);
+			kotce.add(this.buildKotec(rs));
 		}
 		rs.close();
 		stmt.close();
-		
 		return kotce;
 	}
 
@@ -69,12 +70,9 @@ public class DatabazeMySQL implements DatabazeInterface{
 	}
 
 	@Override
-	public int getKotecVolnaMista(Kotec k) throws SQLException {
+	public int getVolneKotce(Kotec k) throws SQLException {
 		int x = -1;
-		
 		Statement stmt = this.conn.createStatement();
-		
-		//TODO
 		ResultSet rs = stmt.executeQuery("SELECT SUM(kapacita) FROM kotec;");
 		if(rs.next()) {
 			x = rs.getInt(1);
@@ -197,6 +195,13 @@ public class DatabazeMySQL implements DatabazeInterface{
 
 	@Override
 	public Recepcni getUbytovaniRecepcniVytvoril(Ubytovani ubytovani) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Recepcni getRecepcni(String username, String heslo) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

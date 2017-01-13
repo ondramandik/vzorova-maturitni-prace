@@ -25,6 +25,8 @@ public class DatabazeMySQL implements DatabazeInterface{
 	public static String PASSWORD = "test";
 	
 	
+	
+	
 	private Connection conn = null;
  
 	

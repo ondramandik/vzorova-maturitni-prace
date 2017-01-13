@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 
+import databaze.Databaze;
 import databaze.DatabazeInterface;
 import trasferObjects.Kotec;
 import databaze.DatabazeManager;
@@ -23,9 +24,13 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		test1();
-		
+		//test1();
+		test2();
 
+	}
+	
+	public static void test2(){
+		Databaze d = new Databaze();
 	}
 
 }

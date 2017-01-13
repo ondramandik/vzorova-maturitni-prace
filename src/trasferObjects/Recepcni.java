@@ -1,9 +1,26 @@
 package trasferObjects;
 
+import databaze.DatabazeManager;
+
 public class Recepcni extends Osoba{
 
 	private String uzivatelskeJmeno;
 	private String heslo;
+	private static Recepcni recepcni;
+	
+	public static Recepcni getRecepcni(){
+		return recepcni;
+	}
+	
+	public void prihlas(String username, String heslo) throws SQLException{
+		odhlas();
+		recepcni = DatabazeManager.getDatabaze().getRecepcni(username, heslo);
+	}
+	
+	public void odhlas(){
+		recepcni = null;
+	}
+	
 	public Recepcni(int id, String jmeno, String prijmeni, String uzivatelskeJmeno, String heslo) {
 		super(id, jmeno, prijmeni);
 

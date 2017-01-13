@@ -1,8 +1,8 @@
 import java.sql.SQLException;
 
 import Databaze.DatabazeInterface;
-import Databaze.DatabazeManager;
 import TrasferObjects.Kotec;
+import databaze.DatabazeManager;
 
 public class Main {
 

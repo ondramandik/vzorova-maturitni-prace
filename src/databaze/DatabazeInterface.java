@@ -1,44 +1,45 @@
 package databaze;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import trasferObjects.*;
 
 public interface DatabazeInterface {
 	
-	public void saveKotec(Kotec k);
+	public void saveKotec(Kotec k) throws SQLException;
 	
-	public void removeKotec(Kotec k);
+	public void removeKotec(Kotec k) throws SQLException;
 	
-	public List<Kotec> getKotecVsechny();
+	public List<Kotec> getKotecVsechny() throws SQLException;
 	
-	public Kotec getKotecPodleId(int id);
+	public Kotec getKotecPodleId(int id) throws SQLException;
 	
-	public int getKotecVolnaMista(Kotec k);
-			
-	public void saveUbytovani(Ubytovani u);
-	
-	public void removeUbytovani(Ubytovani u);
+	public int getKotecVolnaMista(Kotec k) throws SQLException;
 		
-	public Ubytovani getUbytovaniPodleId(int id);
-
-	public VahovaKategorie getPesVahovaKategorie(Pes pes);
+	public void saveUbytovani(Ubytovani u) throws SQLException;
 	
-	public Majitel getPesMajitel(Pes pes);
+	public void removeUbytovani(Ubytovani u) throws SQLException;
+		
+	public Ubytovani getUbytovaniPodleId(int id) throws SQLException;
+
+	public VahovaKategorie getPesVahovaKategorie(Pes pes) throws SQLException;
 	
-	public Majitel getUbytovaniMajitel(Ubytovani ubytovani);
+	public Majitel getPesMajitel(Pes pes) throws SQLException;
+	
+	public Majitel getUbytovaniMajitel(Ubytovani ubytovani) throws SQLException;
 
-	public Sluzba getUbytovaniSluzba(Ubytovani ubytovani);
+	public Sluzba getUbytovaniSluzba(Ubytovani ubytovani) throws SQLException;
 
-	public Pes getUbytovaniPes(Ubytovani ubytovani);
+	public Pes getUbytovaniPes(Ubytovani ubytovani) throws SQLException;
 
-	public Kotec getUbytovaniKotec(Ubytovani ubytovani);
+	public Kotec getUbytovaniKotec(Ubytovani ubytovani) throws SQLException;
 
-	public Recepcni getUbytovaniRecepcniPrijal(Ubytovani ubytovani);
+	public Recepcni getUbytovaniRecepcniPrijal(Ubytovani ubytovani) throws SQLException;
 
-	public Recepcni getUbytovaniRecepcniVydal(Ubytovani ubytovani);
+	public Recepcni getUbytovaniRecepcniVydal(Ubytovani ubytovani) throws SQLException;
 
-	public Recepcni getUbytovaniRecepcniVytvoril(Ubytovani ubytovani);
+	public Recepcni getUbytovaniRecepcniVytvoril(Ubytovani ubytovani) throws SQLException;
 
 
 	

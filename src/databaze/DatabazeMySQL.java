@@ -1,4 +1,4 @@
-package Databaze;
+package databaze;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,8 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import TrasferObjects.Kotec;
-import TrasferObjects.Ubytovani;
+import Ddtabaze.DatabazeInterface;
+import trasferObjects.*;
 
 public class DatabazeMySQL implements DatabazeInterface{
 	
@@ -131,6 +131,60 @@ public class DatabazeMySQL implements DatabazeInterface{
 
 	@Override
 	public Ubytovani getUbytovaniPodleId(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public VahovaKategorie getPesVahovaKategorie(Pes pes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Majitel getPesMajitel(Pes pes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Majitel getUbytovaniMajitel(Ubytovani ubytovani) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Sluzba getUbytovaniSluzba(Ubytovani ubytovani) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pes getUbytovaniPes(Ubytovani ubytovani) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Kotec getUbytovaniKotec(Ubytovani ubytovani) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Recepcni getUbytovaniRecepcniPrijal(Ubytovani ubytovani) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Recepcni getUbytovaniRecepcniVydal(Ubytovani ubytovani) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Recepcni getUbytovaniRecepcniVytvoril(Ubytovani ubytovani) {
 		// TODO Auto-generated method stub
 		return null;
 	}

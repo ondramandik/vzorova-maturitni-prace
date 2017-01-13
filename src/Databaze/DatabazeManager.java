@@ -2,9 +2,9 @@ package Databaze;
 
 public class DatabazeManager {
 
-	private static Databaze db;
+	private static DatabazeInterface db;
 	
-	public static Databaze getDatabaze() {
+	public static DatabazeInterface getDatabaze() {
 		return db;
 	}
 	

@@ -1,9 +1,10 @@
-package trasferObjects;
+package entity;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 
-import databaze.DatabazeManager;
+import databaze.Databaze;
 
 public class Ubytovani {
 	private int id;
@@ -95,31 +96,31 @@ public class Ubytovani {
 		this.ubytovanDo = ubytovanDo;
 	}
 	
-	public Sluzba getSluzba() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniSluzba(this);
+	public Recepcni getSluzba() throws SQLException, IOException{
+		return Databaze.getInstance().getRecepcniPodleId(this.idSluzba);
 	}
 	
-	public Majitel getMajitel() throws SQLException{
-		return DatabazeManager.getDatabaze().getMajitelById(this.idMajitel);
+	public Majitel getMajitel() throws SQLException, IOException{
+		return Databaze.getInstance().getMajitelPodleId(this.idMajitel);
 	}
 	
-	public Pes getPes() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniPes(this);
+	public Pes getPes() throws SQLException, IOException{
+		return Databaze.getInstance().getPesPodleId(this.idPes);
 	}
 	
-	public Kotec getKotec() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniKotec(this);
+	public Kotec getKotec() throws SQLException, IOException{
+		return Databaze.getInstance().getKotecPodleId(this.idKotec);
 	}
 	
-	public Recepcni getRecepcniPrijal() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniRecepcniPrijal(this);
+	public Recepcni getRecepcniPrijal() throws SQLException, IOException{
+		return Databaze.getInstance().getRecepcniPodleId(this.prijalIdRecepcni);
 	}
 
-	public Recepcni getRecepcniVytvoril() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniRecepcniVytvoril(this);
+	public Recepcni getRecepcniVytvoril() throws SQLException, IOException{
+		return Databaze.getInstance().getRecepcniPodleId(this.vytvorilIdRecepcni);
 	}
 
-	public Recepcni getRecepcniVydal() throws SQLException{
-		return DatabazeManager.getDatabaze().getUbytovaniRecepcniVydal(this);
+	public Recepcni getRecepcniVydal() throws SQLException, IOException{
+		return Databaze.getInstance().getRecepcniPodleId(this.vydalIdRecepcni);
 	}	
 }

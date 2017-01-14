@@ -1,18 +1,24 @@
-package trasferObjects;
+package entity;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
-import databaze.DatabazeManager;
+import databaze.Databaze;
 
 public class Kotec {
 	private int id;
 	private String cislo;
 	private int kapacita;
 	
+	public static List<Kotec> getVsechnyKotce() throws SQLException, IOException {
+		return Databaze.getInstance().getKotecVsechny();
+	}
 	
 	public Kotec() {
 		super();
 	}
+	
 	public Kotec(int id, String cislo, int kapacita) {
 		super();
 		this.id = id;
@@ -36,12 +42,5 @@ public class Kotec {
 	}
 	public void setKapacita(int kapacita) {
 		this.kapacita = kapacita;
-	}
-		
-	public int getVolnaMista() throws SQLException{
-		
-		return DatabazeManager.getDatabaze().getKotecVolnaMista(this);
-	}
-	
-	
+	}	
 }

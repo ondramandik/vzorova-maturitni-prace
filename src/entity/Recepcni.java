@@ -1,8 +1,9 @@
-package trasferObjects;
+package entity;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
-import databaze.DatabazeManager;
+import databaze.Databaze;
 
 public class Recepcni extends Osoba{
 
@@ -14,9 +15,9 @@ public class Recepcni extends Osoba{
 		return recepcni;
 	}
 	
-	public void prihlas(String username, String heslo) throws SQLException{
+	public void prihlas(String username, String heslo) throws SQLException, IOException{
 		odhlas();
-		recepcni = DatabazeManager.getDatabaze().getRecepcni(username, heslo);
+		recepcni = Databaze.getInstance().getRecepcni(username, heslo);
 	}
 	
 	public void odhlas(){

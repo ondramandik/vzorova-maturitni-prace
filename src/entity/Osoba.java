@@ -1,9 +1,9 @@
-package trasferObjects;
+package entity;
 
 public class Osoba {
-	private int id;
-	private String jmeno;
-	private String prijmeni;
+	protected int id;
+	protected String jmeno;
+	protected String prijmeni;
 	public Osoba(int id, String jmeno, String prijmeni) {
 		super();
 		this.id = id;

@@ -1,8 +1,9 @@
-package trasferObjects;
+package entity;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
-import databaze.DatabazeManager;
+import databaze.Databaze;
 
 public class Pes {
 	private int id;
@@ -45,12 +46,12 @@ public class Pes {
 		this.idVahovaKategorie = idVahovaKategorie;
 	}
 	
-	public Majitel getMajitel() throws SQLException{
-		return DatabazeManager.getDatabaze().getMajitelById(this.idMajitel);
+	public Majitel getMajitel() throws SQLException, IOException{
+		return Databaze.getInstance().getMajitelPodleId(this.idMajitel);
 	}
 	
-	public VahovaKategorie getVahovaKategorie() throws SQLException{
-		return DatabazeManager.getDatabaze().getVahovaKategorieById(this.idVahovaKategorie);
+	public VahovaKategorie getVahovaKategorie() throws SQLException, IOException{
+		return Databaze.getInstance().getVahovaKategoriePodleId(this.idVahovaKategorie);
 	}
 
 }

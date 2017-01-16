@@ -1,4 +1,4 @@
-package trasferObjects;
+package entity;
 
 public class Sluzba {
 	private int id;

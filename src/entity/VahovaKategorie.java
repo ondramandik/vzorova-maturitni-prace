@@ -1,4 +1,4 @@
-package trasferObjects;
+package entity;
 
 public class VahovaKategorie {
 	private int id;

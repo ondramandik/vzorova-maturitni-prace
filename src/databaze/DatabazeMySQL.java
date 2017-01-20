@@ -313,10 +313,10 @@ public class DatabazeMySQL  implements DatabazeInterface{
 	
 
 	@Override
-	public Recepcni getRecepcniPodlePristupovychUdaju(String uzivatelskeHeslo, String heslo) throws SQLException{
+	public Recepcni getRecepcniPodlePristupovychUdaju(String uzivatelskeJmeno, String heslo) throws SQLException{
 		Recepcni r = null;
 		PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM recepcni WHERE uzivatelske_jmeno=? and heslo=?");
-		stmt.setString(1, username);
+		stmt.setString(1, uzivatelskeJmeno);
 		stmt.setString(2, heslo);
 		
 		ResultSet rs = stmt.executeQuery();

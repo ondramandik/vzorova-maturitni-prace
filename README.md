@@ -59,6 +59,9 @@ Je zajištěna dle následujícího seznamu všech vazeb:
 ### Pristupove udaje do DB
 
 
+
+SS | Less
+--- | --- 
 Server | `193.85.203.188`
 Port | `3306`
 User | `vmp`

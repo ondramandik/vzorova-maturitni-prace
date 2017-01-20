@@ -38,11 +38,11 @@ public class HlavniOkno extends JFrame {
 		setBounds(100, 100, 450, 300);
 		setVisible(true);
 		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		JMenuBar menu = new JMenuBar();
+		setJMenuBar(menu);
 		
 		JMenu novy = new JMenu("Nový");
-		menuBar.add(novy);
+		menu.add(novy);
 		
 		JMenuItem novyZakaznik = new JMenuItem("Nový zákazník");
 		

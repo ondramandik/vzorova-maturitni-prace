@@ -1,15 +1,10 @@
 package okna;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import databaze.Databaze;
 import entity.Recepcni;
 
 import javax.swing.JLabel;

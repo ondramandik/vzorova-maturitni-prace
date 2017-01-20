@@ -56,17 +56,33 @@ Je zajištěna dle následujícího seznamu všech vazeb:
 	* Služba nelze smazat, pokud je na ni vazba z ubytování.
 	* Změní-li se službe ID, změna se kaskádově propíše i do tabulky ubytování.
 
-### Pristupove udaje do DB
+* **ubytovani -- majitel**
+	* Povinná vazba, každé ubytování musí mít majitele. 
+	* Majitel nelze smazat, pokud je na něj vazba z ubytování.
+	* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky ubytování.
 
+* **ubytovani -- pes**
+	* Povinná vazba, každé ubytování musí mít psa. 
+	* Pes nelze smazat, pokud je na něj vazba z ubytování.
+	* Změní-li se psovi ID, změna se kaskádově propíše i do tabulky ubytování.
 
+* **pes -- majitel**
+	* Povinná vazba, každý pes musí mít majitele. 
+	* Majitel nelze smazat, pokud je na něj vazba ze psa.
+	* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky pes.
+	
+* **pes -- vahova_kategorie **
+	* Povinná vazba, každý pes musí mít majitele. 
+	* Majitel nelze smazat, pokud je na něj vazba ze psa.
+	* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky pes.
 
-SS | Less
---- | --- 
-Server | `193.85.203.188`
-Port | `3306`
-User | `vmp`
-Password | `test`
-Database | `vzorova_maturitni_prace`
+### Přístupové údaje do databáze
+
+	Server: 193.85.203.188
+	Port: 3306
+	User: vm
+	Password: test
+	Database: vzorova_maturitni_prac
 
 ## Zdrojový kód
 Zdrový kód naleznete ve složce `/src`

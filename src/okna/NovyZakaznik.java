@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import databaze.Databaze;
+import entity.Majitel;
 import entity.Recepcni;
 
 import javax.swing.JLabel;
@@ -36,7 +38,7 @@ public class NovyZakaznik extends JFrame {
 	 */
 	public NovyZakaznik() {
 		setTitle("Zákazník");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 581, 573);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -131,6 +133,26 @@ public class NovyZakaznik extends JFrame {
 		btnUlozit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				//uloženi nebo update zákazníka
+				try {
+					Majitel majitel = new Majitel();
+					majitel.setId(0);
+					majitel.setEmail(mailField.getText().trim());
+					majitel.setTelefon(telefonField.getText().trim());
+					majitel.setJmeno(jmenoField.getText().trim());
+					majitel.setPrijmeni(prijmeniField.getText().trim());
+					majitel.setMesto(mestoField.getText().trim());
+					majitel.setPsc(pscField.getText().trim());
+					majitel.setUlice(uliceField.getText().trim());
+					majitel.setUliceCisloOrientacni(Integer.parseInt(popisneCisloField.getText().trim()));
+					majitel.setUliceCisloPopisne(Integer.parseInt(orientacniCisloField.getText().trim()));
+					Databaze.getInstance().saveMajitel(majitel);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		setVisible(true);

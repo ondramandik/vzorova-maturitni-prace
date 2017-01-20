@@ -34,6 +34,8 @@ public class UbytovaniJTableAdapter extends AbstractTableModel {
 					return this.ubytovani.get(rowIndex).getPes().getJmeno();
 				case 2:
 					return this.ubytovani.get(rowIndex).getMajitel().getPrijmeni();
+				case 3:
+					return this.ubytovani.get(rowIndex).getMajitel().getTelefon();
 				default:
 					throw new Exception("Invalid colum");
 			}

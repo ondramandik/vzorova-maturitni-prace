@@ -93,16 +93,28 @@ Je zajištěna dle následujícího seznamu všech vazeb:
 TODO
 Databáze obsahuje indexy nad následujícími sloupci
 
-## Zdrojový kód
+## Klientská aplikace
 Zdrový kód naleznete ve složce `/src`
 
 ### Požadavky na spuštění
-* MySQL Server, min. verze 2014\\
-* Internetové připojení, min. 2Mb/s\\
-* Diskový prostor, min, 10 MB\\
+* MySQL Server, min. verze 2014 s importovanými daty i strukturou
+* Internetové připojení, min. 2Mb/s
+* Diskový prostor, min, 10 MB
+* Java Runtime Enviroment min. verze 8
 
 ### Postup instalace
+* Přejděte do složky `/release` a nastavte konfigurační soubor na hodnoty Vaší databáze
 
+* Přejděte do složky `/release` a spusťte aplikaci příkazem:
+
+	java -jar maturitni-prace.jar
+
+* Přihlašte se pomocí účtu:
+
+	Uživatelské jméno: jnovakova
+	Heslo: tatranka
+	
+* DOPSAT dale
 ### Unit testy
 Veškeré testy aplikace jsou vytvořeny pomocí frameworku Junit. Třídy, které reprezentují testy jsou v v package nazvaném test. 
 

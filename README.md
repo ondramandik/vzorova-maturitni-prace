@@ -106,13 +106,13 @@ Zdrový kód naleznete ve složce `/src`
 * Přejděte do složky `/release` a nastavte konfigurační soubor na hodnoty Vaší databáze
 
 * Přejděte do složky `/release` a spusťte aplikaci příkazem:
-
-	java -jar maturitni-prace.jar
+`java -jar maturitni-prace.jar`
 
 * Přihlašte se pomocí účtu:
 
-	Uživatelské jméno: jnovakova
-	Heslo: tatranka
+`Uživatelské jméno: jnovakova`
+
+`Heslo: tatranka`
 	
 * DOPSAT dale
 ### Unit testy

@@ -29,7 +29,7 @@ public class UbytovaniJTableAdapter extends AbstractTableModel {
 		try {
 			switch(columnIndex) {
 				case 0:
-					return this.ubytovani.get(rowIndex).getSluzba().getJmeno();
+					return this.ubytovani.get(rowIndex).getMajitel().getJmeno();
 				default:
 					throw new Exception("Invalid colum");
 			}

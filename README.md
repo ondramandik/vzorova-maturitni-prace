@@ -10,10 +10,11 @@ Veškerá data dle zadání naleznete ve složce `data`. Tato data, lze importov
 
 
 ### E-R model
-E-R model databaze v notaci UML naleznete na obrazku ![E-R Model](/doc/e-r_model.png). Schéma databáze se nachází v 3. normální formě (3NF).
+E-R model databaze v notaci UML naleznete na obrazku ![E-R Model](doc/er.png). Schéma databáze se nachází v 3. normální formě (3NF).
 
 
 ### Entitní integrita
+Entitní integrita je zajištěna na úrovni databáze pomocí primamárních klíčů, které se nachází 
 
 
 ### Pristupove udaje do DB

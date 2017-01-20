@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import databaze.Databaze;
 
 public class Recepcni extends Osoba{
-
+		
 	private String uzivatelskeJmeno;
 	private String heslo;
 	private static Recepcni prihlaseny;

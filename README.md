@@ -58,7 +58,8 @@ Je zajištěna dle následujícího seznamu všech vazeb:
 
 ### Pristupove udaje do DB
 
-Server|`193.85.203.188`
+
+Server | `193.85.203.188`
 Port | `3306`
 User | `vmp`
 Password | `test`

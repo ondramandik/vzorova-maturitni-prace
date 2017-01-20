@@ -24,10 +24,10 @@ public class HlavniOkno extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		/*
-		table = new JTable(dataModel);
+		
+		table = new JTable(new UbytovaciTabulka());
 		table.setBounds(38, 39, 370, 99);
 		contentPane.add(table);
-		*/
+		repaint();
 	}
 }

@@ -1,28 +1,27 @@
 package okna;
 
 import javax.swing.table.AbstractTableModel;
+import entity.*;
 
 public class UbytovaciTabulka extends AbstractTableModel{
-	public Object[][] hodnoty;
-	/*
-	= new 
-    */
-	@Override
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	 private String[] jmenaSloupu = { "First Name", "Last Name", "Sport",
+		        "# of Years", "Vegetarian" };
 
-	@Override
-	public int getRowCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		    private Ubytovani[] data;
 
-	@Override
-	public Object getValueAt(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		    public int getColumnCount() {
+		      return jmenaSloupu.length;
+		    }
 
+		    public int getRowCount() {
+		      return data.length;
+		    }
+
+		    public String getColumnName(int cisloSloupce) {
+		      return jmenaSloupu[cisloSloupce];
+		    }
+
+		    public Ubytovani getValueAt(int cisloRadku, int cisloSloupce) {
+		      return data[cisloRadku];
+		    }
 }

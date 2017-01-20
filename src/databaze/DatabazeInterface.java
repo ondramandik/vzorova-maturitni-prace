@@ -21,9 +21,9 @@ public interface DatabazeInterface {
 
 	public List<Ubytovani> getUbytovaniPodleData(Date datum) throws SQLException;
 
+
 	public List<Majitel> getMajitelVsechny() throws SQLException;;
 
-	
 	public Majitel getMajitelPodleId(int idMajitel) throws SQLException;
 	
 	public void saveMajitel(Majitel m) throws SQLException;

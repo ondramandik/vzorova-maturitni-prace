@@ -13,20 +13,51 @@ import java.util.List;
 import databaze.DatabazeInterface;
 import entity.*;
 
+/**
+ * Třída dle DatabazeInterface, která reprezentuje databázi v MySQL Serveru.
+ * 
+ * @see DatabazeInterface
+ * @author Ondra Mandik <mandik@spsejecna.cz>
+ */
 public class DatabazeMySQL  implements DatabazeInterface{
-	
+
+	/**
+	 * URL pro pripojeni do databaze
+	 */
 	private String connectionString;
 	
+	/**
+	 * Uzivatelske jmeno
+	 */
 	private String username;
 	
+	/**
+	 * Heslo
+	 */
 	private String password;
 	
+	/**
+	 * Aktualni spojeni do databaze, nebo null kdyz trida pripojena neni
+	 */
 	private Connection conn = null;
  
+	/**
+	 * Metoda, ktera konvertuje java.util.Date na java.sql.Date
+	 * 
+	 * @param sourceDate Datum ve formatu java.util.date
+	 * @return Datum ve formatu SQL
+	 */
 	protected java.sql.Date konvertujDatum(java.util.Date sourceDate) {
 		return new java.sql.Date(sourceDate.getTime());
 	}
 	
+	/**
+	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Kotec
+	 * 
+	 * @param rs resultSet nastaveny na konkretni radek
+	 * @return Kotec reprezentujici radek v resultSetu
+	 * @throws SQLException
+	 */
 	private Kotec buildKotec(ResultSet rs) throws SQLException {
 		int id = rs.getInt("id_kotec");
 		String cislo = rs.getString("cislo");
@@ -34,6 +65,13 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return new Kotec(id,cislo,kapacita);
 	}
 	
+	/**
+	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Ubytovani
+	 * 
+	 * @param rs resultSet nastaveny na konkretni radek
+	 * @return Instance dle aktualniho radku
+	 * @throws SQLException
+	 */
 	private Ubytovani buildUbytovani(ResultSet rs) throws SQLException {
 		Ubytovani u = new Ubytovani();
 		u.setId(rs.getInt("id_ubytovani"));
@@ -49,6 +87,13 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return u;
 	}
 	
+	/**
+	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Majitel
+	 * 
+	 * @param rs resultSet nastaveny na konkretni radek
+	 * @return Instance Ubytovani dle aktualniho radku
+	 * @throws SQLException
+	 */
 	private Majitel buildMajitel(ResultSet rs) throws SQLException {
 		Majitel majitel = new Majitel();
 		majitel.setId(rs.getInt("id_majitel"));
@@ -64,6 +109,13 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return majitel;
 	}
 	
+	/**
+	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Recepcni
+	 * 
+	 * @param rs resultSet nastaveny na konkretni radek
+	 * @return Instance dle aktualniho radku
+	 * @throws SQLException
+	 */
 	private Recepcni buildRecepcni(ResultSet rs) throws SQLException {
 		Recepcni recepcni = new Recepcni();
 		recepcni.setId(rs.getInt("id_recepcni"));
@@ -73,6 +125,13 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return recepcni;
 	}
 	
+	/**
+	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy VahovaKategorie
+	 * 
+	 * @param rs resultSet nastaveny na konkretni radek
+	 * @return Instance dle aktualniho radku
+	 * @throws SQLException
+	 */
 	private VahovaKategorie buildVahovaKategorie(ResultSet rs) throws SQLException {
 		VahovaKategorie vahovaKategorie = new VahovaKategorie();
 		vahovaKategorie.setId(rs.getInt("id_vahova_kategorie"));
@@ -82,6 +141,13 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return vahovaKategorie;
 	}
 	
+	/**
+	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Pes
+	 * 
+	 * @param rs resultSet nastaveny na konkretni radek
+	 * @return Instance dle aktualniho radku
+	 * @throws SQLException
+	 */
 	private Pes buildPes(ResultSet rs) throws SQLException {
 		Pes pes = new Pes();
 		pes.setId(rs.getInt("id_pes"));
@@ -91,6 +157,13 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return pes;
 	}
 	
+	/**
+	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Sluzba
+	 * 
+	 * @param rs resultSet nastaveny na konkretni radek
+	 * @return Instance dle aktualniho radku
+	 * @throws SQLException
+	 */
 	private Sluzba buildSluzba(ResultSet rs) throws SQLException {
 		int id = rs.getInt("id_sluzba");
 		String nazev = rs.getString("nazev");
@@ -295,6 +368,7 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return majitele;
 	}
 	
+	@Override
 	public Majitel getMajitelPodleId(int id) throws SQLException {
 		Majitel majitel = null;
 		
@@ -310,8 +384,6 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return majitel;		
 	}
 	
-	
-
 	@Override
 	public Recepcni getRecepcniPodlePristupovychUdaju(String uzivatelskeJmeno, String heslo) throws SQLException{
 		Recepcni r = null;

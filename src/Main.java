@@ -3,12 +3,14 @@ import java.sql.SQLException;
 
 import databaze.*;
 import entity.*;
+import okna.Prihlaseni;
 
 public class Main {
 
 	public static void main(String[] args) {
 		//test1();
-		test2();
+		//test2();
+		test3();
 	}
 	
 	private static void test1() {
@@ -49,6 +51,10 @@ public class Main {
 		} finally {
 			Databaze.odpojit();
 		}
+	}
+	
+	public static void test3(){
+		Prihlaseni p = new Prihlaseni();
 	}
 
 }

@@ -2,6 +2,7 @@ package okna;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -30,10 +31,13 @@ public class Prihlaseni extends JFrame {
 		setTitle("Přihlášení");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 378, 208);
+		setVisible(true);
+		//setLayout(new FlowLayout());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		//contentPane.setLayout(new FlowLayout());
 		
 		labelJmeno = new JLabel("Přihlašovací jméno: ");
 		labelJmeno.setFont(new Font("Tahoma", Font.PLAIN, 16));

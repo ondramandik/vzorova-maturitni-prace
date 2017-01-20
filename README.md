@@ -46,18 +46,23 @@ ZAKAZNIK.PRIJMENI & VARCHAR(45) & NO   & \footnotesize\sf Pouze alfabetické zna
 ### Referenční integrita
 Je zajištěna dle následujícího seznamu všech vazeb:
 
-* ubytovani -- kotec 
+* **ubytovani -- kotec** 
 	* Povinná vazba, každé ubytování musí mít kotec. 
 	* Kotec nelze smazat, pokud je něj navázáno ubytování, ani změnit ID.
+	* Změní-li se službe ID, změna se kaskádově propíše i do tabulky ubytování.
 
-
+* **ubytovani -- sluzba**
+	* Povinná vazba, každé ubytování musí mít službu. 
+	* Služba nelze smazat, pokud je na ni vazba z ubytování.
+	* Změní-li se službe ID, změna se kaskádově propíše i do tabulky ubytování.
 
 ### Pristupove udaje do DB
-Server: 193.85.203.188
-Port: 3306
-User: vmp
-Password: test
-Database: vzorova_maturitni_prace
+
+Server|`193.85.203.188`
+Port | `3306`
+User | `vmp`
+Password | `test`
+Database | `vzorova_maturitni_prace`
 
 ## Zdrojový kód
 Zdrový kód naleznete ve složce `/src`

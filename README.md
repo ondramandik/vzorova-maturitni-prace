@@ -77,7 +77,7 @@ Je zajištěna dle následujícího seznamu všech vazeb:
 	* Majitel nelze smazat, pokud je na něj vazba ze psa.
 	* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky pes.
 	
-* **pes -- vahova_kategorie **
+* **pes -- vahova_kategorie**
 	* Povinná vazba, každý pes musí mít majitele. 
 	* Majitel nelze smazat, pokud je na něj vazba ze psa.
 	* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky pes.
@@ -89,8 +89,19 @@ Je zajištěna dle následujícího seznamu všech vazeb:
 	Password: test
 	Database: vzorova_maturitni_prac
 
+### Indexy 
+TODO
+Databáze obsahuje indexy nad následujícími sloupci
+
 ## Zdrojový kód
 Zdrový kód naleznete ve složce `/src`
+
+### Požadavky na spuštění
+* MySQL Server, min. verze 2014\\
+* Internetové připojení, min. 2Mb/s\\
+* Diskový prostor, min, 10 MB\\
+
+### Postup instalace
 
 ### Unit testy
 Veškeré testy aplikace jsou vytvořeny pomocí frameworku Junit. Třídy, které reprezentují testy jsou v v package nazvaném test. 

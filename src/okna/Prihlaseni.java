@@ -1,15 +1,10 @@
 package okna;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
-import databaze.Databaze;
 import entity.Recepcni;
 
 import javax.swing.JLabel;
@@ -78,8 +73,8 @@ public class Prihlaseni extends JFrame {
 					if (Recepcni.getPrihlasenyRecepcni()==null){
 						JOptionPane.showMessageDialog(contentPane, "Neplatné přihlášení!");
 					} else {
-						JOptionPane.showMessageDialog(contentPane, "Přihlášen!");
 						new HlavniOkno();
+						zavriOkno();
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -96,5 +91,9 @@ public class Prihlaseni extends JFrame {
 		contentPane.add(buttonPrihlasit);
 		
 		repaint();
+	}
+	
+	public void zavriOkno(){
+		this.dispose();
 	}
 }

@@ -435,12 +435,7 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return vahovaKategorie;		
 	}
 
-	/*
-	 * dopsáno --- nutno vyzkoušet
-	 * služba cena za noc - int x double?
-	 * (non-Javadoc)
-	 * @see databaze.DatabazeInterface#getSluzbaPodleId(int)
-	 */
+	
 	
 	@Override
 	public Sluzba getSluzbaPodleId(int id) throws SQLException {

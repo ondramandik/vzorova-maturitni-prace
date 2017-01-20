@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -5,28 +6,24 @@ import databaze.*;
 import entity.*;
 import okna.Prihlaseni;
 
+=======
+>>>>>>> branch 'master' of https://github.com/ondramandik/vzorova-maturitni-prace.git
 public class Main {
 
 	public static void main(String[] args) {
+<<<<<<< HEAD
 		//test1();
 		//test2();
 		test3();
 	}
 	
 	private static void test1() {
+=======
+>>>>>>> branch 'master' of https://github.com/ondramandik/vzorova-maturitni-prace.git
 		
-		try {
-			DatabazeInterface db = Databaze.getInstance();
-			for(Kotec k : db.getKotecVsechny()) {
-				System.out.println(k.getCislo() + ": " + k.getKapacita());
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			Databaze.odpojit();
-		}
 	}
 	
+<<<<<<< HEAD
 	public static void test2(){
 		try {
 			
@@ -57,4 +54,6 @@ public class Main {
 		Prihlaseni p = new Prihlaseni();
 	}
 
+=======
+>>>>>>> branch 'master' of https://github.com/ondramandik/vzorova-maturitni-prace.git
 }

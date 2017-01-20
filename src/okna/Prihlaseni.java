@@ -6,14 +6,18 @@ import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import databaze.Databaze;
 import entity.Recepcni;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -24,7 +28,7 @@ public class Prihlaseni extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textJmeno;
-	private JTextField textHeslo;
+	private JPasswordField textHeslo;
 	private JLabel labelJmeno;
 	private JLabel labelHeslo;
 	private JButton buttonPrihlasit;
@@ -59,7 +63,7 @@ public class Prihlaseni extends JFrame {
 		contentPane.add(textJmeno);
 		textJmeno.setColumns(10);
 		
-		textHeslo = new JTextField();
+		textHeslo = new JPasswordField();
 		textHeslo.setBounds(188, 60, 116, 22);
 		contentPane.add(textHeslo);
 		textHeslo.setColumns(10);
@@ -67,15 +71,14 @@ public class Prihlaseni extends JFrame {
 		buttonPrihlasit = new JButton("OK");
 		buttonPrihlasit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				//sem udelat prihlaseni
 				String uzivatelskeJmeno = textJmeno.getText().trim();
-				String heslo = textHeslo.getText().trim();
+				String heslo = new String(textHeslo.getPassword()).trim();
 				try {
-					Recepcni prihlasenaRecepcni = Databaze.getInstance().getRecepcniPodlePristupovychUdaju(uzivatelskeJmeno, heslo);
-					if (prihlasenaRecepcni==null){
-						buttonPrihlasit.setText("NEE");
+					Recepcni.prihlas(uzivatelskeJmeno, heslo);
+					if (Recepcni.getPrihlasenyRecepcni()==null){
+						JOptionPane.showMessageDialog(contentPane, "Neplatné přihlášení!");
 					} else {
-						buttonPrihlasit.setText(prihlasenaRecepcni.getJmeno());
+						JOptionPane.showMessageDialog(contentPane, "Přihlášen!");
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -84,6 +87,7 @@ public class Prihlaseni extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+
 			}
 		});
 		buttonPrihlasit.setFont(new Font("Tahoma", Font.PLAIN, 16));

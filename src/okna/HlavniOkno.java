@@ -7,9 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
-
-import gui.UbytovaciTabulka;
-
 import javax.swing.JTable;
 
 public class HlavniOkno extends JFrame {

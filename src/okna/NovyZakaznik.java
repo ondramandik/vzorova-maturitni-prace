@@ -2,11 +2,19 @@ package okna;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import entity.Recepcni;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
@@ -24,7 +32,7 @@ public class NovyZakaznik extends JFrame {
 	private JTextField mailField;
 
 	/**
-	 * Create the frame.
+	 * Vytvoření formuláře NovyZakaznik
 	 */
 	public NovyZakaznik() {
 		setTitle("Zákazník");
@@ -116,9 +124,17 @@ public class NovyZakaznik extends JFrame {
 		contentPane.add(mailField);
 		mailField.setColumns(10);
 		
-		JButton btnUloit = new JButton("Uložit");
-		btnUloit.setBounds(26, 459, 97, 25);
-		contentPane.add(btnUloit);
+		JButton btnUlozit = new JButton("Uložit");
+		btnUlozit.setBounds(26, 459, 97, 25);
+		contentPane.add(btnUlozit);
+		
+		btnUlozit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				//uloženi nebo update zákazníka
+			}
+		});
+		setVisible(true);
+		repaint();
 		
 	}
 }

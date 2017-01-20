@@ -48,7 +48,7 @@ public class HlavniOkno extends JFrame {
 		
 		novyZakaznik.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-
+				new NovyZakaznik();
 			}
 		});
 		

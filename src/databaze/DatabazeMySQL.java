@@ -316,7 +316,7 @@ public class DatabazeMySQL  implements DatabazeInterface{
 	public Recepcni getRecepcniPodlePristupovychUdaju(String uzivatelskeJmeno, String heslo) throws SQLException{
 		Recepcni r = null;
 		PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM recepcni WHERE uzivatelske_jmeno=? and heslo=?");
-		stmt.setString(1, uzivatelskeJmeno);
+		stmt.setString(1, uzivatelskeJmeno.toLowerCase());
 		stmt.setString(2, heslo);
 		
 		ResultSet rs = stmt.executeQuery();

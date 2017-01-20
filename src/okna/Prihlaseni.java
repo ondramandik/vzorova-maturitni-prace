@@ -39,7 +39,7 @@ public class Prihlaseni extends JFrame {
 	public Prihlaseni() {
 		setFont(new Font("Dialog", Font.PLAIN, 16));
 		setTitle("Přihlášení");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 378, 208);
 		setVisible(true);
 		contentPane = new JPanel();
@@ -79,6 +79,7 @@ public class Prihlaseni extends JFrame {
 						JOptionPane.showMessageDialog(contentPane, "Neplatné přihlášení!");
 					} else {
 						JOptionPane.showMessageDialog(contentPane, "Přihlášen!");
+						new HlavniOkno();
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block

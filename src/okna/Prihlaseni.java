@@ -78,8 +78,8 @@ public class Prihlaseni extends JFrame {
 					if (Recepcni.getPrihlasenyRecepcni()==null){
 						JOptionPane.showMessageDialog(contentPane, "Neplatné přihlášení!");
 					} else {
-						JOptionPane.showMessageDialog(contentPane, "Přihlášen!");
 						new HlavniOkno();
+						zavriOkno();
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -96,5 +96,9 @@ public class Prihlaseni extends JFrame {
 		contentPane.add(buttonPrihlasit);
 		
 		repaint();
+	}
+	
+	public void zavriOkno(){
+		this.dispose();
 	}
 }

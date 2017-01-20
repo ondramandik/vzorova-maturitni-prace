@@ -91,6 +91,14 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return pes;
 	}
 	
+	private Sluzba buildSluzba(ResultSet rs) throws SQLException {
+		int id = rs.getInt("id_sluzba");
+		String nazev = rs.getString("nazev");
+		String popis = rs.getString("popis");
+		double cenaZaNoc = rs.getInt("cena_za_noc");
+		return new Sluzba(id,nazev,popis,(int)cenaZaNoc);
+	}	
+	
 	public DatabazeMySQL(String host, String port, String db, String user, String pass) throws SQLException, IOException {
 		this.connectionString = "jdbc:mysql://"+host+"/"+db;
 		this.username = user;
@@ -425,6 +433,30 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		stmt.close();
 		
 		return vahovaKategorie;		
+	}
+
+	/*
+	 * dopsáno --- nutno vyzkoušet
+	 * služba cena za noc - int x double?
+	 * (non-Javadoc)
+	 * @see databaze.DatabazeInterface#getSluzbaPodleId(int)
+	 */
+	
+	@Override
+	public Sluzba getSluzbaPodleId(int id) throws SQLException {
+		
+		Sluzba sluzba = null;
+		
+		PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM sluzba WHERE id_sluzba=?");
+		stmt.setInt(1, id);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			sluzba =  this.buildSluzba(rs);
+		}
+		rs.close();
+		stmt.close();
+		
+		return sluzba;	
 	}
 
 	

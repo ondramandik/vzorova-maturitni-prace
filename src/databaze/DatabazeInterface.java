@@ -20,8 +20,7 @@ public interface DatabazeInterface {
 	public Ubytovani getUbytovaniPodleId(int id) throws SQLException;
 
 	public List<Ubytovani> getUbytovaniPodleData(Date datum) throws SQLException;
-	
-	
+
 	public List<Majitel> getMajitelVsechny() throws SQLException;;
 
 	
@@ -50,6 +49,8 @@ public interface DatabazeInterface {
 
 	
 	public VahovaKategorie getVahovaKategoriePodleId(int idVahovaKategorie) throws SQLException;
+
+	public Sluzba getSluzbaPodleId(int id) throws SQLException;
 
 	
 }

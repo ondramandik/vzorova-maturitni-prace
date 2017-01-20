@@ -1,4 +1,4 @@
-package databaze;
+ package databaze;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -40,7 +40,7 @@ public interface DatabazeInterface {
 	
 	public Recepcni getRecepcniPodleId(int idSluzba) throws SQLException;
 	
-	public Recepcni getRecepcni(String username, String heslo) throws SQLException;
+	public Recepcni getRecepcniPodlePristupovychUdaju(String uzivatelskeJmeno, String heslo) throws SQLException;
 
 	
 	public List<Kotec> getKotecVsechny() throws SQLException;

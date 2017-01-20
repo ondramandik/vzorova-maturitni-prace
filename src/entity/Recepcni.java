@@ -15,9 +15,9 @@ public class Recepcni extends Osoba{
 		return recepcni;
 	}
 	
-	public void prihlas(String username, String heslo) throws SQLException, IOException{
+	public void prihlas(String uzivatelskeJmeno, String heslo) throws SQLException, IOException{
 		odhlas();
-		recepcni = Databaze.getInstance().getRecepcni(username, heslo);
+		recepcni = Databaze.getInstance().getRecepcniPodlePristupovychUdaju(uzivatelskeJmeno, heslo);
 	}
 	
 	public void odhlas(){

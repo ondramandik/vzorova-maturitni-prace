@@ -2,15 +2,22 @@ package okna;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import databaze.Databaze;
+import entity.Recepcni;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class Prihlaseni extends JFrame {
@@ -30,10 +37,12 @@ public class Prihlaseni extends JFrame {
 		setTitle("Přihlášení");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 378, 208);
+		setVisible(true);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+		setContentPane(contentPane);		
 		contentPane.setLayout(null);
+		
 		
 		labelJmeno = new JLabel("Přihlašovací jméno: ");
 		labelJmeno.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -57,12 +66,30 @@ public class Prihlaseni extends JFrame {
 		
 		buttonPrihlasit = new JButton("OK");
 		buttonPrihlasit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent actionEvent) {
 				//sem udelat prihlaseni
+				String uzivatelskeJmeno = textJmeno.getText();
+				String heslo = textHeslo.getText();
+				try {
+					Recepcni prihlasenaRecepcni = Databaze.getInstance().getRecepcniPodlePristupovychUdaju(uzivatelskeJmeno, heslo);
+					if (prihlasenaRecepcni==null){
+						buttonPrihlasit.setText("NEE");
+					} else {
+						buttonPrihlasit.setText(prihlasenaRecepcni.getJmeno());
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		buttonPrihlasit.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		buttonPrihlasit.setBounds(207, 108, 97, 25);
 		contentPane.add(buttonPrihlasit);
+		
+		repaint();
 	}
 }

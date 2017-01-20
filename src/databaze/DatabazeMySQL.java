@@ -313,7 +313,7 @@ public class DatabazeMySQL  implements DatabazeInterface{
 	
 
 	@Override
-	public Recepcni getRecepcni(String username, String heslo) throws SQLException {
+	public Recepcni getRecepcniPodlePristupovychUdaju(String uzivatelskeHeslo, String heslo) throws SQLException{
 		Recepcni r = null;
 		PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM recepcni WHERE uzivatelske_jmeno=? and heslo=?");
 		stmt.setString(1, username);
@@ -435,12 +435,7 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return vahovaKategorie;		
 	}
 
-	/*
-	 * dopsáno --- nutno vyzkoušet
-	 * služba cena za noc - int x double?
-	 * (non-Javadoc)
-	 * @see databaze.DatabazeInterface#getSluzbaPodleId(int)
-	 */
+	
 	
 	@Override
 	public Sluzba getSluzbaPodleId(int id) throws SQLException {

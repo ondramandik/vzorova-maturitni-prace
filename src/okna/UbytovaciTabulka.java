@@ -6,7 +6,7 @@ import entity.*;
 public class UbytovaciTabulka extends AbstractTableModel{
 	 private String[] jmenaSloupu = { "First Name", "Last Name", "Sport",
 		        "# of Years", "Vegetarian" };
-
+	 
 		    private Ubytovani[] data;
 
 		    public int getColumnCount() {

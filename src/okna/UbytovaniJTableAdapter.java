@@ -21,7 +21,7 @@ public class UbytovaniJTableAdapter extends AbstractTableModel {
 
 	@Override
 	public int getColumnCount() {
-		return 9;
+		return 4;
 	}
 
 	@Override

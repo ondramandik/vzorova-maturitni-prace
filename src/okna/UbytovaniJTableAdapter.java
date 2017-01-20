@@ -10,7 +10,7 @@ import databaze.Databaze;
 import entity.Ubytovani;
 
 public class UbytovaniJTableAdapter extends AbstractTableModel {
-	
+
 	private List<Ubytovani> ubytovani;
 	
 	public UbytovaniJTableAdapter(List<Ubytovani> ubytovani) {

@@ -116,7 +116,7 @@ public class NovyZakaznik extends JFrame {
 		contentPane.add(textField_8);
 		textField_8.setColumns(10);
 		
-		JButton btnUloit = new JButton("Uložit");
+		JButton btnUloit = new JButton("Uložení");
 		btnUloit.setBounds(26, 459, 97, 25);
 		contentPane.add(btnUloit);
 		

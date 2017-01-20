@@ -9,20 +9,19 @@ public class Recepcni extends Osoba{
 		
 	private String uzivatelskeJmeno;
 	private String heslo;
+	private static Recepcni prihlaseny;
 	
-	private static Recepcni recepcni;
-	
-	public static Recepcni getRecepcni(){
-		return recepcni;
+	public static Recepcni getPrihlasenyRecepcni(){
+		return prihlaseny;
 	}
 	
-	public void prihlas(String uzivatelskeJmeno, String heslo) throws SQLException, IOException{
+	public static void prihlas(String uzivatelskeJmeno, String heslo) throws SQLException, IOException{
 		odhlas();
-		recepcni = Databaze.getInstance().getRecepcniPodlePristupovychUdaju(uzivatelskeJmeno, heslo);
+		prihlaseny = Databaze.getInstance().getRecepcniPodlePristupovychUdaju(uzivatelskeJmeno, heslo);
 	}
 	
-	public void odhlas(){
-		recepcni = null;
+	public static void odhlas(){
+		prihlaseny = null;
 	}
 	
 	public Recepcni(int id, String jmeno, String prijmeni, String uzivatelskeJmeno, String heslo) {

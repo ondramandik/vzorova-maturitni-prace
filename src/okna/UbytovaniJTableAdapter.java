@@ -1,12 +1,9 @@
 package okna;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import databaze.Databaze;
 import entity.Ubytovani;
 
 public class UbytovaniJTableAdapter extends AbstractTableModel {

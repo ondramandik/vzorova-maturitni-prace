@@ -59,10 +59,12 @@ public class DatabazeMySQL  implements DatabazeInterface{
 	 * @throws SQLException
 	 */
 	private Kotec buildKotec(ResultSet rs) throws SQLException {
-		int id = rs.getInt("id_kotec");
-		String cislo = rs.getString("cislo");
-		int kapacita = rs.getInt("kapacita");
-		return new Kotec(id,cislo,kapacita);
+		Kotec k = new Kotec();
+		k.setCislo(rs.getString("cislo"));
+		k.setKapacita(rs.getInt("kapacita"));
+		k.setId(rs.getInt("id_kotec"));
+	
+		return k;
 	}
 	
 	/**
@@ -77,7 +79,6 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		u.setId(rs.getInt("id_ubytovani"));
 		u.setIdKotec(rs.getInt("id_kotec"));
 		u.setIdMajitel(rs.getInt("id_majitel"));
-		u.setIdSluzba(rs.getInt("id_sluzba"));
 		u.setIdPes(rs.getInt("id_pes"));
 		u.setPrijalIdRecepcni(rs.getInt("prijal_id_recepcni"));
 		u.setVydalIdRecepcni(rs.getInt("vydal_id_recepcni"));
@@ -125,21 +126,7 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return recepcni;
 	}
 	
-	/**
-	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy VahovaKategorie
-	 * 
-	 * @param rs resultSet nastaveny na konkretni radek
-	 * @return Instance dle aktualniho radku
-	 * @throws SQLException
-	 */
-	private VahovaKategorie buildVahovaKategorie(ResultSet rs) throws SQLException {
-		VahovaKategorie vahovaKategorie = new VahovaKategorie();
-		vahovaKategorie.setId(rs.getInt("id_vahova_kategorie"));
-		vahovaKategorie.setNazev(rs.getString("nazev"));
-		vahovaKategorie.setVahaMax(rs.getInt("vaha_max"));
-		vahovaKategorie.setVahaMin(rs.getInt("vaha_min"));
-		return vahovaKategorie;
-	}
+	
 	
 	/**
 	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Pes
@@ -153,25 +140,20 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		pes.setId(rs.getInt("id_pes"));
 		pes.setJmeno(rs.getString("jmeno"));
 		pes.setIdMajitel(rs.getInt("id_majitel"));
-		pes.setIdVahovaKategorie(rs.getInt("id_vahova_kategorie"));
 		return pes;
 	}
 	
 	/**
-	 * Metoda ktera z aktaulniho radku resultSetu vytvori instanci tridy Sluzba
+	 * Konstruktor pro vytvoreni tridy pro propojeni s DB
 	 * 
-	 * @param rs resultSet nastaveny na konkretni radek
-	 * @return Instance dle aktualniho radku
+	 * @param host IP adresa server
+	 * @param port Port serveru
+	 * @param db Nazev databaze
+	 * @param user Uzivatelske jmeno
+	 * @param pass Heslo
 	 * @throws SQLException
+	 * @throws IOException
 	 */
-	private Sluzba buildSluzba(ResultSet rs) throws SQLException {
-		int id = rs.getInt("id_sluzba");
-		String nazev = rs.getString("nazev");
-		String popis = rs.getString("popis");
-		double cenaZaNoc = rs.getInt("cena_za_noc");
-		return new Sluzba(id,nazev,popis,(int)cenaZaNoc);
-	}	
-	
 	public DatabazeMySQL(String host, String port, String db, String user, String pass) throws SQLException, IOException {
 		this.connectionString = "jdbc:mysql://"+host+"/"+db;
 		this.username = user;
@@ -213,9 +195,7 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
-			String cislo = rs.getString(1);
-			int kapacita = rs.getInt(2);
-			k = new Kotec(id,cislo,kapacita);
+			return this.buildKotec(rs);
 		}
 		rs.close();
 		
@@ -231,19 +211,18 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		if(u.getId() < 1) {
 			stmt = this.conn.prepareStatement(
 				"INSERT INTO ubytovani "
-				+ "(id_sluzba,id_majitel,id_pes,id_kotec,vytvoril_id_recepcni,prijal_id_recepcni,vydal_id_recepcni,od,do) "
+				+ "(id_majitel,id_pes,id_kotec,vytvoril_id_recepcni,prijal_id_recepcni,vydal_id_recepcni,od,do) "
 				+ "VALUES (?,?,?,?,?,?,?,?,?)"
 				,Statement.RETURN_GENERATED_KEYS
 			);
-			stmt.setInt(1,u.getIdSluzba());
-			stmt.setInt(2,u.getIdMajitel());
-			stmt.setInt(3,u.getIdPes());
-			stmt.setInt(4,u.getIdKotec());
-			stmt.setInt(5,u.getVytvorilIdRecepcni());
-			stmt.setInt(6,u.getPrijalIdRecepcni());
-			stmt.setInt(7,u.getVydalIdRecepcni());
-			stmt.setDate(8,this.konvertujDatum(u.getUbytovanOd()));
-			stmt.setDate(9,this.konvertujDatum(u.getUbytovanDo()));
+			stmt.setInt(1,u.getIdMajitel());
+			stmt.setInt(2,u.getIdPes());
+			stmt.setInt(3,u.getIdKotec());
+			stmt.setInt(4,u.getVytvorilIdRecepcni());
+			stmt.setInt(5,u.getPrijalIdRecepcni());
+			stmt.setInt(6,u.getVydalIdRecepcni());
+			stmt.setDate(7,this.konvertujDatum(u.getUbytovanOd()));
+			stmt.setDate(8,this.konvertujDatum(u.getUbytovanDo()));
 			stmt.execute();
 			
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -255,19 +234,18 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		} else {
 			stmt = this.conn.prepareStatement(
 				"UPDATE ubytovani SET"
-				+ "id_sluzba=?,id_majitel=?,id_pes=?,id_kotec=?,vytvoril_id_recepcni=?,prijal_id_recepcni=?,vydal_id_recepcni=?,od=?,do=?) "
+				+ "id_majitel=?,id_pes=?,id_kotec=?,vytvoril_id_recepcni=?,prijal_id_recepcni=?,vydal_id_recepcni=?,od=?,do=?) "
 				+ "WHERE id_ubytovani=?"
 			);
-			stmt.setInt(1,u.getIdSluzba());
-			stmt.setInt(2,u.getIdMajitel());
-			stmt.setInt(3,u.getIdPes());
-			stmt.setInt(4,u.getIdKotec());
-			stmt.setInt(5,u.getVytvorilIdRecepcni());
-			stmt.setInt(6,u.getPrijalIdRecepcni());
-			stmt.setInt(7,u.getVydalIdRecepcni());
-			stmt.setDate(8,new java.sql.Date(u.getUbytovanOd().getTime()));
-			stmt.setDate(9,new java.sql.Date(u.getUbytovanDo().getTime()));
-			stmt.setInt(10,u.getId());
+			stmt.setInt(1,u.getIdMajitel());
+			stmt.setInt(2,u.getIdPes());
+			stmt.setInt(3,u.getIdKotec());
+			stmt.setInt(4,u.getVytvorilIdRecepcni());
+			stmt.setInt(5,u.getPrijalIdRecepcni());
+			stmt.setInt(6,u.getVydalIdRecepcni());
+			stmt.setDate(7,new java.sql.Date(u.getUbytovanOd().getTime()));
+			stmt.setDate(8,new java.sql.Date(u.getUbytovanDo().getTime()));
+			stmt.setInt(9,u.getId());
 			stmt.execute();
 		}
 		
@@ -442,12 +420,11 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		PreparedStatement stmt;
 		if(p.getId() < 1) {
 			stmt = this.conn.prepareStatement(
-				"INSERT INTO pes (jmeno, id_majitel, id_vahova_kategorie) VALUES (?,?,?)"
+				"INSERT INTO pes (jmeno, id_majitel) VALUES (?,?,?)"
 				,Statement.RETURN_GENERATED_KEYS
 			);
 			stmt.setString(1,p.getJmeno());
 			stmt.setInt(2,p.getIdMajitel());
-			stmt.setInt(3,p.getIdVahovaKategorie());
 			stmt.execute();
 			
 			ResultSet rs = stmt.getGeneratedKeys();
@@ -457,10 +434,9 @@ public class DatabazeMySQL  implements DatabazeInterface{
 			rs.close();
 			
 		} else {
-			stmt = this.conn.prepareStatement("UPDATE pes SET jmeno=?, id_majitel=?, id_vahova_kategorie=? WHERE id_pes=?");
+			stmt = this.conn.prepareStatement("UPDATE pes SET jmeno=?, id_majitel=? WHERE id_pes=?");
 			stmt.setString(1,p.getJmeno());
 			stmt.setInt(2,p.getIdMajitel());
-			stmt.setInt(3,p.getIdVahovaKategorie());
 			stmt.setInt(4,p.getId());
 			stmt.execute();
 		}
@@ -491,40 +467,4 @@ public class DatabazeMySQL  implements DatabazeInterface{
 		return pes;		
 	}
 
-	@Override
-	public VahovaKategorie getVahovaKategoriePodleId(int id) throws SQLException {
-		VahovaKategorie vahovaKategorie = null;
-		
-		PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM vahova_kategorie WHERE id_vahova_kategorie=?");
-		stmt.setInt(1, id);
-		ResultSet rs = stmt.executeQuery();
-		if(rs.next()) {
-			vahovaKategorie =  this.buildVahovaKategorie(rs);
-		}
-		rs.close();
-		stmt.close();
-		
-		return vahovaKategorie;		
-	}
-
-	
-	
-	@Override
-	public Sluzba getSluzbaPodleId(int id) throws SQLException {
-		
-		Sluzba sluzba = null;
-		
-		PreparedStatement stmt = this.conn.prepareStatement("SELECT * FROM sluzba WHERE id_sluzba=?");
-		stmt.setInt(1, id);
-		ResultSet rs = stmt.executeQuery();
-		if(rs.next()) {
-			sluzba =  this.buildSluzba(rs);
-		}
-		rs.close();
-		stmt.close();
-		
-		return sluzba;	
-	}
-
-	
 }

@@ -2,11 +2,19 @@ package okna;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import databaze.Databaze;
+
 import javax.swing.JTable;
 
 public class HlavniOkno extends JFrame {
@@ -26,7 +34,19 @@ public class HlavniOkno extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		table = new JTable(new UbytovaciTabulka());
+		Calendar kalendar = Calendar.getInstance();
+		Date datum = kalendar.getTime();
+		
+		//potreba doresit vyjimku
+		try {
+			table = new JTable(new UbytovaniJTableAdapter(Databaze.getInstance().getUbytovaniPodleData(datum)));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		table.setBounds(38, 39, 370, 99);
 		contentPane.add(table);
 		repaint();

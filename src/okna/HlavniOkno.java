@@ -53,6 +53,16 @@ public class HlavniOkno extends JFrame {
 		});
 		
 		novy.add(novyZakaznik);
+		
+        JMenuItem novyPes = new JMenuItem("Nový pes");
+		
+		novyPes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				new NovyPes();
+			}
+		});
+		
+		novy.add(novyPes);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

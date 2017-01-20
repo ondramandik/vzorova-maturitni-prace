@@ -1,4 +1,4 @@
-package okna;
+package gui;
 
 import javax.swing.table.AbstractTableModel;
 import entity.*;

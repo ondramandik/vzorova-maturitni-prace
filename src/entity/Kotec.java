@@ -71,8 +71,9 @@ public class Kotec {
 	}
 	
 	/**
-	 * Nastavuje pocet psu, kteri mohou byt v kotci ubytovani
+	 * Nastavuje pocet psu, kteri mohou byt v kotci ubytovani, musi byt kladne cislo
 	 * @param kapacita Pocet psu, kteri mohou byt v kotci ubytovani
+	 * @throws IllegalArgumentException Pocet kotcu musi byt kladny
 	 */
 	public void setKapacita(int kapacita) throws IllegalArgumentException{
 		if (kapacita <= 0) 

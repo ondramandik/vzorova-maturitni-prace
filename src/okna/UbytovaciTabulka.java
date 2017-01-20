@@ -7,8 +7,12 @@ public class UbytovaciTabulka extends AbstractTableModel{
 	 private String[] jmenaSloupu = { "First Name", "Last Name", "Sport",
 		        "# of Years", "Vegetarian" };
 	 
-		    private Ubytovani[] data;
-
+		    private Object[][] data;
+		    /*
+		    public UbytovaciTabulka(Object[] ){
+		    	data
+		    }
+*/
 		    public int getColumnCount() {
 		      return jmenaSloupu.length;
 		    }
@@ -21,7 +25,7 @@ public class UbytovaciTabulka extends AbstractTableModel{
 		      return jmenaSloupu[cisloSloupce];
 		    }
 
-		    public Ubytovani getValueAt(int cisloRadku, int cisloSloupce) {
-		      return data[cisloRadku];
+		    public Object getValueAt(int cisloRadku, int cisloSloupce) {
+		      return data[cisloRadku][cisloSloupce];
 		    }
 }

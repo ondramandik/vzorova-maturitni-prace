@@ -68,8 +68,8 @@ public class Prihlaseni extends JFrame {
 		buttonPrihlasit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				//sem udelat prihlaseni
-				String uzivatelskeJmeno = textJmeno.getText();
-				String heslo = textHeslo.getText();
+				String uzivatelskeJmeno = textJmeno.getText().trim();
+				String heslo = textHeslo.getText().trim();
 				try {
 					Recepcni prihlasenaRecepcni = Databaze.getInstance().getRecepcniPodlePristupovychUdaju(uzivatelskeJmeno, heslo);
 					if (prihlasenaRecepcni==null){

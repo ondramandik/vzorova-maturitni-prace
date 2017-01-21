@@ -33,6 +33,8 @@ public class NovyZakaznik extends JFrame {
 	private JTextField pscField;
 	private JTextField telefonField;
 	private JTextField mailField;
+	
+	private Validator validator = new Validator();
 
 	/**
 	 * Vytvoření formuláře NovyZakaznik
@@ -139,14 +141,12 @@ public class NovyZakaznik extends JFrame {
 					String jmenoZakaznika = jmenoField.getText().trim();
 	
 					String telefonZakaznika = telefonField.getText().trim();
-					TelefonniCisloValidator telefonValidator = new TelefonniCisloValidator();
-					if(!telefonValidator.validace(telefonZakaznika)) {
+					if(!validator.validace(telefonZakaznika,Validator.EMAIL_PATTERN)) {
 						throw new ParseException("Telefonní číslo neni validni",0);
 					}
 					
 					String mailZakaznika = mailField.getText().trim();
-					EmailValidator emailValidator = new EmailValidator();
-					if(!emailValidator.validace(mailZakaznika)) {
+					if(!validator.validace(mailZakaznika,Validator.TELEFON_PATTERN)) {
 						throw new ParseException("Mail neni validni",0);
 					}
 					

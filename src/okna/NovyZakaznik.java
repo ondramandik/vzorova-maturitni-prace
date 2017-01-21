@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -133,12 +134,27 @@ public class NovyZakaznik extends JFrame {
 		btnUlozit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				//uloženi nebo update zákazníka
+				//vyjimka neni doresena
 				try {
+					String jmenoZakaznika = jmenoField.getText().trim();
+	
+					String telefonZakaznika = telefonField.getText().trim();
+					TelefonniCisloValidator telefonValidator = new TelefonniCisloValidator();
+					if(!telefonValidator.validace(telefonZakaznika)) {
+						throw new ParseException("Telefonní číslo neni validni",0);
+					}
+					
+					String mailZakaznika = mailField.getText().trim();
+					EmailValidator emailValidator = new EmailValidator();
+					if(!emailValidator.validace(mailZakaznika)) {
+						throw new ParseException("Mail neni validni",0);
+					}
+					
 					Majitel majitel = new Majitel();
-					majitel.setId(0);
+					majitel.setId(0); //jeste upravit
 					majitel.setEmail(mailField.getText().trim());
-					majitel.setTelefon(telefonField.getText().trim());
-					majitel.setJmeno(jmenoField.getText().trim());
+					majitel.setTelefon(telefonZakaznika);
+					majitel.setJmeno(jmenoZakaznika);
 					majitel.setPrijmeni(prijmeniField.getText().trim());
 					majitel.setMesto(mestoField.getText().trim());
 					majitel.setPsc(pscField.getText().trim());
@@ -152,6 +168,8 @@ public class NovyZakaznik extends JFrame {
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (ParseException e){
+					JOptionPane.showMessageDialog(contentPane, e.getMessage());
 				}
 			}
 		});

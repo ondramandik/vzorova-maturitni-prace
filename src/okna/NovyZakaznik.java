@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class NovyZakaznik extends JFrame {
+public class NovyZakaznik extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField jmenoField;
@@ -33,6 +33,8 @@ public class NovyZakaznik extends JFrame {
 	private JTextField pscField;
 	private JTextField telefonField;
 	private JTextField mailField;
+	
+	private Majitel majitel = null;
 	
 	private Validator validator = new Validator();
 
@@ -133,48 +135,70 @@ public class NovyZakaznik extends JFrame {
 		btnUlozit.setBounds(26, 459, 97, 25);
 		contentPane.add(btnUlozit);
 		
-		btnUlozit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent actionEvent) {
-				//uloženi nebo update zákazníka
-				//vyjimka neni doresena
-				try {
-					String jmenoZakaznika = jmenoField.getText().trim();
-	
-					String telefonZakaznika = telefonField.getText().trim();
-					if(!validator.validace(telefonZakaznika,Validator.EMAIL_PATTERN)) {
-						throw new ParseException("Telefonní číslo neni validni",0);
-					}
-					
-					String mailZakaznika = mailField.getText().trim();
-					if(!validator.validace(mailZakaznika,Validator.TELEFON_PATTERN)) {
-						throw new ParseException("Mail neni validni",0);
-					}
-					
-					Majitel majitel = new Majitel();
-					majitel.setId(0); //jeste upravit
-					majitel.setEmail(mailField.getText().trim());
-					majitel.setTelefon(telefonZakaznika);
-					majitel.setJmeno(jmenoZakaznika);
-					majitel.setPrijmeni(prijmeniField.getText().trim());
-					majitel.setMesto(mestoField.getText().trim());
-					majitel.setPsc(pscField.getText().trim());
-					majitel.setUlice(uliceField.getText().trim());
-					majitel.setUliceCisloOrientacni(Integer.parseInt(popisneCisloField.getText().trim()));
-					majitel.setUliceCisloPopisne(Integer.parseInt(orientacniCisloField.getText().trim()));
-					Databaze.getInstance().saveMajitel(majitel);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParseException e){
-					JOptionPane.showMessageDialog(contentPane, e.getMessage());
-				}
-			}
-		});
+		btnUlozit.addActionListener(this);
 		setVisible(true);
 		repaint();
+	}
+	
+	public NovyZakaznik(Majitel majitelPsa) {
+		this();
+		this.majitel = majitelPsa;
 		
+		jmenoField.setText(majitelPsa.getJmeno());
+		prijmeniField.setText(majitelPsa.getPrijmeni());
+		uliceField.setText(majitelPsa.getUlice());
+		popisneCisloField.setText(majitelPsa.getUliceCisloPopisne()+"");
+	    orientacniCisloField.setText(majitelPsa.getUliceCisloOrientacni()+"");
+		mestoField.setText(majitelPsa.getMesto());
+		pscField.setText(majitelPsa.getPsc());
+		telefonField.setText(majitelPsa.getTelefon());
+		mailField.setText(majitelPsa.getEmail());
+	}
+	
+	public void actionPerformed(ActionEvent actionEvent) {
+		//uloženi nebo update zákazníka
+		//vyjimka neni doresena
+		try {
+			String jmenoZakaznika = jmenoField.getText().trim();
+			String prijmeniZakaznika = prijmeniField.getText().trim();
+			String uliceZakaznika = uliceField.getText().trim();
+			int cisloPopisneZakaznika = Integer.parseInt(popisneCisloField.getText().trim());
+			int cisloOrientacniZakaznika = Integer.parseInt(orientacniCisloField.getText().trim());
+			String mestoZakaznika = mestoField.getText().trim();
+			String pscZakaznika = pscField.getText().trim();
+
+			String telefonZakaznika = telefonField.getText().trim();
+			if(!validator.validace(telefonZakaznika,Validator.TELEFON_PATTERN)) {
+				throw new ParseException("Telefonní číslo neni validni",0);
+			}
+			
+			String mailZakaznika = mailField.getText().trim();
+			if(!validator.validace(mailZakaznika,Validator.TELEFON_PATTERN)) {
+				throw new ParseException("Mail neni validni",0);
+			}
+			if(majitel == null){
+				majitel = new Majitel();
+			}
+			//majitel.setId(0); 
+			majitel.setEmail(mailZakaznika);
+			majitel.setTelefon(telefonZakaznika);
+			majitel.setJmeno(jmenoZakaznika);
+			majitel.setPrijmeni(prijmeniZakaznika);
+			majitel.setMesto(mestoZakaznika);
+			majitel.setPsc(pscZakaznika);
+			majitel.setUlice(uliceZakaznika);
+			majitel.setUliceCisloOrientacni(cisloPopisneZakaznika);
+			majitel.setUliceCisloPopisne(cisloOrientacniZakaznika);
+			Databaze.getInstance().saveMajitel(majitel);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e){
+			JOptionPane.showMessageDialog(contentPane, e.getMessage());
+		}
 	}
 }
+

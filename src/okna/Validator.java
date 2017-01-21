@@ -10,7 +10,7 @@ public class Validator {
 		"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
 	
-	public static final Pattern TELEFON_PATTERN =Pattern.compile("\\d{9}");
+	public static final Pattern TELEFON_PATTERN = Pattern.compile("\\d{9}");
 	
 	public boolean validace(final String hex, Pattern pattern) {
 		matcher = pattern.matcher(hex);

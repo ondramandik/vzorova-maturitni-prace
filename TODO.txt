@@ -1,0 +1,16 @@
+Co je treba dokoncit
+
+* Udelat JUnit testy pro vsechny tridy z package entity 
+* Udelat tridy pro alternativni DB (Oracle XE, MSSQL) + Pridat konektory
+* Dokoncit okynka
+* Dopsat komentare alespon ke tridam
+* Dopsat README programatorskou cast
+* Vytvorit release (asi do slozky release)
+* Prejmenovat package na jednotne/mnozne cislo (okno, entita, nebo naopak testy, apod)
+
+Co je treba nasledne zpracovat
+* Vzorovou sablonu dokumentace (README)
+* Vzorovou strukturu projektu (slozky: src, config, lib, data, sql a package: testy, databaze, okna, entity?)
+* Sepsat zadani maturitnich praci
+* Pripravit stazene konektory do DB i s dokumentaci
+* Pripravit stazenou doukumentaci?

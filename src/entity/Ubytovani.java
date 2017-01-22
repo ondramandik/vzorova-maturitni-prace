@@ -8,7 +8,6 @@ import databaze.Databaze;
 
 public class Ubytovani {
 	private int id;
-	private int idSluzba;
 	private int idMajitel;
 	private int idPes;
 	private int idKotec;
@@ -17,11 +16,10 @@ public class Ubytovani {
 	private int vydalIdRecepcni;
 	private Date ubytovanOd;
 	private Date ubytovanDo;
-	public Ubytovani(int id, int idSluzba, int idMajitel, int idPes, int idKotec, int vytvorilIdRecepcni,
+	public Ubytovani(int id, int idMajitel, int idPes, int idKotec, int vytvorilIdRecepcni,
 			int prijalIdRecepcni, int vydalIdRecepcni, Date ubytovanOd, Date ubytovanDo) {
 		super();
 		this.id = id;
-		this.idSluzba = idSluzba;
 		this.idMajitel = idMajitel;
 		this.idPes = idPes;
 		this.idKotec = idKotec;
@@ -41,12 +39,7 @@ public class Ubytovani {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getIdSluzba() {
-		return idSluzba;
-	}
-	public void setIdSluzba(int idSluzba) {
-		this.idSluzba = idSluzba;
-	}
+	
 	public int getIdMajitel() {
 		return idMajitel;
 	}
@@ -95,11 +88,6 @@ public class Ubytovani {
 	public void setUbytovanDo(Date ubytovanDo) {
 		this.ubytovanDo = ubytovanDo;
 	}
-	
-	public Recepcni getSluzba() throws SQLException, IOException{
-		return Databaze.getInstance().getRecepcniPodleId(this.idSluzba);
-	}
-	
 	public Majitel getMajitel() throws SQLException, IOException{
 		return Databaze.getInstance().getMajitelPodleId(this.idMajitel);
 	}

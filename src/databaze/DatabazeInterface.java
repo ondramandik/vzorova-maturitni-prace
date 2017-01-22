@@ -1,4 +1,4 @@
-package databaze;
+ package databaze;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -20,11 +20,10 @@ public interface DatabazeInterface {
 	public Ubytovani getUbytovaniPodleId(int id) throws SQLException;
 
 	public List<Ubytovani> getUbytovaniPodleData(Date datum) throws SQLException;
-	
-	
+
+
 	public List<Majitel> getMajitelVsechny() throws SQLException;;
 
-	
 	public Majitel getMajitelPodleId(int idMajitel) throws SQLException;
 	
 	public void saveMajitel(Majitel m) throws SQLException;
@@ -32,24 +31,20 @@ public interface DatabazeInterface {
 	public void removeMajitel(Majitel m) throws SQLException;
 	
 
-	public Pes getPesPodleId(int idPes) throws SQLException;
+	public Pes getPesPodleId(int id) throws SQLException;
 	
 	public void savePes(Pes p) throws SQLException;
 	
 	public void removePes(Pes p) throws SQLException;
 	
 	
-	public Recepcni getRecepcniPodleId(int idSluzba) throws SQLException;
+	public Recepcni getRecepcniPodleId(int id) throws SQLException;
 	
-	public Recepcni getRecepcni(String username, String heslo) throws SQLException;
+	public Recepcni getRecepcniPodlePristupovychUdaju(String uzivatelskeJmeno, String heslo) throws SQLException;
 
 	
 	public List<Kotec> getKotecVsechny() throws SQLException;
 	
 	public Kotec getKotecPodleId(int id) throws SQLException;
-
-	
-	public VahovaKategorie getVahovaKategoriePodleId(int idVahovaKategorie) throws SQLException;
-
 	
 }

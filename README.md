@@ -1,6 +1,13 @@
 # Vzorová maturitní práce z předmětů PV + DS
+
 Autor: Ing. Jana Spilková, Mgr. Alena Reichlová, Ing. Ondřej Mandík
 
+Verze: 1.0 
+
+
+## Úvod
+
+Tady by měl student popsat svou strategii/záměr jak se rozhodl svůj maturitní úkol řešit.
 
 ## E-R model
 E-R model databáze naleznete na obrazku: ![E-R Model](doc/er.png). 
@@ -121,3 +128,8 @@ Zdrový kód naleznete ve složce `/src`
 Veškeré testy aplikace jsou vytvořeny pomocí frameworku Junit. Třídy, které reprezentují testy jsou v v package nazvaném test. 
 
 Pro spuštění testů v prostředí eclipse je potřeba přidat knihovny Junit 4 pomocí následujícího postupu: *Klikněte pravým tlačítkem na projekt > Properties > Java Build Path > Libraries > Add library* a zvolte *Junit 4*. Následně můžete testy spouštět pomocí okna JUnit v eclipse.
+
+
+## Závěr
+
+Zde by měl student popsat, co stihl a co nestihl + Případně popsat problémy o kterých si je vědom, že v aplikaci jsou, ale z nějakého důvodu nejsou vyřešeny (málo času, chybějící knihovny, apod..)

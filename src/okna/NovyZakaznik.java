@@ -167,12 +167,39 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		//vyjimka neni doresena
 		try {
 			String jmenoZakaznika = jmenoField.getText().trim();
+			if(!validator.validace(jmenoZakaznika,Validator.PISMENA_PATTERN)) {
+				throw new ParseException("Jméno zákazníka neni validni",0);
+			}
+			
 			String prijmeniZakaznika = prijmeniField.getText().trim();
+			if(!validator.validace(prijmeniZakaznika,Validator.PISMENA_PATTERN)) {
+				throw new ParseException("Příjmení zákazníka neni validni",0);
+			}
+			
 			String uliceZakaznika = uliceField.getText().trim();
+			if(!validator.validace(uliceZakaznika,Validator.ULICE_PATTERN)) {
+				throw new ParseException("Jméno ulice neni validni",0);
+			}
+			
+			if(!validator.validace(popisneCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
+				throw new ParseException("Číslo popisné neni validni",0);
+			} 
 			int cisloPopisneZakaznika = Integer.parseInt(popisneCisloField.getText().trim());
+			
+			if(!validator.validace(orientacniCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
+				throw new ParseException("Orientační číslo neni validni",0);
+			} 
 			int cisloOrientacniZakaznika = Integer.parseInt(orientacniCisloField.getText().trim());
+			
 			String mestoZakaznika = mestoField.getText().trim();
+			if(!validator.validace(mestoZakaznika,Validator.PISMENA_PATTERN)) {
+				throw new ParseException("Název města neni validni",0);
+			}
+			
 			String pscZakaznika = pscField.getText().trim();
+			if(!validator.validace(pscZakaznika,Validator.PSC_PATTERN)) {
+				throw new ParseException("PSČ neni validni",0);
+			}
 
 			String telefonZakaznika = telefonField.getText().trim();
 			if(!validator.validace(telefonZakaznika,Validator.TELEFON_PATTERN)) {
@@ -183,6 +210,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 			if(!validator.validace(mailZakaznika,Validator.EMAIL_PATTERN)) {
 				throw new ParseException("Mail neni validni",0);
 			}
+			
 			if(majitel == null){
 				majitel = new Majitel();
 			}

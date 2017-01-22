@@ -20,7 +20,6 @@ public class Validator {
 	
 	public static final Pattern CISLAULICE_PATTERN = Pattern.compile("[1-9][0-9]*");
 	
-	
 	public boolean validace(final String hex, Pattern pattern) {
 		matcher = pattern.matcher(hex);
 		return matcher.matches();

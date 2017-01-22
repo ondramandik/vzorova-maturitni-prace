@@ -59,6 +59,7 @@ public class HlavniOkno extends JFrame {
 		novyPes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				new NovyPes();
+				//new UbytovaniPsa();
 			}
 		});
 		

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 
 public class NovyZakaznik extends JFrame implements ActionListener {
 
@@ -30,7 +32,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 	private JTextField popisneCisloField;
 	private JTextField orientacniCisloField;
 	private JTextField mestoField;
-	private JTextField pscField;
+	private JFormattedTextField pscField;
 	private JTextField telefonField;
 	private JTextField mailField;
 	
@@ -108,7 +110,12 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		contentPane.add(mestoField);
 		mestoField.setColumns(10);
 		
-		pscField = new JTextField();
+		//?použít formátování políček?
+		NumberFormat f = NumberFormat.getNumberInstance(); 
+		f.setMaximumIntegerDigits(5);
+		f.setMinimumIntegerDigits(5);
+		f.setGroupingUsed(false);
+		pscField = new JFormattedTextField(f);
 		pscField.setBounds(154, 292, 116, 22);
 		contentPane.add(pscField);
 		pscField.setColumns(10);
@@ -160,12 +167,39 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		//vyjimka neni doresena
 		try {
 			String jmenoZakaznika = jmenoField.getText().trim();
+			if(!validator.validace(jmenoZakaznika,Validator.PISMENA_PATTERN)) {
+				throw new ParseException("Jméno zákazníka neni validni",0);
+			}
+			
 			String prijmeniZakaznika = prijmeniField.getText().trim();
+			if(!validator.validace(prijmeniZakaznika,Validator.PISMENA_PATTERN)) {
+				throw new ParseException("Příjmení zákazníka neni validni",0);
+			}
+			
 			String uliceZakaznika = uliceField.getText().trim();
+			if(!validator.validace(uliceZakaznika,Validator.ULICE_PATTERN)) {
+				throw new ParseException("Jméno ulice neni validni",0);
+			}
+			
+			if(!validator.validace(popisneCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
+				throw new ParseException("Číslo popisné neni validni",0);
+			} 
 			int cisloPopisneZakaznika = Integer.parseInt(popisneCisloField.getText().trim());
+			
+			if(!validator.validace(orientacniCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
+				throw new ParseException("Orientační číslo neni validni",0);
+			} 
 			int cisloOrientacniZakaznika = Integer.parseInt(orientacniCisloField.getText().trim());
+			
 			String mestoZakaznika = mestoField.getText().trim();
+			if(!validator.validace(mestoZakaznika,Validator.PISMENA_PATTERN)) {
+				throw new ParseException("Název města neni validni",0);
+			}
+			
 			String pscZakaznika = pscField.getText().trim();
+			if(!validator.validace(pscZakaznika,Validator.PSC_PATTERN)) {
+				throw new ParseException("PSČ neni validni",0);
+			}
 
 			String telefonZakaznika = telefonField.getText().trim();
 			if(!validator.validace(telefonZakaznika,Validator.TELEFON_PATTERN)) {
@@ -173,9 +207,10 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 			}
 			
 			String mailZakaznika = mailField.getText().trim();
-			if(!validator.validace(mailZakaznika,Validator.TELEFON_PATTERN)) {
+			if(!validator.validace(mailZakaznika,Validator.EMAIL_PATTERN)) {
 				throw new ParseException("Mail neni validni",0);
 			}
+			
 			if(majitel == null){
 				majitel = new Majitel();
 			}
@@ -190,6 +225,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 			majitel.setUliceCisloOrientacni(cisloPopisneZakaznika);
 			majitel.setUliceCisloPopisne(cisloOrientacniZakaznika);
 			Databaze.getInstance().saveMajitel(majitel);
+		    this.zavriOkno();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,6 +235,10 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		} catch (ParseException e){
 			JOptionPane.showMessageDialog(contentPane, e.getMessage());
 		}
+	}
+	
+	public void zavriOkno(){
+		this.dispose();
 	}
 }
 

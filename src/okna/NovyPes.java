@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTable;
+import javax.swing.JFormattedTextField;
 
 public class NovyPes extends JFrame {
 

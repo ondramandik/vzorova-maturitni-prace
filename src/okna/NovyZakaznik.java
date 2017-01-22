@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 
 public class NovyZakaznik extends JFrame implements ActionListener {
 
@@ -30,7 +32,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 	private JTextField popisneCisloField;
 	private JTextField orientacniCisloField;
 	private JTextField mestoField;
-	private JTextField pscField;
+	private JFormattedTextField pscField;
 	private JTextField telefonField;
 	private JTextField mailField;
 	
@@ -108,7 +110,12 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		contentPane.add(mestoField);
 		mestoField.setColumns(10);
 		
-		pscField = new JTextField();
+		//?použít formátování políček?
+		NumberFormat f = NumberFormat.getNumberInstance(); 
+		f.setMaximumIntegerDigits(5);
+		f.setMinimumIntegerDigits(5);
+		f.setGroupingUsed(false);
+		pscField = new JFormattedTextField(f);
 		pscField.setBounds(154, 292, 116, 22);
 		contentPane.add(pscField);
 		pscField.setColumns(10);
@@ -173,7 +180,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 			}
 			
 			String mailZakaznika = mailField.getText().trim();
-			if(!validator.validace(mailZakaznika,Validator.TELEFON_PATTERN)) {
+			if(!validator.validace(mailZakaznika,Validator.EMAIL_PATTERN)) {
 				throw new ParseException("Mail neni validni",0);
 			}
 			if(majitel == null){
@@ -190,6 +197,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 			majitel.setUliceCisloOrientacni(cisloPopisneZakaznika);
 			majitel.setUliceCisloPopisne(cisloOrientacniZakaznika);
 			Databaze.getInstance().saveMajitel(majitel);
+		    this.zavriOkno();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,6 +207,10 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		} catch (ParseException e){
 			JOptionPane.showMessageDialog(contentPane, e.getMessage());
 		}
+	}
+	
+	public void zavriOkno(){
+		this.dispose();
 	}
 }
 

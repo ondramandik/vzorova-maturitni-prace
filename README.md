@@ -88,6 +88,18 @@ Databáze obsahuje několik indexů, popsaných v následujícím výčtu:
 
 * IDX **(majitel.jmeno, majitel.prijmeni)** Složený index v tabulce `majitel` nad sloupci `jmeno` a `prijmeni` zefektivňuje vyhledávání uživatele podle jména a příjímení.
 
+## Pohledy
+
+Databáze neobsahuje žádné pohledy.
+
+## Triggery
+
+Databáze neobsahuje žádné triggery.
+
+## Uložené procedury a funkce
+
+Databáze neobsahuje žádné uložené procedury ani funkce.
+
 ## Import struktury databáze
 Pred spustenim systemu je treba vytvorit databazi a naimportovat do ni strukturu, kterou naleznete v SQL skriptu `/sql/struktura.sql`. 
 

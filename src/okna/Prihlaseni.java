@@ -83,7 +83,6 @@ public class Prihlaseni extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			}
 		});
 		buttonPrihlasit.setFont(new Font("Tahoma", Font.PLAIN, 16));

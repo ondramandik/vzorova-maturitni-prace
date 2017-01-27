@@ -83,4 +83,14 @@ public class Osoba {
 	public void setPrijmeni(String prijmeni) {
 		this.prijmeni = prijmeni;
 	}
+	
+	/**
+	 * Vrati spojen jmeno a prijimeni
+	 * 
+	 * @return Jmeno + mezera + Prijmeni
+	 */
+	public String getJmenoAPrijmeni() {
+		return this.getJmeno() + " " + this.getPrijmeni();
+	}
+	
 }

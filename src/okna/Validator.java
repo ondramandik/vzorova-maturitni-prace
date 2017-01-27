@@ -14,7 +14,7 @@ public class Validator {
 	
 	public static final Pattern PSC_PATTERN = Pattern.compile("\\d{5}");
 	
-	public static final Pattern PISMENA_PATTERN = Pattern.compile("[a-zA-Z]");
+	public static final Pattern PISMENA_PATTERN = Pattern.compile("[a-zA-Z]*");
 	
 	public static final Pattern ULICE_PATTERN = Pattern.compile("[A-Z0-9][a-zA-Z0-9\\.\\s]+");
 	

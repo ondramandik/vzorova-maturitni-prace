@@ -1,3 +1,4 @@
+import entity.Osoba;
 import okna.Prihlaseni;
 
 /**

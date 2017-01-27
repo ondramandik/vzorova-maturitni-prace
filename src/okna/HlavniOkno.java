@@ -64,6 +64,16 @@ public class HlavniOkno extends JFrame {
 		});
 		
 		novy.add(novyPes);
+		
+		JMenuItem noveUbytovani = new JMenuItem("Nové ubytování");
+		
+		noveUbytovani.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				new UbytovaniPsa();
+			}
+		});
+		
+		novy.add(noveUbytovani);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

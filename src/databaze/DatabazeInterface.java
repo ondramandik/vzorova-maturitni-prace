@@ -6,6 +6,11 @@ import java.util.List;
 
 import entity.*;
 
+/**
+ * 
+ * @author Jana Spilkova spilkova@spsejecna.cz
+ *
+ */
 public interface DatabazeInterface {
 	
 	public void pripojit() throws SQLException;

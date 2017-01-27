@@ -4,7 +4,7 @@ package entity;
 /**
  * Trida pro uchovani informaci o osobe (id, jmeno, prijmeni).
  * Trida ocekava data podle README.md, neresi spravnost vstupnich dat.
- * @author Jana Spilkova <spilkova@spsejecna.cz>
+ * @author Jana Spilkova spilkova@spsejecna.cz
  *
  */
 public class Osoba {
@@ -38,6 +38,7 @@ public class Osoba {
 	
 	/**
 	 * Vraci id osoby podle databaze
+	 * @return Id osoby podle databaze
 	 */
 	public int getId() {
 		return id;

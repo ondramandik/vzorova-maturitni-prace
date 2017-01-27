@@ -52,12 +52,12 @@ public class Prihlaseni extends JFrame {
 		labelHeslo.setBounds(28, 62, 56, 16);
 		contentPane.add(labelHeslo);
 		
-		textJmeno = new JTextField();
+		textJmeno = new JTextField("jnovakova");
 		textJmeno.setBounds(188, 27, 116, 22);
 		contentPane.add(textJmeno);
 		textJmeno.setColumns(10);
 		
-		textHeslo = new JPasswordField();
+		textHeslo = new JPasswordField("tatranka");
 		textHeslo.setBounds(188, 60, 116, 22);
 		contentPane.add(textHeslo);
 		textHeslo.setColumns(10);

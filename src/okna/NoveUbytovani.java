@@ -18,6 +18,8 @@ import databaze.Databaze;
 import entity.Pes;
 
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 
@@ -85,10 +87,15 @@ public class NoveUbytovani extends JFrame {
 		
 		
 		try {
-			List<Pes> psi = Databaze.getInstance().getPesVsechny();
-			JTable table = new JTable(new PsiJTableAdapter(psi));
-			table.setBounds(148, 87, 283, 148);
-			contentPane.add(table);
+			
+			DefaultListModel listModel = new DefaultListModel();
+			for(Pes p : Databaze.getInstance().getPesVsechny()) {
+				listModel.addElement(p.getJmeno());
+			}
+			
+			JList psiList = new JList(listModel);
+			psiList.setBounds(148, 120, 283, 148);
+			contentPane.add(psiList);
 			
 		} catch (Exception e) {
 			JLabel tableMessage = new JLabel("Bohuzel se nepodarilo spojit s databazi");

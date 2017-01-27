@@ -42,7 +42,6 @@ public class Prihlaseni extends JFrame {
 		setContentPane(contentPane);		
 		contentPane.setLayout(null);
 		
-		
 		labelJmeno = new JLabel("Přihlašovací jméno: ");
 		labelJmeno.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelJmeno.setBounds(28, 29, 151, 20);

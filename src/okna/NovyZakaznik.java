@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import java.awt.Color;
 
 public class NovyZakaznik extends JFrame implements ActionListener {
 
@@ -35,6 +37,16 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 	private JFormattedTextField pscField;
 	private JTextField telefonField;
 	private JTextField mailField;
+	private JLabel jmenoChyba;
+	private JLabel prijmeniChyba;
+	private JLabel uliceChyba;
+	private JLabel cisloPopisneChybne;
+	private JLabel cisloOrientacniChyba;
+	private JLabel mestoChyba;
+	private JLabel pscChyba;
+	private JLabel telefonChyba;
+	private JLabel mailChyba;
+
 	
 	private Majitel majitel = null;
 	
@@ -110,7 +122,8 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		contentPane.add(mestoField);
 		mestoField.setColumns(10);
 		
-		//?použít formátování políček?
+		//pouzito formatovani pro pole, kam se uklada PSC
+		//lze zadat pouze 5 číslic
 		NumberFormat f = NumberFormat.getNumberInstance(); 
 		f.setMaximumIntegerDigits(5);
 		f.setMinimumIntegerDigits(5);
@@ -142,6 +155,60 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		btnUlozit.setBounds(26, 459, 97, 25);
 		contentPane.add(btnUlozit);
 		
+		jmenoChyba = new JLabel("Jméno není validní");
+		jmenoChyba.setForeground(Color.RED);
+		jmenoChyba.setVisible(false);
+		jmenoChyba.setBounds(312, 37, 56, 16);
+		contentPane.add(jmenoChyba);
+		
+		prijmeniChyba = new JLabel("Příjmení není validní");
+		prijmeniChyba.setForeground(Color.RED);
+		prijmeniChyba.setVisible(false);
+		prijmeniChyba.setBounds(312, 78, 56, 16);
+		contentPane.add(prijmeniChyba);
+		
+		uliceChyba = new JLabel("Název ulice není validní");
+		uliceChyba.setForeground(Color.RED);
+		uliceChyba.setVisible(false);
+		uliceChyba.setBounds(312, 123, 56, 16);
+		contentPane.add(uliceChyba);
+		
+		cisloPopisneChybne = new JLabel("Číslo popisné není validní");
+		cisloPopisneChybne.setForeground(Color.RED);
+		cisloPopisneChybne.setVisible(false);
+		cisloPopisneChybne.setBounds(312, 165, 56, 16);
+		contentPane.add(cisloPopisneChybne);
+		
+		cisloOrientacniChyba = new JLabel("Číslo orientační není validní");
+		cisloOrientacniChyba.setForeground(Color.RED);
+		cisloOrientacniChyba.setVisible(false);
+		cisloOrientacniChyba.setBounds(312, 212, 56, 16);
+		contentPane.add(cisloOrientacniChyba);
+		
+		mestoChyba = new JLabel("Špatný název města");
+		mestoChyba.setForeground(Color.RED);
+		mestoChyba.setVisible(false);
+		mestoChyba.setBounds(312, 247, 56, 16);
+		contentPane.add(mestoChyba);
+		
+		pscChyba = new JLabel("Chybně zadané PSČ");
+		pscChyba.setForeground(Color.RED);
+		pscChyba.setVisible(false);
+		pscChyba.setBounds(312, 295, 56, 16);
+		contentPane.add(pscChyba);
+		
+		telefonChyba = new JLabel("Špatně zadané telefonní číslo");
+		telefonChyba.setForeground(Color.RED);
+		telefonChyba.setVisible(false);
+		telefonChyba.setBounds(312, 340, 56, 16);
+		contentPane.add(telefonChyba);
+		
+		mailChyba = new JLabel("Špatné telefonní číslo");
+		mailChyba.setForeground(Color.RED);
+		mailChyba.setVisible(false);
+		mailChyba.setBounds(312, 385, 56, 16);
+		contentPane.add(mailChyba);
+		
 		btnUlozit.addActionListener(this);
 		setVisible(true);
 		repaint();
@@ -168,47 +235,47 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		try {
 			String jmenoZakaznika = jmenoField.getText().trim();
 			if(!validator.validace(jmenoZakaznika,Validator.PISMENA_PATTERN)) {
-				throw new ParseException("Jméno zákazníka neni validni",0);
+				this.jmenoChyba.setVisible(true);;
 			}
 			
 			String prijmeniZakaznika = prijmeniField.getText().trim();
 			if(!validator.validace(prijmeniZakaznika,Validator.PISMENA_PATTERN)) {
-				throw new ParseException("Příjmení zákazníka neni validni",0);
+				this.prijmeniChyba.setVisible(true);;
 			}
 			
 			String uliceZakaznika = uliceField.getText().trim();
 			if(!validator.validace(uliceZakaznika,Validator.ULICE_PATTERN)) {
-				throw new ParseException("Jméno ulice neni validni",0);
+				this.uliceChyba.setVisible(true);
 			}
 			
 			if(!validator.validace(popisneCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
-				throw new ParseException("Číslo popisné neni validni",0);
+				this.cisloPopisneChybne.setVisible(true);
 			} 
 			int cisloPopisneZakaznika = Integer.parseInt(popisneCisloField.getText().trim());
 			
 			if(!validator.validace(orientacniCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
-				throw new ParseException("Orientační číslo neni validni",0);
+				this.cisloOrientacniChyba.setVisible(true);
 			} 
 			int cisloOrientacniZakaznika = Integer.parseInt(orientacniCisloField.getText().trim());
 			
 			String mestoZakaznika = mestoField.getText().trim();
 			if(!validator.validace(mestoZakaznika,Validator.PISMENA_PATTERN)) {
-				throw new ParseException("Název města neni validni",0);
+				this.mestoChyba.setVisible(false);
 			}
 			
 			String pscZakaznika = pscField.getText().trim();
 			if(!validator.validace(pscZakaznika,Validator.PSC_PATTERN)) {
-				throw new ParseException("PSČ neni validni",0);
+				this.pscChyba.setVisible(false);
 			}
 
 			String telefonZakaznika = telefonField.getText().trim();
 			if(!validator.validace(telefonZakaznika,Validator.TELEFON_PATTERN)) {
-				throw new ParseException("Telefonní číslo neni validni",0);
+				this.telefonChyba.setVisible(false);
 			}
 			
 			String mailZakaznika = mailField.getText().trim();
 			if(!validator.validace(mailZakaznika,Validator.EMAIL_PATTERN)) {
-				throw new ParseException("Mail neni validni",0);
+				this.setVisible(false);
 			}
 			
 			if(majitel == null){
@@ -232,8 +299,6 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParseException e){
-			JOptionPane.showMessageDialog(contentPane, e.getMessage());
 		}
 	}
 	

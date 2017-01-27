@@ -2,15 +2,20 @@ package okna;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import databaze.Databaze;
+import entity.Pes;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -78,12 +83,18 @@ public class NoveUbytovani extends JFrame {
 		doDataField.setBounds(332, 104, 152, 22);
 		this.contentPane.add(doDataField);
 		
-		JComboBox pesComboBox = new JComboBox();
-		pesComboBox.setBounds(123, 104, 170, 22);
-		for(Pes p : Databaze.getInstance().getPesVsechny()) {
+		
+		try {
+			List<Pes> psi = Databaze.getInstance().getPesVsechny();
+			JTable table = new JTable(new PsiJTableAdapter(psi));
+			table.setBounds(148, 87, 283, 148);
+			contentPane.add(table);
 			
+		} catch (Exception e) {
+			JLabel tableMessage = new JLabel("Bohuzel se nepodarilo spojit s databazi");
+			contentPane.add(tableMessage);
 		}
-		this.contentPane.add(pesComboBox);
+		
 		
 		setVisible(true);
 	}

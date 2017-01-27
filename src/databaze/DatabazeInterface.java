@@ -30,7 +30,9 @@ public interface DatabazeInterface {
 	
 	public void removeMajitel(Majitel m) throws SQLException;
 	
-
+	
+	public List<Pes> getPesVsechny() throws SQLException;
+	
 	public Pes getPesPodleId(int id) throws SQLException;
 	
 	public void savePes(Pes p) throws SQLException;

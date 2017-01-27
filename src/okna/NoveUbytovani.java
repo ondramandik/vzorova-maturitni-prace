@@ -9,11 +9,14 @@ import java.util.Calendar;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import databaze.Databaze;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 
-public class UbytovaniPsa extends JFrame {
+public class NoveUbytovani extends JFrame {
 
 	private JPanel contentPane;
 
@@ -21,26 +24,26 @@ public class UbytovaniPsa extends JFrame {
 	/**
 	 * Okono pro zadnání ubytování od ... do.
 	 */
-	public UbytovaniPsa() {
-		setTitle("Ubytování");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 663, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
+	public NoveUbytovani() {
+		this.setTitle("Ubytování");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 663, 300);
 		
-		contentPane.setLayout(null);
+		this.contentPane = new JPanel();
+		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane.setLayout(null);
+		this.setContentPane(this.contentPane);
+		
+		
 		
 		JLabel lblOd = new JLabel("Od:");
 		lblOd.setBounds(30, 68, 56, 16);
-		contentPane.add(lblOd);
+		this.contentPane.add(lblOd);
 		
 		JLabel lblDo = new JLabel("Do:");
 		lblDo.setBounds(30, 107, 56, 16);
-		contentPane.add(lblDo);
+		this.contentPane.add(lblDo);
 		
-		//?jak zadávat to datum?
-		//combobox z datumem
 		
 		JComboBox odData = new JComboBox();
 		odData.setBounds(123, 65, 170, 22);
@@ -52,7 +55,7 @@ public class UbytovaniPsa extends JFrame {
 		    calendar.add(Calendar.DATE, 1);
 		}
 		
-		contentPane.add(odData);
+		this.contentPane.add(odData);
 		
 		JComboBox doData = new JComboBox();
 		doData.setBounds(123, 104, 170, 22);
@@ -62,18 +65,25 @@ public class UbytovaniPsa extends JFrame {
 		    calendar.add(Calendar.DATE, 1);
 		}
 		
-		contentPane.add(doData);
+		this.contentPane.add(doData);
 		
 		
 		//fomátované textFieldy
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		JFormattedTextField odDataField = new JFormattedTextField(format);
 		odDataField.setBounds(332, 65, 152, 22);
-		contentPane.add(odDataField);
+		this.contentPane.add(odDataField);
 		
 		JFormattedTextField doDataField = new JFormattedTextField(format);
 		doDataField.setBounds(332, 104, 152, 22);
-		contentPane.add(doDataField);
+		this.contentPane.add(doDataField);
+		
+		JComboBox pesComboBox = new JComboBox();
+		pesComboBox.setBounds(123, 104, 170, 22);
+		for(Pes p : Databaze.getInstance().getPesVsechny()) {
+			
+		}
+		this.contentPane.add(pesComboBox);
 		
 		setVisible(true);
 	}

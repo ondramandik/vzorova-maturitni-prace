@@ -452,6 +452,19 @@ public class DatabazeMySQL  implements DatabazeInterface{
 	}
 
 	@Override
+	public List<Pes> getPesVsechny() throws SQLException {
+		ArrayList<Pes> psi = new ArrayList<Pes>();
+		Statement stmt = this.conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM pes ORDER BY jmeno");
+		while(rs.next()) {
+			psi.add(this.buildPes(rs));
+		}
+		rs.close();
+		stmt.close();
+		return psi;
+	}
+	
+	@Override
 	public Pes getPesPodleId(int id) throws SQLException {
 		Pes pes = null;
 		

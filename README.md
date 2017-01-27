@@ -1,13 +1,12 @@
 # Vzorová maturitní práce z předmětů PV + DS
 
-Autor: Ing. Jana Spilková, Mgr. Alena Reichlová, Ing. Ondřej Mandík
+Autoři: Ing. Jana Spilková, Mgr. Alena Reichlová, Ing. Ondřej Mandík
 
 Verze: 1.0 
 
-
 ## Úvod
 
-Tady by měl student popsat svou strategii/záměr jak se rozhodl svůj maturitní úkol řešit.
+Práce je řešena jako desktopová aplikace na platformě Java, která využívá externí relační databázový server MySQL. Architektura aplikace je rozdělena do několika balíčků (package), které obsahují třídy pro databázové spojení, entity a grafické uživatelské rozhraní. 
 
 ## E-R model
 E-R model databáze naleznete na obrazku: ![E-R Model](doc/er.png). 
@@ -53,40 +52,62 @@ U klíčů (primárních i cizích) je nastavena jako kladné celé číslo a po
 ## Referenční integrita
 Je zajištěna dle následujícího seznamu všech vazeb:
 
-* **ubytovani -- kotec** 
-	* Povinná vazba, každé ubytování musí mít kotec. 
-	* Kotec nelze smazat, pokud je něj navázáno ubytování, ani změnit ID.
-	* Změní-li se službe ID, změna se kaskádově propíše i do tabulky ubytování.
+**ubytovani -- kotec** `fk_ubytovani_kotec`
+	
+* Povinná vazba, každé ubytování musí mít kotec. 
+* Kotec nelze smazat, pokud je něj navázáno ubytování, ani změnit ID.
+* Změní-li se službe ID, změna se kaskádově propíše i do tabulky ubytování.
 
-* **ubytovani -- majitel**
-	* Povinná vazba, každé ubytování musí mít majitele. 
-	* Majitel nelze smazat, pokud je na něj vazba z ubytování.
-	* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky ubytování.
+**ubytovani -- majitel** `fk_ubytovani_majitel`
+	
+* Povinná vazba, každé ubytování musí mít majitele. 
+* Majitel nelze smazat, pokud je na něj vazba z ubytování.
+* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky ubytování.
 
-* **ubytovani -- pes**
-	* Povinná vazba, každé ubytování musí mít psa. 
-	* Pes nelze smazat, pokud je na něj vazba z ubytování.
-	* Změní-li se psovi ID, změna se kaskádově propíše i do tabulky ubytování.
+**ubytovani -- pes** `fk_ubytovani_pes`
+	
+* Povinná vazba, každé ubytování musí mít psa. 
+* Pes nelze smazat, pokud je na něj vazba z ubytování.
+* Změní-li se psovi ID, změna se kaskádově propíše i do tabulky ubytování.
 
-* **pes -- majitel**
-	* Povinná vazba, každý pes musí mít majitele. 
-	* Majitel nelze smazat, pokud je na něj vazba ze psa.
-	* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky pes.
+**pes -- majitel** `fk_pes_majitel`
+	
+* Povinná vazba, každý pes musí mít majitele. 
+* Majitel nelze smazat, pokud je na něj vazba ze psa.
+* Změní-li se majiteli ID, změna se kaskádově propíše i do tabulky pes.
+
+**recepcni -- ubytovani** `fk_ubytovani_vytvoril` - *Vazba reprezentuje recepcniho, ktery vytvoril objednavku na ubytovani.*
+
+* Povinná vazba, každé ubytování musí mít určeno, který recepční ho vytvořil. 
+* Recepční nelze smazat, pokud vytvořil nějaké ubytování.
+* Změní-li se recepčnímu ID, změna se kaskádově propíše i do tabulky ubytování.	
+
+**recepcni -- ubytovani** `fk_ubytovani_prijal` - *Vazba reprezentuje recepcniho, ktery fyzicky přijal od majitele psa do hotelu.*
+
+* Nepovinná vazba, vyplní se až po přijetí psa.
+* Recepční nelze smazat, pokud vytvořil nějaké ubytování.
+* Změní-li se recepčnímu ID, změna se kaskádově propíše i do tabulky ubytování.	
+
+**recepcni -- ubytovani** `fk_ubytovani_vydal` - *Vazba reprezentuje recepcniho, ktery fyzicky vydal psa zpět od majiteli.*
+	
+* Nepovinná vazba, vyplní se až po vrácení psa. 
+* Recepční nelze smazat, pokud vytvořil nějaké ubytování.
+* Změní-li se recepčnímu ID, změna se kaskádově propíše i do tabulky ubytování.		
 	
 
 ## Indexy 
 Databáze obsahuje několik indexů, popsaných v následujícím výčtu:
 
-* UQ **recepcni.uzivatelske_jmeno** Unikátní index v tabulce `recepcni` nad sloupcem `uzivatelske_jmeno` zajišťuje unikátnost uživatelského jména a zrychluje vyhledání uživatele při přihlášení.
+* `UNIQUE` **recepcni.uzivatelske_jmeno** Unikátní index v tabulce `recepcni` nad sloupcem `uzivatelske_jmeno` zajišťuje unikátnost uživatelského jména a zrychluje vyhledání uživatele při přihlášení.
 
 
-* UQ **kotec.cislo** Unikátní index v tabulce `kotec` nad sloupcem `cislo` zajišťuje unikátnost označení kotce, neboť lze předpokládat jeho přirozenou unikátnost.
+* `UNIQUE` **kotec.cislo** Unikátní index v tabulce `kotec` nad sloupcem `cislo` zajišťuje unikátnost označení kotce, neboť lze předpokládat jeho přirozenou unikátnost.
 
 
-* UQ **majitel.email** Unikátní index v tabulce `majitel` nad sloupcem `email` zajišťuje unikátnost e-mailu majitele psa. Tento index přispívá k zachování entitní integrity tabulky majitelů, konkrétně zamezuje dvojí registraci stejného uživatele.
+* `UNIQUE` **majitel.email** Unikátní index v tabulce `majitel` nad sloupcem `email` zajišťuje unikátnost e-mailu majitele psa. Tento index přispívá k zachování entitní integrity tabulky majitelů, konkrétně zamezuje dvojí registraci stejného uživatele.
 
 
-* IDX **(majitel.jmeno, majitel.prijmeni)** Složený index v tabulce `majitel` nad sloupci `jmeno` a `prijmeni` zefektivňuje vyhledávání uživatele podle jména a příjímení.
+* `INDEX` **(majitel.jmeno, majitel.prijmeni)** Složený index v tabulce `majitel` nad sloupci `jmeno` a `prijmeni` zefektivňuje vyhledávání uživatele podle jména a příjímení.
 
 ## Pohledy
 
@@ -100,23 +121,28 @@ Databáze neobsahuje žádné triggery.
 
 Databáze neobsahuje žádné uložené procedury ani funkce.
 
-## Import struktury databáze
-Pred spustenim systemu je treba vytvorit databazi a naimportovat do ni strukturu, kterou naleznete v SQL skriptu `/sql/struktura.sql`. 
-
-## Import dat od zadavatele do databáze
-Veškerá data dle zadání naleznete ve složce `data`. Tato data, lze importovat do databáze spuštěním SQL skriptu `/sql/data.sql`.
-
 ## Přístupové údaje do databáze
+
+Pro připojení do databáze lze využít libovolný MySQL klient, například WorkBench a následující přístupové údaje:
+
 	Server: 193.85.203.188
 	Port: 3306
 	User: vm
 	Password: test
 	Database: vzorova_maturitni_prac
 
+## Import struktury databáze
+Pred spustenim systemu je treba vytvorit databazi a naimportovat do ni strukturu, kterou naleznete v SQL skriptu `/sql/struktura.sql`. 
+
+## Import dat od zadavatele do databáze
+Veškerá data dle zadání naleznete ve složce `data`. Tato data, lze importovat do databáze spuštěním SQL skriptu `/sql/data.sql`.
+
 ## Klientská aplikace
-Zdrový kód naleznete ve složce `/src`
+Zdrový kód naleznete ve složce `/src`, kde je dále rozdělen do jednolivých package pro práci s databází, grafické uživatelské rozhraní a podobně. Veškerý zdrojový kód je zdokumentován pomocí běžných komentářů dle standardu JavaDoc.
 
 ## Požadavky na spuštění
+Pro spuštění aplikace je potřeba zajistit:
+
 * MySQL Server, min. verze 2014 s importovanými daty i strukturou
 * Internetové připojení, min. 2Mb/s
 * Diskový prostor, min, 10 MB

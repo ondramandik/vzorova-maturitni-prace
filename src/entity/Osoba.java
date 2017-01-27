@@ -33,4 +33,5 @@ public class Osoba {
 	public void setPrijmeni(String prijmeni) {
 		this.prijmeni = prijmeni;
 	}
+	
 }

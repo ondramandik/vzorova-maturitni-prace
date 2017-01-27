@@ -4,7 +4,7 @@ package entity;
  * Trida  pro uchovavani informaci o majiteli psa (telefon, email, adresa).
  * Trida je oddedena od tridy osoba.
  * Trida ocekava data podle README.md, neresi spravnost vstupnich dat.
- * @author Jana Spilkova <spilkova@spsejecna.cz>
+ * @author Jana Spilkova spilkova@spsejecna.cz
  *
  */
 public class Majitel extends Osoba{

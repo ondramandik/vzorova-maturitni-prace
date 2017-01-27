@@ -7,7 +7,7 @@ import databaze.Databaze;
 
 /**
  * Trida pro uchovavani informacich o psovi
- * @author Jana Spilkova <spilkova@spsejecna.cz>
+ * @author Jana Spilkova spilkova@spsejecna.cz
  *
  */
 public class Pes {
@@ -87,8 +87,8 @@ public class Pes {
 	/**
 	 * Vraci instanci majitele psa
 	 * @return Majitel psa
-	 * @throws SQLException
-	 * @throws IOException
+	 * @throws SQLException Chyba s dotazem do databaze
+	 * @throws IOException Jina chyba
 	 */
 	public Majitel getMajitel() throws SQLException, IOException{
 		return Databaze.getInstance().getMajitelPodleId(this.idMajitel);

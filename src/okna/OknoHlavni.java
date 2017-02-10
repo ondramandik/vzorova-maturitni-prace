@@ -24,15 +24,25 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-public class HlavniOkno extends JFrame {
+public class OknoHlavni extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	
+	public static OknoHlavni getInstance() {
+		OknoHlavni instance = (OknoHlavni) OknaPool.get("OknoHlavni");
+		if(instance == null) {
+			instance = new OknoHlavni();
+			OknaPool.add(instance);
+		}
+		return instance;
+	}
+	
+	
 	/**
 	 * Create the frame.
 	 */
-	public HlavniOkno() {
+	private OknoHlavni() {
 		setTitle("Aktualně ubytovani psi");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -47,7 +57,7 @@ public class HlavniOkno extends JFrame {
 		JMenuItem novyZakaznik = new JMenuItem("Nový zákazník");
 		novyZakaznik.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				new NovyZakaznik();
+				OknoZakaznik.getInstance();
 			}
 		});
 		novy.add(novyZakaznik);
@@ -55,7 +65,7 @@ public class HlavniOkno extends JFrame {
         JMenuItem novyPes = new JMenuItem("Nový pes");
 		novyPes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				new NovyPes();
+				OknoPes.getInstance();
 			}
 		});
 		novy.add(novyPes);
@@ -63,7 +73,7 @@ public class HlavniOkno extends JFrame {
 		JMenuItem noveUbytovani = new JMenuItem("Nové ubytování");
 		noveUbytovani.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				new NoveUbytovani();
+				OknoUbytovani.getInstance();
 			}
 		});
 		novy.add(noveUbytovani);
@@ -90,5 +100,11 @@ public class HlavniOkno extends JFrame {
 		contentPane.add(table);
 	
 		repaint();
+	}
+	
+	@Override
+	public void dispose() {
+	    OknaPool.remove(this);
+	    super.dispose();
 	}
 }

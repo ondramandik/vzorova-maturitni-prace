@@ -25,7 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import java.awt.Color;
 
-public class NovyZakaznik extends JFrame implements ActionListener {
+public class OknoZakaznik extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField jmenoField;
 	private JTextField prijmeniField;
@@ -51,10 +51,21 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 	
 	private Validator validator = new Validator();
 
+	
+	public static OknoZakaznik getInstance() {
+		OknoZakaznik instance = (OknoZakaznik) OknaPool.get("OknoZakaznik");
+		if(instance == null) {
+			instance = new OknoZakaznik();
+			OknaPool.add(instance);
+		}
+		return instance;
+	}
+	
+	
 	/**
 	 * Vytvoření formuláře NovyZakaznik
 	 */
-	public NovyZakaznik() {
+	private OknoZakaznik() {
 		setTitle("Zákazník");
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 581, 573);
@@ -214,7 +225,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 	}
 	
 	//pro prichod pres formular NovyPes
-	public NovyZakaznik(Majitel majitelPsa) {
+	public OknoZakaznik(Majitel majitelPsa) {
 		this();
 		this.majitel = majitelPsa;
 		
@@ -330,7 +341,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 				majitel.setUliceCisloOrientacni(cisloPopisneZakaznika);
 				majitel.setUliceCisloPopisne(cisloOrientacniZakaznika);
 				Databaze.getInstance().saveMajitel(majitel);
-				this.zavriOkno();
+				this.dispose();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -340,9 +351,11 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-	
-	public void zavriOkno(){
-		this.dispose();
+
+	@Override
+	public void dispose() {
+	    OknaPool.remove(this);
+	    super.dispose();
 	}
 }
 

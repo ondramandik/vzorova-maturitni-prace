@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
-public class Prihlaseni extends JFrame {
+public class OknoPrihlaseni extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textJmeno;
@@ -28,10 +28,10 @@ public class Prihlaseni extends JFrame {
 	private JLabel labelHeslo;
 	private JButton buttonPrihlasit;
 
-	public static Prihlaseni getInstance() {
-		Prihlaseni instance = (Prihlaseni) OknaPool.get("Prihlaseni");
+	public static OknoPrihlaseni getInstance() {
+		OknoPrihlaseni instance = (OknoPrihlaseni) OknaPool.get("Prihlaseni");
 		if(instance == null) {
-			instance = new Prihlaseni();
+			instance = new OknoPrihlaseni();
 			OknaPool.add(instance);
 		}
 		return instance;
@@ -40,7 +40,7 @@ public class Prihlaseni extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	private Prihlaseni() {
+	private OknoPrihlaseni() {
 		setFont(new Font("Dialog", Font.PLAIN, 16));
 		setTitle("Přihlášení");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -81,8 +81,8 @@ public class Prihlaseni extends JFrame {
 					if (Recepcni.getPrihlasenyRecepcni()==null){
 						JOptionPane.showMessageDialog(contentPane, "Neplatné přihlášení!");
 					} else {
-						new HlavniOkno();
-						zavriOkno();
+						OknoHlavni.getInstance();
+						dispose();
 					}
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -100,8 +100,9 @@ public class Prihlaseni extends JFrame {
 		repaint();
 	}
 	
-	public void zavriOkno(){
-		this.dispose();
-		OknaPool.remove(this);
+	@Override
+	public void dispose() {
+	    OknaPool.remove(this);
+	    super.dispose();
 	}
 }

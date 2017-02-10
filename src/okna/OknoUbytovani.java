@@ -26,19 +26,29 @@ import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 
-public class NoveUbytovani extends JFrame {
+public class OknoUbytovani extends JFrame {
 
 	private JPanel contentPane;
 
-
+	public static OknoUbytovani getInstance() {
+		OknoUbytovani instance = (OknoUbytovani) OknaPool.get("OknoUbytovani");
+		if(instance == null) {
+			instance = new OknoUbytovani();
+			OknaPool.add(instance);
+		}
+		return instance;
+	}
+	
+	
 	/**
 	 * Okono pro zadnání ubytování od ... do.
 	 */
-	public NoveUbytovani() {
+	private OknoUbytovani() {
 		try {
 			this.setTitle("Ubytování");
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			this.setBounds(100, 100, 663, 300);
+	
 			
 			this.contentPane = new JPanel();
 			this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -95,5 +105,12 @@ public class NoveUbytovani extends JFrame {
 			this.dispose();
 		}
 		
+		
+	}
+	
+	@Override
+	public void dispose() {
+	    OknaPool.remove(this);
+	    super.dispose();
 	}
 }

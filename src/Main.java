@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import databaze.Databaze;
 import entity.Osoba;
 import okna.OknaPool;
-import okna.Prihlaseni;
+import okna.OknoPrihlaseni;
 
 /**
  * Hlavni trida je pouze pro nastartovani aplikace a spousti Prihlasovaci okno
@@ -12,7 +12,7 @@ import okna.Prihlaseni;
 public class Main {
 
 	public static void main(String[] args) {
-		Prihlaseni.getInstance();
+		OknoPrihlaseni.getInstance();
 		
 		try {
 			System.out.println(Databaze.getInstance().getMajitelVsechny());

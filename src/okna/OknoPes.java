@@ -24,7 +24,7 @@ import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JFormattedTextField;
 
-public class NovyPes extends JFrame {
+public class OknoPes extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField jmenoPsaField;
@@ -32,10 +32,19 @@ public class NovyPes extends JFrame {
 	private MajiteleJTableAdapter majiteleAdapter;
 	private List<Majitel> majitele;
 
+	public static OknoPes getInstance() {
+		OknoPes instance = (OknoPes) OknaPool.get("OknoPes");
+		if(instance == null) {
+			instance = new OknoPes();
+			OknaPool.add(instance);
+		}
+		return instance;
+	}
+	
 	/**
 	 * Create the frame.
 	 */
-	public NovyPes() {
+	private OknoPes() {
 		setTitle("Pes");
 		setVisible(true);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +90,7 @@ public class NovyPes extends JFrame {
 		JButton btnNovyMajitel = new JButton("Nový majitel");
 		btnNovyMajitel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				new NovyZakaznik();
+				OknoZakaznik.getInstance();
 			}
 		});
 		btnNovyMajitel.setBounds(24, 276, 120, 25);
@@ -107,5 +116,11 @@ public class NovyPes extends JFrame {
 		});
 		
 		repaint();
+	}
+	
+	@Override
+	public void dispose() {
+	    OknaPool.remove(this);
+	    super.dispose();
 	}
 }

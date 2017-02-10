@@ -26,7 +26,6 @@ import javax.swing.JFormattedTextField;
 import java.awt.Color;
 
 public class NovyZakaznik extends JFrame implements ActionListener {
-
 	private JPanel contentPane;
 	private JTextField jmenoField;
 	private JTextField prijmeniField;
@@ -214,6 +213,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 		repaint();
 	}
 	
+	//pro prichod pres formular NovyPes
 	public NovyZakaznik(Majitel majitelPsa) {
 		this();
 		this.majitel = majitelPsa;

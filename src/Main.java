@@ -12,6 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Prihlaseni p = new Prihlaseni();
+		
 		try {
 			System.out.println(Databaze.getInstance().getMajitelVsechny());
 			System.out.println(Databaze.getInstance().getPesVsechny());

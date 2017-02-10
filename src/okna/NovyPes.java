@@ -59,7 +59,7 @@ public class NovyPes extends JFrame {
 		
 		//je potřeba dořešit výjimku
 		try {
-			//do tabulky se vloží všichni majitele - ?dodělat výběr majitelů podle parametrů?
+			//do tabulky se vloží všichni majitele
 			table = new JTable(new MajiteleJTableAdapter(Databaze.getInstance().getMajitelVsechny()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -6,6 +6,11 @@ import java.util.List;
 
 import entity.*;
 
+/**
+ * 
+ * @author Jana Spilkova spilkova@spsejecna.cz
+ *
+ */
 public interface DatabazeInterface {
 	
 	public void pripojit() throws SQLException;
@@ -30,7 +35,9 @@ public interface DatabazeInterface {
 	
 	public void removeMajitel(Majitel m) throws SQLException;
 	
-
+	
+	public List<Pes> getPesVsechny() throws SQLException;
+	
 	public Pes getPesPodleId(int id) throws SQLException;
 	
 	public void savePes(Pes p) throws SQLException;

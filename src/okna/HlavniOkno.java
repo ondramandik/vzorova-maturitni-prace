@@ -45,35 +45,29 @@ public class HlavniOkno extends JFrame {
 		menu.add(novy);
 		
 		JMenuItem novyZakaznik = new JMenuItem("Nový zákazník");
-		
 		novyZakaznik.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				new NovyZakaznik();
 			}
 		});
-		
 		novy.add(novyZakaznik);
 		
         JMenuItem novyPes = new JMenuItem("Nový pes");
-		
 		novyPes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				new NovyPes();
-				//new UbytovaniPsa();
 			}
 		});
-		
 		novy.add(novyPes);
 		
 		JMenuItem noveUbytovani = new JMenuItem("Nové ubytování");
-		
 		noveUbytovani.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				new UbytovaniPsa();
+				new NoveUbytovani();
 			}
 		});
-		
 		novy.add(noveUbytovani);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

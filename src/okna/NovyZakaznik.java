@@ -231,68 +231,106 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 	
 	public void actionPerformed(ActionEvent actionEvent) {
 		//uloženi nebo update zákazníka
-		//vyjimka neni doresena
+		boolean vlozitelne = true;
 		try {
 			String jmenoZakaznika = jmenoField.getText().trim();
 			if(!validator.validace(jmenoZakaznika,Validator.PISMENA_PATTERN)) {
-				this.jmenoChyba.setVisible(true);;
+				this.jmenoChyba.setVisible(true);
+				vlozitelne = false;
+			}
+			else{
+				this.jmenoChyba.setVisible(false);
 			}
 			
 			String prijmeniZakaznika = prijmeniField.getText().trim();
 			if(!validator.validace(prijmeniZakaznika,Validator.PISMENA_PATTERN)) {
-				this.prijmeniChyba.setVisible(true);;
+				this.prijmeniChyba.setVisible(true);
+				vlozitelne = false;
+			}
+			else{
+				this.prijmeniChyba.setVisible(false);
 			}
 			
 			String uliceZakaznika = uliceField.getText().trim();
 			if(!validator.validace(uliceZakaznika,Validator.ULICE_PATTERN)) {
 				this.uliceChyba.setVisible(true);
+				vlozitelne = false;
+			}
+			else{
+				this.uliceChyba.setVisible(false);
 			}
 			
 			if(!validator.validace(popisneCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
 				this.cisloPopisneChybne.setVisible(true);
+				vlozitelne = false;
 			} 
+			else{
+				this.cisloPopisneChybne.setVisible(false);
+			}
 			int cisloPopisneZakaznika = Integer.parseInt(popisneCisloField.getText().trim());
 			
 			if(!validator.validace(orientacniCisloField.getText().trim(),Validator.CISLAULICE_PATTERN)) {
 				this.cisloOrientacniChyba.setVisible(true);
-			} 
+				vlozitelne = false;
+			}
+			else{
+				this.cisloOrientacniChyba.setVisible(false);
+			}
 			int cisloOrientacniZakaznika = Integer.parseInt(orientacniCisloField.getText().trim());
 			
 			String mestoZakaznika = mestoField.getText().trim();
 			if(!validator.validace(mestoZakaznika,Validator.PISMENA_PATTERN)) {
+				this.mestoChyba.setVisible(true);
+				vlozitelne = false;
+			}
+			else{
 				this.mestoChyba.setVisible(false);
 			}
 			
 			String pscZakaznika = pscField.getText().trim();
 			if(!validator.validace(pscZakaznika,Validator.PSC_PATTERN)) {
+				this.pscChyba.setVisible(true);
+				vlozitelne = false;
+			}
+			else{
 				this.pscChyba.setVisible(false);
 			}
 
 			String telefonZakaznika = telefonField.getText().trim();
 			if(!validator.validace(telefonZakaznika,Validator.TELEFON_PATTERN)) {
+				this.telefonChyba.setVisible(true);
+				vlozitelne = false;
+			}
+			else{
 				this.telefonChyba.setVisible(false);
 			}
 			
 			String mailZakaznika = mailField.getText().trim();
 			if(!validator.validace(mailZakaznika,Validator.EMAIL_PATTERN)) {
-				this.setVisible(false);
+				this.mailChyba.setVisible(true);
+				vlozitelne = false;
+			}
+			else{
+				this.mailChyba.setVisible(false);
 			}
 			
-			if(majitel == null){
-				majitel = new Majitel();
+			if(vlozitelne){
+				if(majitel == null){
+					majitel = new Majitel();
+				}
+				//majitel.setId(0); 
+				majitel.setEmail(mailZakaznika);
+				majitel.setTelefon(telefonZakaznika);
+				majitel.setJmeno(jmenoZakaznika);
+				majitel.setPrijmeni(prijmeniZakaznika);
+				majitel.setMesto(mestoZakaznika);
+				majitel.setPsc(pscZakaznika);
+				majitel.setUlice(uliceZakaznika);
+				majitel.setUliceCisloOrientacni(cisloPopisneZakaznika);
+				majitel.setUliceCisloPopisne(cisloOrientacniZakaznika);
+				Databaze.getInstance().saveMajitel(majitel);
+				this.zavriOkno();
 			}
-			//majitel.setId(0); 
-			majitel.setEmail(mailZakaznika);
-			majitel.setTelefon(telefonZakaznika);
-			majitel.setJmeno(jmenoZakaznika);
-			majitel.setPrijmeni(prijmeniZakaznika);
-			majitel.setMesto(mestoZakaznika);
-			majitel.setPsc(pscZakaznika);
-			majitel.setUlice(uliceZakaznika);
-			majitel.setUliceCisloOrientacni(cisloPopisneZakaznika);
-			majitel.setUliceCisloPopisne(cisloOrientacniZakaznika);
-			Databaze.getInstance().saveMajitel(majitel);
-		    this.zavriOkno();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

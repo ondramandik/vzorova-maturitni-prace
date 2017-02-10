@@ -6,12 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import databaze.Databaze;
+import entity.Majitel;
+import entity.Pes;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -24,8 +27,10 @@ import javax.swing.JFormattedTextField;
 public class NovyPes extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTable table;
+	private JTextField jmenoPsaField;
+	private JTable seznamZakaznikuTable;
+	private MajiteleJTableAdapter majiteleAdapter;
+	private List<Majitel> majitele;
 
 	/**
 	 * Create the frame.
@@ -48,10 +53,10 @@ public class NovyPes extends JFrame {
 		lblNewLabel_1.setBounds(24, 87, 56, 16);
 		contentPane.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(148, 34, 201, 22);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		jmenoPsaField = new JTextField();
+		jmenoPsaField.setBounds(148, 34, 201, 22);
+		contentPane.add(jmenoPsaField);
+		jmenoPsaField.setColumns(10);
 		
 		JButton btnUlozit = new JButton("Uložit");
 		btnUlozit.setBounds(24, 328, 120, 25);
@@ -60,7 +65,9 @@ public class NovyPes extends JFrame {
 		//je potřeba dořešit výjimku
 		try {
 			//do tabulky se vloží všichni majitele
-			table = new JTable(new MajiteleJTableAdapter(Databaze.getInstance().getMajitelVsechny()));
+			majitele = Databaze.getInstance().getMajitelVsechny();
+			majiteleAdapter = new MajiteleJTableAdapter(majitele);
+			seznamZakaznikuTable = new JTable(majiteleAdapter);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,13 +75,24 @@ public class NovyPes extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		table.setBounds(148, 87, 283, 148);
-		contentPane.add(table);
+		seznamZakaznikuTable.setBounds(148, 87, 283, 148);
+		contentPane.add(seznamZakaznikuTable);
 		
 		JButton btnNovyMajitel = new JButton("Nový majitel");
 		btnNovyMajitel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				new NovyZakaznik();
+				try {
+					majitele = Databaze.getInstance().getMajitelVsechny();
+					seznamZakaznikuTable.repaint();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		});
 		btnNovyMajitel.setBounds(24, 276, 120, 25);
@@ -83,6 +101,19 @@ public class NovyPes extends JFrame {
 		btnUlozit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				//uloženi nebo update psa
+				try {				
+					int idMajitel = 0;
+					Pes p = new Pes();
+					p.setJmeno(jmenoPsaField.getText());
+					p.setIdMajitel(idMajitel);
+					Databaze.getInstance().savePes(p);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		

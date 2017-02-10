@@ -44,6 +44,10 @@ public class MajiteleJTableAdapter extends AbstractTableModel {
 			return "NIC";
 		}
 	}
+	
+	public void pridejMajitele(Majitel m){
+		majitele.add(m);
+	}
 
 }
 

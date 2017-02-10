@@ -232,6 +232,7 @@ public class NovyZakaznik extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent actionEvent) {
 		//uloženi nebo update zákazníka
 		boolean vlozitelne = true;
+		
 		try {
 			String jmenoZakaznika = jmenoField.getText().trim();
 			if(!validator.validace(jmenoZakaznika,Validator.PISMENA_PATTERN)) {

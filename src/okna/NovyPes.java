@@ -82,17 +82,6 @@ public class NovyPes extends JFrame {
 		btnNovyMajitel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				new NovyZakaznik();
-				try {
-					majitele = Databaze.getInstance().getMajitelVsechny();
-					seznamZakaznikuTable.repaint();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
 			}
 		});
 		btnNovyMajitel.setBounds(24, 276, 120, 25);

@@ -3,6 +3,7 @@ import java.sql.SQLException;
 
 import databaze.Databaze;
 import entity.Osoba;
+import okna.OknaPool;
 import okna.Prihlaseni;
 
 /**
@@ -11,7 +12,7 @@ import okna.Prihlaseni;
 public class Main {
 
 	public static void main(String[] args) {
-		Prihlaseni p = new Prihlaseni();
+		Prihlaseni.getInstance();
 		
 		try {
 			System.out.println(Databaze.getInstance().getMajitelVsechny());

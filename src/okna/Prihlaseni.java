@@ -28,10 +28,19 @@ public class Prihlaseni extends JFrame {
 	private JLabel labelHeslo;
 	private JButton buttonPrihlasit;
 
+	public static Prihlaseni getInstance() {
+		Prihlaseni instance = (Prihlaseni) OknaPool.get("Prihlaseni");
+		if(instance == null) {
+			instance = new Prihlaseni();
+			OknaPool.add(instance);
+		}
+		return instance;
+	}
+	
 	/**
 	 * Create the frame.
 	 */
-	public Prihlaseni() {
+	private Prihlaseni() {
 		setFont(new Font("Dialog", Font.PLAIN, 16));
 		setTitle("Přihlášení");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -93,5 +102,6 @@ public class Prihlaseni extends JFrame {
 	
 	public void zavriOkno(){
 		this.dispose();
+		OknaPool.remove(this);
 	}
 }

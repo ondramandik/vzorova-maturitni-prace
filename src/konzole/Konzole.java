@@ -43,13 +43,17 @@ public class Konzole {
 	}
 	
 	public static String nactiValidni(String coChci, Pattern pattern){
-		okna.Validator validator = new Validator();
+		okna.Validator validator = new Validator(pattern);
 		String nacti = "";
 		do{
+			x
 			vypisText(coChci);
 			nacti = scanner.nextLine();
-			
-		}while(!validator.validace(nacti, pattern));
+			validator.validuj(nacti);
+			if(validator.maChybovouHlasku()) {
+				vypis(validator.getChybovaHlaska())
+			}
+		}while(!validator.jeValidni());
 		return nacti;
 	}
     public static void pridejMajitele(){

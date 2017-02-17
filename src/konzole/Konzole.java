@@ -1,13 +1,18 @@
 package konzole;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
 import databaze.Databaze;
+
 import entity.Majitel;
 import entity.Recepcni;
 import okna.Validator;
+import entity.*;
 
 public class Konzole {
 	private static Scanner scanner = new Scanner(System.in);
@@ -123,7 +128,7 @@ public class Konzole {
 				vytvorUbytovani();
 				break;
 			case 4:
-				prijmiPsa();
+				pridejPsa();
 				break;
 			case 5:
 				vydejPsa();
@@ -135,7 +140,7 @@ public class Konzole {
 				jeKonec = true;
 				break;
 			case 8:
-				vypisMajitele();
+				vypisVsechnyMajitele();
 				break;
 			case 9:
 				vypisPsyKDatu();
@@ -144,6 +149,67 @@ public class Konzole {
 				break;
 				
 			}
+			scanner.nextLine();
+		}
+		
+	}
+
+	private static void vypisPsyKDatu() {
+		// TODO Auto-generated method stub
+		vypisText("Zadej datum: ");
+		//String datumVeStringu = scanner.nextLine();
+		String datumVeStringu = "11.02.2016";
+		Date datum;
+		try {
+			datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(datumVeStringu);
+			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
+			for (Ubytovani u : ubytovani){
+				vypisTextSOdradkovanim(u.toString());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static void vydejPsa() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void vytvorUbytovani() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void pridejMajitele() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void pridejPsa() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void vypisVsechnyMajitele() {
+		try {
+			List<Majitel> majiteleVsichni = Databaze.getInstance().getMajitelVsechny();
+			for (Majitel m : majiteleVsichni){
+				vypisTextSOdradkovanim(m.toString());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}

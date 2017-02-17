@@ -34,6 +34,8 @@ public class Konzole {
 		vypisTextSOdradkovanim("5) Vydej psa");
 		vypisTextSOdradkovanim("6) Prihlas jineho recepcniho");
 		vypisTextSOdradkovanim("7) Ukonceni programu");
+		vypisTextSOdradkovanim("8) Vypis vsechny majitele");
+		vypisTextSOdradkovanim("9) Vypis psy ubytovane v zadanem dni");
 	}
 	
     public static void novyMajitel(){
@@ -70,18 +72,31 @@ public class Konzole {
 			int volba = scanner.nextInt();
 			switch (volba){
 			case 1:
+				pridejPsa();
 				break;
 			case 2:
+				pridejMajitele();
 				break;
 			case 3:
+				vytvorUbytovani();
 				break;
 			case 4:
+				prijmiPsa();
 				break;
 			case 5:
+				vydejPsa();
 				break;
 			case 6:
+				prihlasRecepcniho();
 				break;
 			case 7:
+				jeKonec = true;
+				break;
+			case 8:
+				vypisMajitele();
+				break;
+			case 9:
+				vypisPsyKDatu();
 				break;
 			default:
 				break;

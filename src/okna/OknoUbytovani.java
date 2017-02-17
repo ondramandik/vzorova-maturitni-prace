@@ -104,8 +104,6 @@ public class OknoUbytovani extends JFrame {
 			this.setVisible(false);
 			this.dispose();
 		}
-		
-		
 	}
 	
 	@Override

@@ -2,8 +2,12 @@ package konzole;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.regex.Pattern;
 
+import databaze.Databaze;
+import entity.Majitel;
 import entity.Recepcni;
+import okna.Validator;
 
 public class Konzole {
 	private static Scanner scanner = new Scanner(System.in);
@@ -38,18 +42,52 @@ public class Konzole {
 		vypisTextSOdradkovanim("9) Vypis psy ubytovane v zadanem dni");
 	}
 	
-    public static void novyMajitel(){
+	public static String nactiValidni(String coChci, Pattern pattern){
+		okna.Validator validator = new Validator();
+		String nacti = "";
+		do{
+			vypisText(coChci);
+			nacti = scanner.nextLine();
+			
+		}while(!validator.validace(nacti, pattern));
+		return nacti;
+	}
+    public static void pridejMajitele(){
     	vypisText("Vytvoreni noveho majitele");
     	vypisText("Jmeno majitele: ");
+    	String jmeno = scanner.nextLine();
     	vypisText("Prijmeni majitele: ");
+    	String prijmeni = scanner.nextLine();
     	vypisText("Telefonni cislo majitele: ");
+    	String telefon = scanner.nextLine();
     	vypisText("Email majitele: ");
+    	String mail = scanner.nextLine();
     	vypisText("Bydliste majitele: ");
     	vypisText("Ulice: ");
+    	String ulice = scanner.nextLine();
     	vypisText("Cislo popisne: ");
+    	String cisloPopisne = scanner.nextLine();
     	vypisText("Cislo oreintacni: ");
+    	String cisloOrientacni = scanner.nextLine();
     	vypisText("Mesto: ");
+    	String mesto = scanner.nextLine();
     	vypisText("PSC: ");
+    	String psc = scanner.nextLine();
+    	   	
+		Majitel majitel = new Majitel();
+		
+		
+		//majitel.setId(0); 
+		majitel.setEmail(mail);
+		majitel.setTelefon(telefon);
+		majitel.setJmeno(jmeno);
+		majitel.setPrijmeni(prijmeni);
+		majitel.setMesto(mesto);
+		majitel.setPsc(psc);
+		majitel.setUlice(ulice);
+		majitel.setUliceCisloOrientacni(cisloPopisne);
+		majitel.setUliceCisloPopisne(cisloOrientacni);
+		Databaze.getInstance().saveMajitel(majitel);
     }
 	
 	private static void vypisTextSOdradkovanim(String text) {

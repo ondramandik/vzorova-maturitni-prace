@@ -36,7 +36,19 @@ public class Konzole {
 		vypisTextSOdradkovanim("7) Ukonceni programu");
 	}
 	
-
+    public static void novyMajitel(){
+    	vypisText("Vytvoreni noveho majitele");
+    	vypisText("Jmeno majitele: ");
+    	vypisText("Prijmeni majitele: ");
+    	vypisText("Telefonni cislo majitele: ");
+    	vypisText("Email majitele: ");
+    	vypisText("Bydliste majitele: ");
+    	vypisText("Ulice: ");
+    	vypisText("Cislo popisne: ");
+    	vypisText("Cislo oreintacni: ");
+    	vypisText("Mesto: ");
+    	vypisText("PSC: ");
+    }
 	
 	private static void vypisTextSOdradkovanim(String text) {
 		vypisText(text);

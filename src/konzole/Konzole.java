@@ -24,7 +24,58 @@ public class Konzole {
 		}
 	}
 	
+	public static void vypisMenu(){
+		vypisTextSOdradkovanim("Prihlasen: " + Recepcni.getPrihlasenyRecepcni().getJmenoAPrijmeni());
+		vypisTextSOdradkovanim("Vyber akci: ");
+		vypisTextSOdradkovanim("1) Pridej psa");
+		vypisTextSOdradkovanim("2) Pridej majitele");
+		vypisTextSOdradkovanim("3) Vytvor ubytovani");
+		vypisTextSOdradkovanim("4) Prijmi psa");
+		vypisTextSOdradkovanim("5) Vydej psa");
+		vypisTextSOdradkovanim("6) Prihlas jineho recepcniho");
+		vypisTextSOdradkovanim("7) Ukonceni programu");
+	}
+	
+
+	
+	private static void vypisTextSOdradkovanim(String text) {
+		vypisText(text);
+		System.out.println();
+	}
+
 	private static void vypisText(String text){
 		System.out.print(text);
+	}
+
+	public static void start() {
+		if (Recepcni.getPrihlasenyRecepcni()==null){
+			prihlasRecepcniho();
+		}
+		
+		boolean jeKonec = false;
+		while(!jeKonec){
+			vypisMenu();
+			int volba = scanner.nextInt();
+			switch (volba){
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			case 5:
+				break;
+			case 6:
+				break;
+			case 7:
+				break;
+			default:
+				break;
+				
+			}
+		}
+		
 	}
 }

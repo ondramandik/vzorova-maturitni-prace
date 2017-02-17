@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import databaze.Databaze;
+import konzole.Konzole;
 import okna.OknoPrihlaseni;
 
 /**
@@ -10,7 +11,9 @@ import okna.OknoPrihlaseni;
 public class Main {
 
 	public static void main(String[] args) {
-		OknoPrihlaseni.getInstance();
+		Konzole.start();
+		
+		/*OknoPrihlaseni.getInstance();
 		
 		try {
 			System.out.println(Databaze.getInstance().getMajitelVsechny());
@@ -19,6 +22,6 @@ public class Main {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

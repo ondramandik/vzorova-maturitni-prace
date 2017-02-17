@@ -1,28 +1,21 @@
 package okna;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import databaze.Databaze;
-import entity.Majitel;
 import entity.Pes;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JList;
 import javax.swing.JTable;
-import javax.swing.JFormattedTextField;
 
 public class OknoPes extends JFrame {
 
@@ -30,7 +23,6 @@ public class OknoPes extends JFrame {
 	private JTextField jmenoPsaField;
 	private JTable seznamZakaznikuTable;
 	private MajiteleJTableAdapter majiteleAdapter;
-	private List<Majitel> majitele;
 
 	public static OknoPes getInstance() {
 		OknoPes instance = (OknoPes) OknaPool.get("OknoPes");
@@ -74,8 +66,7 @@ public class OknoPes extends JFrame {
 		//je potřeba dořešit výjimku
 		try {
 			//do tabulky se vloží všichni majitele
-			majitele = Databaze.getInstance().getMajitelVsechny();
-			majiteleAdapter = new MajiteleJTableAdapter(majitele);
+			majiteleAdapter = new MajiteleJTableAdapter(Databaze.getInstance().getMajitelVsechny());
 			seznamZakaznikuTable = new JTable(majiteleAdapter);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -115,8 +106,15 @@ public class OknoPes extends JFrame {
 			}
 		});
 		
-		repaint();
+		this.repaint();
 	}
+	
+	@Override
+	public void repaint() {
+		System.out.println("Prekresluju OknoPEs");
+		this.seznamZakaznikuTable.repaint();
+		super.repaint();
+	};
 	
 	@Override
 	public void dispose() {

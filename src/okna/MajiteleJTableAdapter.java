@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import entity.Majitel;
-import entity.Ubytovani;
 
 public class MajiteleJTableAdapter extends AbstractTableModel {
 

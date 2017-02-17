@@ -341,6 +341,7 @@ public class OknoZakaznik extends JFrame implements ActionListener {
 				majitel.setUliceCisloOrientacni(cisloPopisneZakaznika);
 				majitel.setUliceCisloPopisne(cisloOrientacniZakaznika);
 				Databaze.getInstance().saveMajitel(majitel);
+				OknaPool.repaint();
 				this.dispose();
 			}
 		} catch (SQLException e) {

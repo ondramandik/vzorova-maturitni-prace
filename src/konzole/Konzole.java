@@ -48,43 +48,33 @@ public class Konzole {
 	}
 	
 	public static String nactiValidni(String coChci, Pattern pattern){
-		okna.Validator validator = new Validator(pattern);
+		konzole.Validator validator = konzole.Validator.getValidator(pattern);
 		String nacti = "";
 		do{
-			x
 			vypisText(coChci);
 			nacti = scanner.nextLine();
 			validator.validuj(nacti);
-			if(validator.maChybovouHlasku()) {
-				vypis(validator.getChybovaHlaska())
+			if(validator.jeValidni()) {
+				vypisText(validator.getChybovaHlaska());
 			}
 		}while(!validator.jeValidni());
 		return nacti;
 	}
+	
     public static void pridejMajitele(){
     	vypisText("Vytvoreni noveho majitele");
-    	vypisText("Jmeno majitele: ");
-    	String jmeno = scanner.nextLine();
-    	vypisText("Prijmeni majitele: ");
-    	String prijmeni = scanner.nextLine();
-    	vypisText("Telefonni cislo majitele: ");
-    	String telefon = scanner.nextLine();
-    	vypisText("Email majitele: ");
-    	String mail = scanner.nextLine();
+    	String jmeno = nactiValidni("Jmeno majitele: ",Validator.PISMENA_PATTERN);
+    	String prijmeni = nactiValidni("Prijmeni majitele: ",Validator.PISMENA_PATTERN);
+    	String telefon = nactiValidni("Telefonni cislo majitele: ",Validator.TELEFON_PATTERN);
+    	String mail = nactiValidni("Email majitele: ",Validator.EMAIL_PATTERN);
     	vypisText("Bydliste majitele: ");
-    	vypisText("Ulice: ");
-    	String ulice = scanner.nextLine();
-    	vypisText("Cislo popisne: ");
-    	String cisloPopisne = scanner.nextLine();
-    	vypisText("Cislo oreintacni: ");
-    	String cisloOrientacni = scanner.nextLine();
-    	vypisText("Mesto: ");
-    	String mesto = scanner.nextLine();
-    	vypisText("PSC: ");
-    	String psc = scanner.nextLine();
+    	String ulice = nactiValidni("Ulice: ",Validator.ULICE_PATTERN);
+    	String cisloPopisne = nactiValidni("Cislo popisne: ",Validator.CISLAULICE_PATTERN);
+    	String cisloOrientacni = nactiValidni("Cislo oreintacni: ",Validator.CISLAULICE_PATTERN);
+    	String mesto = nactiValidni("Mesto: ",Validator.PISMENA_PATTERN);
+    	String psc = nactiValidni("PSC: ",Validator.PSC_PATTERN);
     	   	
 		Majitel majitel = new Majitel();
-		
 		
 		//majitel.setId(0); 
 		majitel.setEmail(mail);
@@ -94,9 +84,14 @@ public class Konzole {
 		majitel.setMesto(mesto);
 		majitel.setPsc(psc);
 		majitel.setUlice(ulice);
-		majitel.setUliceCisloOrientacni(cisloPopisne);
-		majitel.setUliceCisloPopisne(cisloOrientacni);
-		Databaze.getInstance().saveMajitel(majitel);
+		majitel.setUliceCisloOrientacni(Integer.parseInt(cisloPopisne));
+		majitel.setUliceCisloPopisne(Integer.parseInt(cisloOrientacni));
+		try {
+			Databaze.getInstance().saveMajitel(majitel);
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 	
 	private static void vypisTextSOdradkovanim(String text) {
@@ -184,11 +179,6 @@ public class Konzole {
 	}
 
 	private static void vytvorUbytovani() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private static void pridejMajitele() {
 		// TODO Auto-generated method stub
 		
 	}

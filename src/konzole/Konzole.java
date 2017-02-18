@@ -47,36 +47,35 @@ public class Konzole {
 		vypisTextSOdradkovanim("9) Vypis psy ubytovane v zadanem dni");
 	}
 	
-	public static String nactiValidni(String coChci, Pattern pattern){
-		konzole.Validator validator = konzole.Validator.getValidator(pattern);
+	public static String nactiValidni(String coChci, konzole.Validator validator){
 		String nacti = "";
 		do{
 			vypisText(coChci);
 			nacti = scanner.nextLine();
 			validator.validuj(nacti);
 			if(validator.jeValidni()) {
-				vypisText(validator.getChybovaHlaska());
+				vypisTextSOdradkovanim(validator.getChybovaHlaska());
 			}
 		}while(!validator.jeValidni());
 		return nacti;
 	}
 	
     public static void pridejMajitele(){
-    	vypisText("Vytvoreni noveho majitele");
-    	String jmeno = nactiValidni("Jmeno majitele: ",Validator.PISMENA_PATTERN);
-    	String prijmeni = nactiValidni("Prijmeni majitele: ",Validator.PISMENA_PATTERN);
-    	String telefon = nactiValidni("Telefonni cislo majitele: ",Validator.TELEFON_PATTERN);
-    	String mail = nactiValidni("Email majitele: ",Validator.EMAIL_PATTERN);
-    	vypisText("Bydliste majitele: ");
-    	String ulice = nactiValidni("Ulice: ",Validator.ULICE_PATTERN);
-    	String cisloPopisne = nactiValidni("Cislo popisne: ",Validator.CISLAULICE_PATTERN);
-    	String cisloOrientacni = nactiValidni("Cislo oreintacni: ",Validator.CISLAULICE_PATTERN);
-    	String mesto = nactiValidni("Mesto: ",Validator.PISMENA_PATTERN);
-    	String psc = nactiValidni("PSC: ",Validator.PSC_PATTERN);
+    	vypisTextSOdradkovanim("Vytvoreni noveho majitele");
+    	String jmeno = nactiValidni("Jmeno majitele: ",new konzole.JenENPismenaValidator());
+    	String prijmeni = nactiValidni("Prijmeni majitele: ",new konzole.JenENPismenaValidator());
+    	String telefon = nactiValidni("Telefonni cislo majitele: ",new TelefonValidator());
+    	String mail = nactiValidni("Email majitele: ",new EmailValidator());
+    	vypisTextSOdradkovanim("Bydliste majitele: ");
+    	String ulice = nactiValidni("Ulice: ",new UliceValidator());
+    	String cisloPopisne = nactiValidni("Cislo popisne: ",new JenCislaValidator());
+    	String cisloOrientacni = nactiValidni("Cislo oreintacni: ",new JenCislaValidator());
+    	String mesto = nactiValidni("Mesto: ",new konzole.JenENPismenaValidator());
+    	String psc = nactiValidni("PSC: ",new PSCValidator());
     	   	
 		Majitel majitel = new Majitel();
 		
-		//majitel.setId(0); 
+		majitel.setId(0); 
 		majitel.setEmail(mail);
 		majitel.setTelefon(telefon);
 		majitel.setJmeno(jmeno);

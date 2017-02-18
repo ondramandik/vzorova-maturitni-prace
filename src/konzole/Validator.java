@@ -24,14 +24,15 @@ public class Validator {
 		validni = false;
 	}
 	
+	/*
 	public static Validator getValidator(Pattern pattern){
-		if(pattern == EMAIL_PATTERN){
-			return new EmailValidator();
+		if (pattern == EMAIL_PATTERN){
+			return new EmailValidator(pattern);
 		}
 		
-		return new Validator();
+		return new Validator(pattern);
 	}
-	
+	*/
 	public void validuj(String vyraz) {
 		validni = true;
 	}

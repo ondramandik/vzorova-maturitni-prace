@@ -53,7 +53,7 @@ public class Konzole {
 			vypisText(coChci);
 			nacti = scanner.nextLine();
 			validator.validuj(nacti);
-			if(validator.jeValidni()) {
+			if(!validator.jeValidni()) {
 				vypisTextSOdradkovanim(validator.getChybovaHlaska());
 			}
 		}while(!validator.jeValidni());

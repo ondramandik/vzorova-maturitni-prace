@@ -1,7 +1,10 @@
 package konzole;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class JenENPismenaValidator extends konzole.Validator{
+	
+	public static final Pattern PISMENA_PATTERN = Pattern.compile("[a-zA-Z]*");
 	
 	public JenENPismenaValidator() {
 		super();

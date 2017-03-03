@@ -97,6 +97,7 @@ public class Konzole {
 	private static void vypisTextSOdradkovanim(String text) {
 		vypisText(text);
 		System.out.println();
+		System.out.println("Pro pokracovani stisknete libovlnou klavesu..");
 	}
 
 	private static void vypisText(String text){
@@ -156,6 +157,7 @@ public class Konzole {
 			for (Ubytovani u : ubytovani){
 				vypisTextSOdradkovanim(u.toString());
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

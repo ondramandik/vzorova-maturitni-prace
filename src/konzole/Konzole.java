@@ -11,6 +11,7 @@ import databaze.Databaze;
 
 import entity.Majitel;
 import entity.Recepcni;
+import okna.Datum;
 import okna.Validator;
 import entity.*;
 
@@ -145,29 +146,21 @@ public class Konzole {
 			}
 			scanner.nextLine();
 		}
-		
 	}
 
 	private static void vypisPsyKDatu() {
-		// TODO Auto-generated method stub
-		vypisText("Zadej datum: ");
-		//String datumVeStringu = scanner.nextLine();
-		String datumVeStringu = "11.02.2016";
-		Date datum;
+		String vstup = nactiValidni("Zadej datum: ", new DatumValidator());
 		try {
-			datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(datumVeStringu);
+			Date datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(vstup);
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
 			for (Ubytovani u : ubytovani){
 				vypisTextSOdradkovanim(u.toString());
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

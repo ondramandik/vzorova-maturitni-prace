@@ -20,6 +20,8 @@ public class Validator {
 	
 	public static final Pattern CISLAULICE_PATTERN = Pattern.compile("[1-9][0-9]*");
 	
+	
+	
 	public Validator(){
 		validni = false;
 	}

@@ -11,8 +11,9 @@ import okna.OknoPrihlaseni;
 public class Main {
 
 	public static void main(String[] args) {
-		Konzole.start();
-		System.out.println("Konec");
+		Konzole konzole = new Konzole();
+		konzole.start();
+		
 		/*OknoPrihlaseni.getInstance();
 		
 		try {

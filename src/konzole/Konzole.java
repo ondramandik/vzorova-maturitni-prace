@@ -15,9 +15,16 @@ import okna.Validator;
 import entity.*;
 
 public class Konzole {
-	private static Scanner scanner = new Scanner(System.in);
+	private Scanner scanner;
 	
-	public static void prihlasRecepcniho(){
+	public Konzole() {
+		this.scanner = new Scanner(System.in);
+		this.scanner.useDelimiter("\n");
+	}
+	
+	
+	
+	public void prihlasRecepcniho(){
 		vypisText("Zadej pridej prihlasovaci jmeno: ");
 		String uzivatelskeJmeno = scanner.nextLine();
 		vypisText("Zadej heslo: ");
@@ -36,7 +43,7 @@ public class Konzole {
 		}
 	}
 	
-	public static void vypisMenu(){
+	public void vypisMenu(){
 		vypisTextSOdradkovanim("Prihlasen: " + Recepcni.getPrihlasenyRecepcni().getJmenoAPrijmeni());
 		vypisTextSOdradkovanim("Vyber akci: ");
 		vypisTextSOdradkovanim("1) Pridej psa");
@@ -50,21 +57,22 @@ public class Konzole {
 		vypisTextSOdradkovanim("9) Vypis psy ubytovane v zadanem dni");
 	}
 	
-	public static String nactiValidni(String text, konzole.Validator validator){
+	public String nactiValidni(String text, konzole.Validator validator){
 		return nactiValidni(text, validator, null);
 	}
 	
-	public static String nactiValidni(String text, konzole.Validator validator, String vychoziHodnota){
+	public String nactiValidni(String text, konzole.Validator validator, String vychoziHodnota){
 		String nacti = "";
 		
 		if(vychoziHodnota != null) {
 			text += " (Výchozí="+vychoziHodnota+")";
 		}
-		text += ":";
+		text += ": ";
 		
 		do{
 			vypisText(text);
-			nacti = scanner.nextLine();
+			
+			nacti = scanner.next();
 			
 			if(vychoziHodnota != null && nacti.equals("")) {
 				return vychoziHodnota;
@@ -77,7 +85,7 @@ public class Konzole {
 		return nacti;
 	}
 	
-    public static void pridejMajitele(){
+    public void pridejMajitele(){
     	vypisTextSOdradkovanim("Vytvoreni noveho majitele");
     	String jmeno = nactiValidni("Jmeno majitele: ",new konzole.JenENPismenaValidator());
     	String prijmeni = nactiValidni("Prijmeni majitele: ",new konzole.JenENPismenaValidator());
@@ -110,16 +118,16 @@ public class Konzole {
 		}
     }
 	
-	private static void vypisTextSOdradkovanim(String text) {
+	private void vypisTextSOdradkovanim(String text) {
 		vypisText(text);
 		System.out.println();
 	}
 
-	private static void vypisText(String text){
+	private void vypisText(String text){
 		System.out.print(text);
 	}
 
-	public static void start() {
+	public void start() {
 		while (Recepcni.getPrihlasenyRecepcni()==null){
 			prihlasRecepcniho();
 		}
@@ -165,7 +173,7 @@ public class Konzole {
 		
 	}
 
-	private static void vypisPsyKDatu() {
+	private void vypisPsyKDatu() {
 		DateFormat format =  new SimpleDateFormat("dd.mm.yyyy");
 		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator(),format.format(new Date()));
 		try {
@@ -190,7 +198,7 @@ public class Konzole {
 		}
 	}
 
-	private static void vydejPsa() {
+	private  void vydejPsa() {
 		// TODO Auto-generated method stub
 		List<Ubytovani> ubytovani = null;
 		try {
@@ -205,12 +213,12 @@ public class Konzole {
 		}
 	}
 
-	private static void vytvorUbytovani() {
+	private void vytvorUbytovani() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	private static void pridejPsa() {
+	private void pridejPsa() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -219,7 +227,7 @@ public class Konzole {
 	/** 
 	 * Vypisuje vsechny majitele z databaze
 	 */
-	private static void vypisVsechnyMajitele() {
+	private void vypisVsechnyMajitele() {
 		try {
 			List<Majitel> majiteleVsichni = Databaze.getInstance().getMajitelVsechny();
 			for (Majitel m : majiteleVsichni){

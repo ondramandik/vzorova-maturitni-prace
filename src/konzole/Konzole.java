@@ -152,17 +152,12 @@ public class Konzole {
 	}
 
 	private static void vypisPsyKDatu() {
-		// TODO Auto-generated method stub
-		vypisText("Zadej datum: ");
-		//String datumVeStringu = scanner.nextLine();
-		String datumVeStringu = "11.02.2016";
-		Date datum;
+		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator());
 		try {
-			datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(datumVeStringu);
+			Date datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(datumVeStringu);
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
-			System.out.println(ubytovani);
 			if(ubytovani.size() == 0) {
-				vypisText("K datum "+vstup+" nebyl nalezen žádný záznam.");
+				vypisText("K datum "+datumVeStringu+" nebyl nalezen žádný záznam.");
 			} else {
 				for (Ubytovani u : ubytovani){
 					vypisTextSOdradkovanim(u.toString());

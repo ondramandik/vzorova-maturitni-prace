@@ -1,8 +1,11 @@
 package konzole;
 
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TelefonValidator extends konzole.Validator{
+	
+	public static final Pattern TELEFON_PATTERN = Pattern.compile("\\d{9}");
 	
 	public TelefonValidator() {
 		super();

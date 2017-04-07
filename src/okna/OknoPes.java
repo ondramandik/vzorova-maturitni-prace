@@ -22,7 +22,6 @@ public class OknoPes extends JFrame {
 	private JPanel contentPane;
 	private JTextField jmenoPsaField;
 	private JTable seznamZakaznikuTable;
-	private MajiteleJTableAdapter majiteleAdapter;
 
 	public static OknoPes getInstance() {
 		OknoPes instance = (OknoPes) OknaPool.get("OknoPes");
@@ -66,8 +65,8 @@ public class OknoPes extends JFrame {
 		//je potřeba dořešit výjimku
 		try {
 			//do tabulky se vloží všichni majitele
-			majiteleAdapter = new MajiteleJTableAdapter(Databaze.getInstance().getMajitelVsechny());
-			seznamZakaznikuTable = new JTable(majiteleAdapter);
+			
+			seznamZakaznikuTable = new JTable(new MajiteleJTableAdapter(Databaze.getInstance().getMajitelVsechny()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,8 +110,12 @@ public class OknoPes extends JFrame {
 	
 	@Override
 	public void repaint() {
-		System.out.println("Prekresluju OknoPEs");
-		this.seznamZakaznikuTable.repaint();
+		System.out.println("Prekresluju..");
+		try {
+			seznamZakaznikuTable = new JTable(new MajiteleJTableAdapter(Databaze.getInstance().getMajitelVsechny()));
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
 		super.repaint();
 	};
 	

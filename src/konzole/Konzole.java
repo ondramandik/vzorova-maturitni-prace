@@ -174,7 +174,17 @@ public class Konzole {
 
 	private static void vydejPsa() {
 		// TODO Auto-generated method stub
-		
+		List<Ubytovani> ubytovani;
+		try {
+			ubytovani = Databaze.getInstance().getUbytovaniPodleData(new Date());
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int i = 0;
+		for (Ubytovani u : ubytovani){
+			vypisTextSOdradkovanim(i+") "+u);
+		}
 	}
 
 	private static void vytvorUbytovani() {
@@ -187,6 +197,10 @@ public class Konzole {
 		
 	}
 
+	
+	/** 
+	 * Vypisuje vsechny majitele z databaze
+	 */
 	private static void vypisVsechnyMajitele() {
 		try {
 			List<Majitel> majiteleVsichni = Databaze.getInstance().getMajitelVsechny();

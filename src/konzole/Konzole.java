@@ -50,11 +50,25 @@ public class Konzole {
 		vypisTextSOdradkovanim("9) Vypis psy ubytovane v zadanem dni");
 	}
 	
-	public static String nactiValidni(String coChci, konzole.Validator validator){
+	public static String nactiValidni(String text, konzole.Validator validator){
+		return nactiValidni(text, validator, null);
+	}
+	
+	public static String nactiValidni(String text, konzole.Validator validator, String vychoziHodnota){
 		String nacti = "";
+		
+		if(vychoziHodnota != null) {
+			text += " (Výchozí="+vychoziHodnota+")";
+		}
+		text += ":";
+		
 		do{
-			vypisText(coChci);
+			vypisText(text);
 			nacti = scanner.nextLine();
+			
+			if(vychoziHodnota != null && nacti.equals("")) {
+				return vychoziHodnota;
+			}
 			validator.validuj(nacti);
 			if(!validator.jeValidni()) {
 				vypisTextSOdradkovanim(validator.getChybovaHlaska());
@@ -152,9 +166,10 @@ public class Konzole {
 	}
 
 	private static void vypisPsyKDatu() {
-		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator());
+		DateFormat format =  new SimpleDateFormat("dd.mm.yyyy");
+		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator(),format.format(new Date()));
 		try {
-			Date datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(datumVeStringu);
+			Date datum = format.parse(datumVeStringu);
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
 			if(ubytovani.size() == 0) {
 				vypisText("K datum "+datumVeStringu+" nebyl nalezen žádný záznam.");

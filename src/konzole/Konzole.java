@@ -154,8 +154,13 @@ public class Konzole {
 		try {
 			Date datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(vstup);
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
-			for (Ubytovani u : ubytovani){
-				vypisTextSOdradkovanim(u.toString());
+			System.out.println(ubytovani);
+			if(ubytovani.size() == 0) {
+				vypisText("K datum "+vstup+" nebyl nalezen žádný záznam.");
+			} else {
+				for (Ubytovani u : ubytovani){
+					vypisTextSOdradkovanim(u.toString());
+				}
 			}
 			
 		} catch (SQLException e) {

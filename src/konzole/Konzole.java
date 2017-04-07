@@ -162,7 +162,7 @@ public class Konzole {
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
 			System.out.println(ubytovani);
 			if(ubytovani.size() == 0) {
-				vypisText("K datum "+vstup+" nebyl nalezen žádný záznam.");
+				vypisText("K datum "+datum+" nebyl nalezen žádný záznam.");
 			} else {
 				for (Ubytovani u : ubytovani){
 					vypisTextSOdradkovanim(u.toString());

@@ -11,7 +11,6 @@ import databaze.Databaze;
 
 import entity.Majitel;
 import entity.Recepcni;
-import okna.Datum;
 import okna.Validator;
 import entity.*;
 
@@ -31,6 +30,9 @@ public class Konzole {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		if (Recepcni.getPrihlasenyRecepcni()==null){
+			vypisTextSOdradkovanim("Neplatne prihlasovaci udaje!");
 		}
 	}
 	
@@ -97,7 +99,6 @@ public class Konzole {
 	private static void vypisTextSOdradkovanim(String text) {
 		vypisText(text);
 		System.out.println();
-		System.out.println("Pro pokracovani stisknete libovlnou klavesu..");
 	}
 
 	private static void vypisText(String text){
@@ -105,7 +106,7 @@ public class Konzole {
 	}
 
 	public static void start() {
-		if (Recepcni.getPrihlasenyRecepcni()==null){
+		while (Recepcni.getPrihlasenyRecepcni()==null){
 			prihlasRecepcniho();
 		}
 		
@@ -147,29 +148,36 @@ public class Konzole {
 			}
 			scanner.nextLine();
 		}
+		
 	}
 
 	private static void vypisPsyKDatu() {
-		String vstup = nactiValidni("Zadej datum: ", new DatumValidator());
+		// TODO Auto-generated method stub
+		vypisText("Zadej datum: ");
+		//String datumVeStringu = scanner.nextLine();
+		String datumVeStringu = "11.02.2016";
+		Date datum;
 		try {
-			Date datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(vstup);
+			datum = (new SimpleDateFormat("dd.mm.yyyy")).parse(datumVeStringu);
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
 			for (Ubytovani u : ubytovani){
 				vypisTextSOdradkovanim(u.toString());
 			}
-			
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	private static void vydejPsa() {
 		// TODO Auto-generated method stub
-		List<Ubytovani> ubytovani;
+		List<Ubytovani> ubytovani = null;
 		try {
 			ubytovani = Databaze.getInstance().getUbytovaniPodleData(new Date());
 		} catch (SQLException | IOException e) {

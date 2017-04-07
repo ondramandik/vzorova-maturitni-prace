@@ -137,31 +137,31 @@ public class Konzole {
 			vypisMenu();
 			int volba = scanner.nextInt();
 			switch (volba){
-			case 1:
+			case 1: //hotovo Alca
 				pridejPsa();
 				break;
-			case 2:
+			case 2: //hotovo Alca
 				pridejMajitele();
 				break;
-			case 3:
+			case 3: //todo Ondra
 				vytvorUbytovani();
 				break;
-			case 4:
-				pridejPsa();
+			case 4: //todo Janicka
+				prijmyPsa();
 				break;
-			case 5:
+			case 5: //todo Janicka
 				vydejPsa();
 				break;
-			case 6:
+			case 6: //hotovo Janicka
 				prihlasRecepcniho();
 				break;
-			case 7:
+			case 7: //hotovo Janicka
 				jeKonec = true;
 				break;
-			case 8:
+			case 8: //todo Alca
 				vypisVsechnyMajitele();
 				break;
-			case 9:
+			case 9: //hotovo Ondra
 				vypisPsyKDatu();
 				break;
 			default:

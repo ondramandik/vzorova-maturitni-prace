@@ -219,18 +219,47 @@ public class Konzole {
 
 	private void pridejPsa() {
 		// TODO Auto-generated method stub
-		
+		vypisTextSOdradkovanim("Vytvoreni noveho psa");
+		vypisTextSOdradkovanim("Vyber majitele psa: ");
+		try {
+			List<Majitel> majiteleVsichni = Databaze.getInstance().getMajitelVsechny();
+			for(int i = 0; i < majiteleVsichni.size(); i++){
+				int cisloMajitele = i + 1;
+				vypisTextSOdradkovanim(cisloMajitele + ")" + majiteleVsichni.get(i));
+			}
+			vypisTextSOdradkovanim("Vyber index majitele psa: ");	
+			int indexMajitele = scanner.nextInt();
+			scanner.nextLine(); //neco jineho na cisteni?
+			if(indexMajitele > 0 && indexMajitele < majiteleVsichni.size()){
+				String jmenoPsa = nactiValidni("Zadej jmeno psa: ",new konzole.JenENPismenaValidator());
+				Pes novyPes = new Pes(0,jmenoPsa,majiteleVsichni.get(indexMajitele-1).getId());
+				Databaze.getInstance().savePes(novyPes);
+				vypisTextSOdradkovanim("Upesne jsi pridal noveho psa.");
+			}else{
+				vypisTextSOdradkovanim("Nebyl zadan existujici index majitele.");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		start();
 	}
 
 	
 	/** 
-	 * Vypisuje vsechny majitele z databaze
+	 * Vypisuje vsechny majitele z databaze ? ocislovane ?
 	 */
 	private void vypisVsechnyMajitele() {
 		try {
 			List<Majitel> majiteleVsichni = Databaze.getInstance().getMajitelVsechny();
-			for (Majitel m : majiteleVsichni){
-				vypisTextSOdradkovanim(m.toString());
+			for(int i = 0; i < majiteleVsichni.size(); i++){
+				int cisloMajitele = i + 1;
+				vypisTextSOdradkovanim(cisloMajitele + ")" + majiteleVsichni.get(i));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

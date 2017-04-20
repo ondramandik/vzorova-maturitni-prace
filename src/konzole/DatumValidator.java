@@ -14,9 +14,8 @@ public class DatumValidator extends konzole.Validator{
 		Matcher matcher = pattern.matcher(vyraz);
 		validni = matcher.matches();
 	}
-
+	
 	public String getChybovaHlaska() {
 		return "Datum zadávejte ve formátu DD.MM.RRRR";
 	}
-
 }

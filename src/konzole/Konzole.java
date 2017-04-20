@@ -146,10 +146,10 @@ public class Konzole {
 			case 3: //todo Ondra
 				vytvorUbytovani();
 				break;
-			case 4: //todo Janicka
+			case 4: //hotovo Janicka
 				prijmyPsa();
 				break;
-			case 5: //todo Janicka
+			case 5: //hotovo Janicka
 				vydejPsa();
 				break;
 			case 6: //hotovo Janicka
@@ -173,6 +173,38 @@ public class Konzole {
 		
 	}
 
+	private void prijmyPsa() {
+		DateFormat format =  new SimpleDateFormat("dd.mm.yyyy");
+		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator(),format.format(new Date()));
+		try {
+			Date datum = format.parse(datumVeStringu);
+			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
+			if(ubytovani.size() == 0) {
+				vypisText("K datum "+datumVeStringu+" nebyl nalezen žádný záznam.");
+			} else {
+				System.out.println("Zadej číslo ubytování: ");
+				int cisloUbytovani = 1;
+				for (Ubytovani u : ubytovani){
+					vypisTextSOdradkovanim(cisloUbytovani + ") " + u.toString());
+				}
+				int vybraneUbytovani  = scanner.nextInt();
+				ubytovani.get(vybraneUbytovani-1).setPrijalIdRecepcni(Recepcni.getPrihlasenyRecepcni().getId());
+				Databaze.getInstance().saveUbytovani(ubytovani.get(vybraneUbytovani-1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+
 	private void vypisPsyKDatu() {
 		DateFormat format =  new SimpleDateFormat("dd.mm.yyyy");
 		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator(),format.format(new Date()));
@@ -181,6 +213,8 @@ public class Konzole {
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
 			if(ubytovani.size() == 0) {
 				vypisText("K datum "+datumVeStringu+" nebyl nalezen žádný záznam.");
+				return;
+			} else {
 				for (Ubytovani u : ubytovani){
 					vypisTextSOdradkovanim(u.toString());
 				}
@@ -198,17 +232,32 @@ public class Konzole {
 	}
 
 	private  void vydejPsa() {
-		// TODO Auto-generated method stub
-		List<Ubytovani> ubytovani = null;
+		DateFormat format =  new SimpleDateFormat("dd.mm.yyyy");
+		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator(),format.format(new Date()));
 		try {
-			ubytovani = Databaze.getInstance().getUbytovaniPodleData(new Date());
-		} catch (SQLException | IOException e) {
+			Date datum = format.parse(datumVeStringu);
+			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
+			if(ubytovani.size() == 0) {
+				vypisText("K datum "+datumVeStringu+" nebyl nalezen žádný záznam.");
+			} else {
+				System.out.println("Zadej číslo ubytování: ");
+				int cisloUbytovani = 1;
+				for (Ubytovani u : ubytovani){
+					vypisTextSOdradkovanim(cisloUbytovani + ") " + u.toString());
+				}
+				int vybraneUbytovani  = scanner.nextInt();
+				ubytovani.get(vybraneUbytovani-1).setVydalIdRecepcni(Recepcni.getPrihlasenyRecepcni().getId());
+				Databaze.getInstance().saveUbytovani(ubytovani.get(vybraneUbytovani-1));
+			}
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		int i = 0;
-		for (Ubytovani u : ubytovani){
-			vypisTextSOdradkovanim(i+") "+u);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

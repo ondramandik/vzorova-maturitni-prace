@@ -85,6 +85,28 @@ public class Konzole {
 		return nacti;
 	}
 	
+	public Date nactiDatum(String text, Date defaultni) {
+		do {
+			DateFormat format =  new SimpleDateFormat("dd.mm.yyyy");
+			String datumVeStringu = nactiValidni(text, new DatumValidator(),format.format(defaultni));
+			try {
+				return format.parse(datumVeStringu);
+			} catch (ParseException e) {
+				//do nothing
+			}
+		} while(true);
+		
+	}
+	
+	public Object nactiZListu(String text, List list) {
+		vypisText(text);
+		for(int i = 0; i < list.size(); i++){
+			vypisTextSOdradkovanim( (i + 1) + ")" + list.get(i));
+		}
+		int index = Integer.parseInt(nactiValidni("Zadej cislo: ",new JenCislaZIntervaluValidator(0,list.size())));
+		return list.get(index);
+	}
+	
     public void pridejMajitele(){
     	vypisTextSOdradkovanim("Vytvoreni noveho majitele");
     	String jmeno = nactiValidni("Jmeno majitele: ",new konzole.JenENPismenaValidator());
@@ -174,13 +196,13 @@ public class Konzole {
 	}
 
 	private void prijmyPsa() {
-		DateFormat format =  new SimpleDateFormat("dd.mm.yyyy");
-		String datumVeStringu = nactiValidni("Zadejte datum: ", new DatumValidator(),format.format(new Date()));
+		
+	
 		try {
-			Date datum = format.parse(datumVeStringu);
+			Date datum = nactiDatum("Zadejte datum: ", new Date());
 			List<Ubytovani> ubytovani = Databaze.getInstance().getUbytovaniPodleData(datum);
 			if(ubytovani.size() == 0) {
-				vypisText("K datum "+datumVeStringu+" nebyl nalezen žádný záznam.");
+				vypisText("K datum "+datum.toString()+" nebyl nalezen žádný záznam.");
 			} else {
 				System.out.println("Zadej číslo ubytování: ");
 				int cisloUbytovani = 1;
@@ -195,9 +217,6 @@ public class Konzole {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -262,12 +281,32 @@ public class Konzole {
 	}
 
 	private void vytvorUbytovani() {
-		// TODO Auto-generated method stub
+		vypisTextSOdradkovanim("Vytvoreni noveho ubytovani");
+		try {
+			Majitel m = (Majitel) nactiZListu("Vyberte majitele",  Databaze.getInstance().getMajitelVsechny());
+			Pes p = (Pes) nactiZListu("Vyberte psa",  Databaze.getInstance().getPesVsechny());
+			Kotec k = (Kotec) nactiZListu("Vyberte kotec kam psa umístíme",  Databaze.getInstance().getKotecVsechny());
+			
+			Date datumOd = nactiDatum("Zadejte datum od: ", new Date());
+			Date datumDo = nactiDatum("Zadejte datum do: ", new Date());
+			
+			Ubytovani u = new Ubytovani();
+			u.setIdKotec(k.getId());
+			u.setIdPes(p.getId());
+			u.setIdMajitel(m.getId());
+			u.setUbytovanDo(datumDo);
+			u.setUbytovanDo(datumOd);
+			Databaze.getInstance().saveUbytovani(u);
+			
+			System.out.println("Ubytovani bylo uspesne ulozeno");
+			
+		} catch(Exception e) {
+			System.out.println("Chyba");
+		}
 		
 	}
 
 	private void pridejPsa() {
-		// TODO Auto-generated method stub
 		vypisTextSOdradkovanim("Vytvoreni noveho psa");
 		vypisTextSOdradkovanim("Vyber majitele psa: ");
 		try {
@@ -306,7 +345,7 @@ public class Konzole {
 	private void vypisVsechnyMajitele() {
 		try {
 			List<Majitel> majiteleVsichni = Databaze.getInstance().getMajitelVsechny();
-			for(int i = 0; i < majiteleVsichni.size(); i++){
+		for(int i = 0; i < majiteleVsichni.size(); i++){
 				int cisloMajitele = i + 1;
 				vypisTextSOdradkovanim(cisloMajitele + ")" + majiteleVsichni.get(i));
 			}

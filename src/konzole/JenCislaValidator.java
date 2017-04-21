@@ -4,6 +4,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class JenCislaValidator extends konzole.Validator{
+	
+	
 	public static final Pattern CISLAULICE_PATTERN = Pattern.compile("[1-9][0-9]*");
 	
 	public JenCislaValidator() {

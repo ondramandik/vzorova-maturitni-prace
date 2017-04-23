@@ -4,6 +4,9 @@ import java.io.*;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import vyjimky.DatabazeException;
+import vyjimky.KonfigurakException;
+
 /**
  * Trida umoznujici ziskani instance tridy, ktera se skutecne pripojuje do databaze
  * 
@@ -28,11 +31,18 @@ public class Databaze {
 	 * @return Hodnotu podle zadaneho nazvu
 	 * @throws IOException Pokud je soubor nedostupny
 	 */
-	private static String nactiZKonfiguracnihoSouboru(String nazev) throws IOException {
+	private static String nactiZKonfiguracnihoSouboru(String nazev) throws KonfigurakException {
 		if(konfiguracniSoubor == null) {
-			Reader is = new FileReader("config/konfigurace.ini");
-			konfiguracniSoubor = new Properties();
-			konfiguracniSoubor.load(is);
+			try{
+				Reader is = new FileReader("config/konfigurace.ini");
+				konfiguracniSoubor = new Properties();
+				konfiguracniSoubor.load(is);
+			}catch(FileNotFoundException e){
+				throw new KonfigurakException("Soubor \"config/konfigurace.ini\" nebyl nalezen");
+			}
+			catch(IOException e){
+				throw new KonfigurakException("Chyba pri cteni ze souboru \"config/konfigurace.ini\"");
+			}
 		}
 		
 		return konfiguracniSoubor.getProperty(nazev);
@@ -45,7 +55,7 @@ public class Databaze {
 	 * @throws SQLException Pokud se nepovede pripojit do DB
 	 * @throws IOException Pokud se nepovede nacist hodnoty z konfiguracniho souboru
 	 */
-	public static DatabazeInterface getInstance() throws SQLException, IOException {
+	public static DatabazeInterface getInstance() throws DatabazeException, KonfigurakException {
 		if(instance == null) {
 			String host = nactiZKonfiguracnihoSouboru("mysql_host");
 			String port = nactiZKonfiguracnihoSouboru("mysql_port");

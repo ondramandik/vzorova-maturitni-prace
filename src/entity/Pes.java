@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import databaze.Databaze;
+import vyjimky.KonfigurakException;
 
 /**
  * Trida pro uchovavani informacich o psovi
@@ -90,7 +91,7 @@ public class Pes {
 	 * @throws SQLException Chyba s dotazem do databaze
 	 * @throws IOException Jina chyba
 	 */
-	public Majitel getMajitel() throws SQLException, IOException{
+	public Majitel getMajitel() throws SQLException, KonfigurakException{
 		return Databaze.getInstance().getMajitelPodleId(this.idMajitel);
 	}
 

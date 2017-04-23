@@ -14,11 +14,12 @@ import databaze.Databaze;
 import databaze.DatabazeInterface;
 import entity.Kotec;
 import entity.Majitel;
+import vyjimky.KonfigurakException;
 
 public class DatabazeMySQLTest {
 
 	@Test
-	public void testKotce() throws SQLException, IOException {
+	public void testKotce() throws SQLException, IOException, KonfigurakException {
 		
 		DatabazeInterface db = Databaze.getInstance();
 		List<Kotec> kotce = db.getKotecVsechny();
@@ -29,7 +30,7 @@ public class DatabazeMySQLTest {
 	}
 	
 	@Test
-	public void testMajitele() throws SQLException, IOException {
+	public void testMajitele() throws SQLException, IOException, KonfigurakException {
 		
 		Majitel m = new Majitel();
 		m.setJmeno("Karel");

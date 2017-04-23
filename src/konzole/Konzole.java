@@ -12,6 +12,8 @@ import databaze.Databaze;
 import entity.Majitel;
 import entity.Recepcni;
 import okna.Validator;
+import vyjimky.DatabazeException;
+import vyjimky.KonfigurakException;
 import entity.*;
 
 public class Konzole {
@@ -22,8 +24,6 @@ public class Konzole {
 		this.scanner.useDelimiter("\n");
 	}
 	
-	
-	
 	public void prihlasRecepcniho(){
 		vypisText("Zadej pridej prihlasovaci jmeno: ");
 		String uzivatelskeJmeno = scanner.nextLine();
@@ -32,11 +32,10 @@ public class Konzole {
 		try {
 			Recepcni.prihlas(uzivatelskeJmeno, heslo);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
+			//e.printStackTrace();
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
 		}
 		if (Recepcni.getPrihlasenyRecepcni()==null){
 			vypisTextSOdradkovanim("Neplatne prihlasovaci udaje!");
@@ -93,6 +92,7 @@ public class Konzole {
 				return format.parse(datumVeStringu);
 			} catch (ParseException e) {
 				//do nothing
+				vypisTextSOdradkovanim("Nepodarilo se nacist datum. Prekontrolujte si format.");
 			}
 		} while(true);
 		
@@ -103,8 +103,8 @@ public class Konzole {
 		for(int i = 0; i < list.size(); i++){
 			vypisTextSOdradkovanim( (i + 1) + ")" + list.get(i));
 		}
-		int index = Integer.parseInt(nactiValidni("Zadej cislo: ",new JenCislaZIntervaluValidator(0,list.size())));
-		return list.get(index);
+		int index = Integer.parseInt(nactiValidni("Zadej cislo: ",new JenCislaZIntervaluValidator(1,list.size())));
+		return list.get(index-1);
 	}
 	
     public void pridejMajitele(){
@@ -134,9 +134,12 @@ public class Konzole {
 		majitel.setUliceCisloPopisne(Integer.parseInt(cisloOrientacni));
 		try {
 			Databaze.getInstance().saveMajitel(majitel);
-		} catch (SQLException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (DatabazeException e) {
+			vypisTextSOdradkovanim(e.getMessage());
+		} catch(SQLException e){
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
 		}
     }
 	
@@ -157,6 +160,7 @@ public class Konzole {
 		boolean jeKonec = false;
 		while(!jeKonec){
 			vypisMenu();
+			scanner.reset();
 			int volba = scanner.nextInt();
 			switch (volba){
 			case 1: //hotovo Alca
@@ -213,12 +217,12 @@ public class Konzole {
 				ubytovani.get(vybraneUbytovani-1).setPrijalIdRecepcni(Recepcni.getPrihlasenyRecepcni().getId());
 				Databaze.getInstance().saveUbytovani(ubytovani.get(vybraneUbytovani-1));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (DatabazeException e) {
+			vypisTextSOdradkovanim(e.getMessage());
+		} catch(SQLException e){
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
 		}
 	}
 
@@ -238,15 +242,15 @@ public class Konzole {
 					vypisTextSOdradkovanim(u.toString());
 				}
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}  catch (DatabazeException e) {
+			vypisTextSOdradkovanim(e.getMessage());
+		} catch(SQLException e){
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			vypisTextSOdradkovanim("Nepodarilo se nacist datum. Prekontrolujte si format.");
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
 		}
 	}
 
@@ -268,15 +272,15 @@ public class Konzole {
 				ubytovani.get(vybraneUbytovani-1).setVydalIdRecepcni(Recepcni.getPrihlasenyRecepcni().getId());
 				Databaze.getInstance().saveUbytovani(ubytovani.get(vybraneUbytovani-1));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}  catch (DatabazeException e) {
+			vypisTextSOdradkovanim(e.getMessage());
+		} catch(SQLException e){
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			vypisTextSOdradkovanim("Nepodarilo se nacist datum. Prekontrolujte si format.");
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
 		}
 	}
 
@@ -300,10 +304,13 @@ public class Konzole {
 			
 			System.out.println("Ubytovani bylo uspesne ulozeno");
 			
-		} catch(Exception e) {
-			System.out.println("Chyba");
-		}
-		
+		} catch (DatabazeException e) {
+			vypisTextSOdradkovanim(e.getMessage());
+		} catch(SQLException e){
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
+		} 		
 	}
 
 	private void pridejPsa() {
@@ -327,15 +334,13 @@ public class Konzole {
 				vypisTextSOdradkovanim("Nebyl zadan existujici index majitele.");
 			}
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}  catch (DatabazeException e) {
+			vypisTextSOdradkovanim(e.getMessage());
+		} catch(SQLException e){
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
 		}
-			
-		start();
 	}
 
 	
@@ -349,12 +354,12 @@ public class Konzole {
 				int cisloMajitele = i + 1;
 				vypisTextSOdradkovanim(cisloMajitele + ")" + majiteleVsichni.get(i));
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (DatabazeException e) {
+			vypisTextSOdradkovanim(e.getMessage());
+		} catch(SQLException e){
+			vypisTextSOdradkovanim("Pri praci s databazi doslo k neocekavane chybe");
+		} catch(KonfigurakException e){
+			vypisTextSOdradkovanim(e.getMessage());
 		}
 		
 	}

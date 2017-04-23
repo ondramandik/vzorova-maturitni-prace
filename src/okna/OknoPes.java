@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import databaze.Databaze;
 import entity.Pes;
+import vyjimky.KonfigurakException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -70,9 +71,8 @@ public class OknoPes extends JFrame {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch(KonfigurakException e){
+			System.out.println(e.getMessage());
 		}
 		seznamZakaznikuTable.setBounds(148, 87, 283, 148);
 		contentPane.add(seznamZakaznikuTable);
@@ -98,9 +98,8 @@ public class OknoPes extends JFrame {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch(KonfigurakException e){
+					System.out.println(e.getMessage());
 				}
 			}
 		});
@@ -113,8 +112,10 @@ public class OknoPes extends JFrame {
 		System.out.println("Prekresluju..");
 		try {
 			seznamZakaznikuTable = new JTable(new MajiteleJTableAdapter(Databaze.getInstance().getMajitelVsechny()));
-		} catch (SQLException | IOException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch(KonfigurakException e){
+			System.out.println(e.getMessage());
 		}
 		super.repaint();
 	};

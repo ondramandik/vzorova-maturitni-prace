@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import databaze.Databaze;
+import vyjimky.KonfigurakException;
 
 
 /**
@@ -207,7 +208,7 @@ public class Ubytovani {
 	 * @throws SQLException Chyba s dotazem do databaze
 	 * @throws IOException Jina chyba
 	 */
-	public Majitel getMajitel() throws SQLException, IOException{
+	public Majitel getMajitel() throws SQLException, KonfigurakException{
 		return Databaze.getInstance().getMajitelPodleId(this.idMajitel);
 	}
 	
@@ -217,7 +218,7 @@ public class Ubytovani {
 	 * @throws SQLException Chyba s dotazem do databaze
 	 * @throws IOException Jina chyba
 	 */
-	public Pes getPes() throws SQLException, IOException{
+	public Pes getPes() throws SQLException, KonfigurakException{
 		return Databaze.getInstance().getPesPodleId(this.idPes);
 	}
 	
@@ -227,7 +228,7 @@ public class Ubytovani {
 	 * @throws SQLException Chyba s dotazem do databaze
 	 * @throws IOException Jina chyba
 	 */
-	public Kotec getKotec() throws SQLException, IOException{
+	public Kotec getKotec() throws SQLException, KonfigurakException{
 		return Databaze.getInstance().getKotecPodleId(this.idKotec);
 	}
 	
@@ -237,7 +238,7 @@ public class Ubytovani {
 	 * @throws SQLException Chyba s dotazem do databaze
 	 * @throws IOException Jina chyba
 	 */
-	public Recepcni getRecepcniPrijal() throws SQLException, IOException{
+	public Recepcni getRecepcniPrijal() throws SQLException, KonfigurakException{
 		return Databaze.getInstance().getRecepcniPodleId(this.prijalIdRecepcni);
 	}
 
@@ -247,7 +248,7 @@ public class Ubytovani {
 	 * @throws SQLException Chyba s dotazem do databaze
 	 * @throws IOException Jina chyba
 	 */
-	public Recepcni getRecepcniVytvoril() throws SQLException, IOException{
+	public Recepcni getRecepcniVytvoril() throws SQLException, KonfigurakException{
 		return Databaze.getInstance().getRecepcniPodleId(this.vytvorilIdRecepcni);
 	}
 
@@ -257,7 +258,7 @@ public class Ubytovani {
 	 * @throws SQLException Chyba s dotazem do databaze
 	 * @throws IOException Jina chyba
 	 */
-	public Recepcni getRecepcniVydal() throws SQLException, IOException{
+	public Recepcni getRecepcniVydal() throws SQLException, KonfigurakException{
 		return Databaze.getInstance().getRecepcniPodleId(this.vydalIdRecepcni);
 	}	
 }

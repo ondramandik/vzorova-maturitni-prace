@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import entity.*;
+import vyjimky.DatabazeException;
 
 /**
  * 
@@ -17,7 +18,7 @@ public interface DatabazeInterface {
 	 * Metoda pro připojení do databáze
 	 * @throws SQLException Připojení nelze navázat
 	 */
-	public void pripojit() throws SQLException;
+	public void pripojit() throws DatabazeException;
 	
 	
 	/**

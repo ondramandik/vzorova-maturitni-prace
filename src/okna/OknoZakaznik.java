@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import databaze.Databaze;
 import entity.Majitel;
 import entity.Recepcni;
+import vyjimky.KonfigurakException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -347,9 +348,8 @@ public class OknoZakaznik extends JFrame implements ActionListener {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch(KonfigurakException e){
+			System.out.println(e.getMessage());
 		}
 	}
 

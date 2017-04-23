@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import databaze.Databaze;
+import vyjimky.KonfigurakException;
 
 /**
  * Trida pro uchovavani infromaci o recepcnich a o aktualne prihlasenem recepcnim.
@@ -32,7 +33,7 @@ public class Recepcni extends Osoba{
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public static void prihlas(String uzivatelskeJmeno, String heslo) throws SQLException, IOException{
+	public static void prihlas(String uzivatelskeJmeno, String heslo) throws SQLException, KonfigurakException{
 		odhlas();
 		prihlaseny = Databaze.getInstance().getRecepcniPodlePristupovychUdaju(uzivatelskeJmeno, heslo);
 	}

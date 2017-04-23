@@ -6,6 +6,7 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import entity.Recepcni;
+import vyjimky.KonfigurakException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -87,9 +88,8 @@ public class OknoPrihlaseni extends JFrame {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch(KonfigurakException e){
+					System.out.println(e.getMessage());
 				}
 			}
 		});

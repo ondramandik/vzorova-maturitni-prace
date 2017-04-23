@@ -17,6 +17,7 @@ import java.util.Date;
 
 import databaze.Databaze;
 import entity.Recepcni;
+import vyjimky.KonfigurakException;
 
 import javax.swing.JTable;
 import javax.swing.JMenu;
@@ -92,9 +93,8 @@ public class OknoHlavni extends JFrame {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch(KonfigurakException e){
+			System.out.println(e.getMessage());
 		}
 		table.setBounds(38, 39, 370, 99);
 		contentPane.add(table);

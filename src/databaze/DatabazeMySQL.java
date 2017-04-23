@@ -12,6 +12,7 @@ import java.util.List;
 
 import databaze.DatabazeInterface;
 import entity.*;
+import vyjimky.DatabazeException;
 
 /**
  * Třída dle DatabazeInterface, která reprezentuje databázi v MySQL Serveru.
@@ -154,16 +155,20 @@ public class DatabazeMySQL  implements DatabazeInterface{
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public DatabazeMySQL(String host, String port, String db, String user, String pass) throws SQLException, IOException {
+	public DatabazeMySQL(String host, String port, String db, String user, String pass){	
 		this.connectionString = "jdbc:mysql://"+host+"/"+db;
 		this.username = user;
 		this.password = pass;	
 	}
 
 	@Override
-	public void pripojit() throws SQLException {
+	public void pripojit() throws DatabazeException {
 		if(this.conn == null) {
-			this.conn = DriverManager.getConnection(connectionString, username, password);	
+			try{
+				this.conn = DriverManager.getConnection(connectionString, username, password);	
+			} catch(SQLException e){
+				throw new DatabazeException("Nepodarilo se p5ipojit k databazi");
+			}
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import databaze.Databaze;
+import vyjimky.KonfigurakException;
 
 /**
  * Trida pro kotec, vlastnost id, cislo kotce a pocet psu, kteri se vejdou do kotce
@@ -24,7 +25,7 @@ public class Kotec {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	public static List<Kotec> getVsechnyKotce() throws SQLException, IOException {
+	public static List<Kotec> getVsechnyKotce() throws SQLException, KonfigurakException {
 		return Databaze.getInstance().getKotecVsechny();
 	}
 	

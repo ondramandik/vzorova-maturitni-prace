@@ -10,7 +10,7 @@ import vyjimky.KonfigurakException;
 /**
  * Trida umoznujici ziskani instance tridy, ktera se skutecne pripojuje do databaze
  * 
- * @author Ondra Mandik
+ * @author Ondrej Mandik
  */
 public class Databaze {
 	
